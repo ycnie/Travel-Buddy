@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.testapp.travel.ui.trips.AddTripActivity"
+    tools:showIn="@layout/activity_edit_trip">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <fragment
+            android:id="@+id/map"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="270dp" />
+
+        <android.support.v7.widget.CardView
+            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/card_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/map">
+
+
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/card_view1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/card_view"
+            android:layout_marginTop="3dp"
+            android:background="@color/color_white">
+            <!-- card_view:cardCornerRadius="4dp"
+             android:layout_margin="5dp">-->
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageButton
+                    android:id="@+id/ibLocation"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:src="@drawable/location"
+                    android:background="#FAFAFA"/>
+
+                <LinearLayout
+                    android:id="@+id/lyLocation"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_toRightOf="@+id/ibLocation"
+                    >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tvLocationTitle"
+                        android:textSize="16sp"
+                        android:text="Destinations"
+                        android:textColor="#1F2C33"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="5dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tvLocationDescription"
+                        android:textSize="14sp"
+                        android:text="Add destination to your trip"
+                        android:textStyle="bold"
+                        android:layout_marginTop="5dp" />
+
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/viewLine1"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#D6E6E5"
+                    android:layout_below="@+id/ibLocation"/>
+
+                <ImageButton
+                    android:id="@+id/ibCompanion"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:src="@drawable/group"
+                    android:background="#FAFAFA"
+                    android:layout_below="@+id/viewLine1"/>
+
+                <LinearLayout
+                    android:id="@+id/lyCompanion"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_toRightOf="@+id/ibCompanion"
+                    android:layout_below="@+id/viewLine1"
+                   >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tvCompanionTitle"
+                        android:textSize="16sp"
+                        android:text="Companions"
+                        android:textColor="#1F2C33"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="5dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tvCompanionDescription"
+                        android:textSize="14sp"
+                        android:text="Add companion to your trip"
+                        android:textStyle="bold"
+                        android:layout_marginTop="5dp" />
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/viewLine2"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#D6E6E5"
+                    android:layout_below="@+id/ibCompanion"/>
+
+                <ImageButton
+                    android:id="@+id/ibHotel"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:src="@drawable/hotel"
+                    android:background="#FAFAFA"
+                    android:layout_below="@+id/viewLine2"/>
+
+                <LinearLayout
+                    android:id="@+id/lyHotel"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_toRightOf="@+id/ibHotel"
+                    android:layout_below="@+id/viewLine2"
+                    >
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tvHotelTitle"
+                        android:textSize="16sp"
+                        android:text="Lodging"
+                        android:textColor="#1F2C33"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="5dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tvHotelDescription"
+                        android:textSize="14sp"
+                        android:text="Airbnb - Homes, experiences, and places"
+                        android:textStyle="bold"
+                        android:layout_marginTop="5dp" />
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/viewLine3"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#D6E6E5"
+                    android:layout_below="@+id/ibHotel"/>
+
+                <ImageButton
+                    android:id="@+id/ibPhotos"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:src="@drawable/camera"
+                    android:background="#FAFAFA"
+                    android:layout_below="@+id/viewLine3"/>
+
+                <LinearLayout
+                    android:id="@+id/lyPhotos"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_toRightOf="@+id/ibPhotos"
+                    android:layout_below="@+id/viewLine3"
+                   >
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tvPhotosTitle"
+                        android:textSize="16sp"
+                        android:text="Photos"
+                        android:textColor="#1F2C33"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="5dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tvPhotosDescription"
+                        android:textSize="14sp"
+                        android:text="Add photo to your trip"
+                        android:textStyle="bold"
+                        android:layout_marginTop="5dp" />
+                </LinearLayout>
+
+            </RelativeLayout>
+        </android.support.v7.widget.CardView>
+
+    </RelativeLayout>
+
+</android.support.v4.widget.NestedScrollView>

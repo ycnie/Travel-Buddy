@@ -1,0 +1,63 @@
+{
+  "project_info": {
+    "project_number": "761442373047",
+    "firebase_url": "https://travel-buddy-d3fbb.firebaseio.com",
+    "project_id": "travel-buddy-d3fbb",
+    "storage_bucket": "travel-buddy-d3fbb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:761442373047:android:9e932f328bb4561d",
+        "android_client_info": {
+          "package_name": "com.testapp.travel"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "761442373047-1gf28i4fafuv1mg92ki0ttolcl0s74m0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.testapp.travel",
+            "certificate_hash": "e20e3fad673c037b8eb8235cf4e3e9135ff3a23d"
+          }
+        },
+        {
+          "client_id": "761442373047-fcdf96tht2uleif7sc8ig5d8te0cafku.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.testapp.travel",
+            "certificate_hash": "dfa6c687f96b545586008a6248eff8d2c8f6caa9"
+          }
+        },
+        {
+          "client_id": "761442373047-p0suk1ngtlbpmplvrjmueeil4aht5k5a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC7lVzqdrD2ArYoJ7NB-Io8XKDuDyGO3vk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "761442373047-p0suk1ngtlbpmplvrjmueeil4aht5k5a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

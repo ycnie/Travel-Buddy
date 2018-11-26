@@ -1,0 +1,427 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.testapp.travel.ui.trips.AddTripActivity"
+    tools:showIn="@layout/activity_add_trip">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.CardView
+            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/card_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/lyTripName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:padding="10dp"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginBottom="15dp">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/etTripName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Trip Name"
+                        android:maxLines="1"
+                        android:singleLine="true" />
+
+                </android.support.design.widget.TextInputLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvTripType"
+            android:textSize="18sp"
+            android:text="Trip Type"
+            android:gravity="center"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="5dp"
+            android:layout_below="@+id/card_view" />
+
+        <HorizontalScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/hsv"
+            android:layout_below="@+id/tvTripType">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <android.support.v7.widget.CardView
+                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    card_view:cardCornerRadius="4dp"
+                    android:layout_margin="5dp"
+                    card_view:cardElevation="5dp"
+                    card_view:cardUseCompatPadding="true"
+                    android:background="@color/color_white"
+                    >
+
+
+                    <RelativeLayout
+                        android:layout_width="60dp"
+                        android:layout_height="60dp">
+
+                        <ImageView
+                            android:id="@+id/ivCityBreak"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@mipmap/type1"
+                            android:layout_centerVertical="true"
+                            android:layout_centerHorizontal="true"/>
+
+                        <ImageButton
+                            android:visibility="gone"
+                            android:id="@+id/ibCityBreak"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src ="@mipmap/check_mark"
+                            android:background="#26000000"
+                            android:layout_margin="1dp"/>
+
+                    </RelativeLayout>
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    card_view:cardCornerRadius="4dp"
+                    android:layout_margin="5dp"
+                    card_view:cardElevation="5dp"
+                    card_view:cardUseCompatPadding="true"
+                    android:background="@color/color_white">
+
+                    <RelativeLayout
+                        android:layout_width="60dp"
+                        android:layout_height="60dp">
+
+                        <ImageView
+                            android:id="@+id/ivWithFriends"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@mipmap/type2"
+                            android:layout_centerVertical="true"
+                            android:layout_centerHorizontal="true"/>
+
+                        <ImageButton
+                            android:visibility="gone"
+                            android:id="@+id/ibWithFriends"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src ="@mipmap/check_mark"
+                            android:background="#26000000"
+                            android:layout_margin="1dp"/>
+
+                    </RelativeLayout>
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    card_view:cardCornerRadius="4dp"
+                    android:layout_margin="5dp"
+                    card_view:cardElevation="5dp"
+                    card_view:cardUseCompatPadding="true"
+                    android:background="@color/color_white">
+
+                    <RelativeLayout
+                        android:layout_width="60dp"
+                        android:layout_height="60dp">
+
+                        <ImageView
+                            android:id="@+id/ivWithFamily"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@mipmap/type3"
+                            android:layout_centerVertical="true"
+                            android:layout_centerHorizontal="true"/>
+
+                        <ImageButton
+                            android:visibility="gone"
+                            android:id="@+id/ibWithFamily"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src ="@mipmap/check_mark"
+                            android:background="#26000000"
+                            android:layout_margin="1dp"/>
+
+                    </RelativeLayout>
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    card_view:cardCornerRadius="4dp"
+                    android:layout_margin="5dp"
+                    card_view:cardElevation="5dp"
+                    card_view:cardUseCompatPadding="true"
+                    android:background="@color/color_white">
+
+                    <RelativeLayout
+                        android:layout_width="60dp"
+                        android:layout_height="60dp">
+
+                        <ImageView
+                            android:id="@+id/ivRomantic"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@mipmap/type4"
+                            android:layout_centerVertical="true"
+                            android:layout_centerHorizontal="true"/>
+
+                        <ImageButton
+                            android:visibility="gone"
+                            android:id="@+id/ibRomantic"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src ="@mipmap/check_mark"
+                            android:background="#26000000"
+                            android:layout_margin="1dp" />
+
+                    </RelativeLayout>
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    card_view:cardCornerRadius="4dp"
+                    android:layout_margin="5dp"
+                    card_view:cardElevation="5dp"
+                    card_view:cardUseCompatPadding="true"
+                    android:background="@color/color_white">
+
+                    <RelativeLayout
+                        android:layout_width="60dp"
+                        android:layout_height="60dp">
+
+                        <ImageView
+                            android:id="@+id/ivRelaxing"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@mipmap/type5"
+                            android:layout_centerVertical="true"
+                            android:layout_centerHorizontal="true"/>
+
+                        <ImageButton
+                            android:visibility="gone"
+                            android:id="@+id/ibRelaxing"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src ="@mipmap/check_mark"
+                            android:background="#26000000"
+                            android:layout_margin="1dp" />
+
+                    </RelativeLayout>
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    card_view:cardCornerRadius="4dp"
+                    android:layout_margin="5dp"
+                    card_view:cardElevation="5dp"
+                    card_view:cardUseCompatPadding="true"
+                    android:background="@color/color_white">
+
+                    <RelativeLayout
+                        android:layout_width="60dp"
+                        android:layout_height="60dp">
+
+                        <ImageView
+                            android:id="@+id/ivCulture"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@mipmap/type6"
+                            android:layout_centerVertical="true"
+                            android:layout_centerHorizontal="true"/>
+
+                        <ImageButton
+                            android:visibility="gone"
+                            android:id="@+id/ibCulture"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src ="@mipmap/check_mark"
+                            android:background="#26000000"
+                            android:layout_margin="1dp"/>
+
+                    </RelativeLayout>
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    card_view:cardCornerRadius="4dp"
+                    android:layout_margin="5dp"
+                    card_view:cardElevation="5dp"
+                    card_view:cardUseCompatPadding="true"
+                    android:background="@color/color_white">
+
+                    <RelativeLayout
+                        android:layout_width="60dp"
+                        android:layout_height="60dp">
+
+                        <ImageView
+                            android:id="@+id/ivDisappear"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@mipmap/type7"
+                            android:layout_centerVertical="true"
+                            android:layout_centerHorizontal="true"/>
+
+                        <ImageButton
+                            android:visibility="gone"
+                            android:id="@+id/ibDisappear"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src ="@mipmap/check_mark"
+                            android:background="#26000000"
+                            android:layout_margin="1dp"/>
+
+                    </RelativeLayout>
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    card_view:cardCornerRadius="4dp"
+                    android:layout_margin="5dp"
+                    card_view:cardElevation="5dp"
+                    card_view:cardUseCompatPadding="true"
+                    android:background="@color/color_white">
+
+                    <RelativeLayout
+                        android:layout_width="60dp"
+                        android:layout_height="60dp">
+
+                        <ImageView
+                            android:id="@+id/ivAdventure"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@mipmap/type8"
+                            android:layout_centerVertical="true"
+                            android:layout_centerHorizontal="true"/>
+
+                        <ImageButton
+                            android:visibility="gone"
+                            android:id="@+id/ibAdventure"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src ="@mipmap/check_mark"
+                            android:background="#26000000"
+                            android:layout_margin="1dp"/>
+
+                    </RelativeLayout>
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    card_view:cardCornerRadius="4dp"
+                    android:layout_margin="5dp"
+                    card_view:cardElevation="5dp"
+                    card_view:cardUseCompatPadding="true"
+                    android:background="@color/color_white">
+
+                    <RelativeLayout
+                        android:layout_width="60dp"
+                        android:layout_height="60dp">
+
+                        <ImageView
+                            android:id="@+id/ivCulinary"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@mipmap/type9"
+                            android:layout_centerVertical="true"
+                            android:layout_centerHorizontal="true"/>
+
+                        <ImageButton
+                            android:visibility="gone"
+                            android:id="@+id/ibCulinary"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src ="@mipmap/check_mark"
+                            android:background="#26000000"
+                            android:layout_margin="1dp" />
+
+                    </RelativeLayout>
+                </android.support.v7.widget.CardView>
+
+            </LinearLayout>
+
+        </HorizontalScrollView>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/hsv"
+            xmlns:card_view="http://schemas.android.com/apk/res-auto">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="20dp">
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/lyBeginDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="10dp"
+            android:gravity="center"
+           >
+
+            <AutoCompleteTextView
+                android:id="@+id/etBeginDate"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:hint="Begin Date"
+                android:maxLines="1"
+                android:singleLine="true" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="10dp"
+            android:gravity="center"
+            android:layout_toRightOf="@+id/lyBeginDate">
+
+            <AutoCompleteTextView
+                android:id="@+id/etEndDate"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:hint="End Date"
+                android:maxLines="1"
+                android:singleLine="true" />
+
+        </android.support.design.widget.TextInputLayout>
+            </RelativeLayout>
+        </android.support.v7.widget.CardView>
+
+    </RelativeLayout>
+
+</android.support.v4.widget.NestedScrollView>

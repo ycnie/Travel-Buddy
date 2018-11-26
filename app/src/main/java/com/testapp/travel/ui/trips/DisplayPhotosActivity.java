@@ -87,16 +87,16 @@ public class DisplayPhotosActivity extends AppCompatActivity {
         mTexts.add("San Francisco");
         mTexts.add("New York");*/
 
-        mComments.add("Yeah we'll be counting stars!!");
-        mComments.add("Colours definitely fill me with happiness! I'm so in love with pink and purple bougainvilleas... ❤");
-        mComments.add("Feel good!");
-        mComments.add("I am on the road to point out the importance of life belt.\n Yes we call it life belt instead of safety belt because beside providing \n safety it connects us to life in traffic! ❤ !");
-        mComments.add("You know they are just people like me and you...");
-        mComments.add("Two travellers after wandering around the world, today we came together");
-        mComments.add("Have an abundant, peaceful, happy and above all a healthy day...");
-        mComments.add("Beautiful landscape and mum!");
-        mComments.add("Feel tired!");
-        mComments.add("Happy Sunday dear cornelian cherry juice lovers! ❤");
+        mComments.add("Quote 1");
+        mComments.add("Quote 2");
+        mComments.add("Quote 3");
+        mComments.add("Quote 4");
+        mComments.add("Quote 5");
+        mComments.add("Quote 6");
+        mComments.add("Quote 7");
+        mComments.add("Quote 8");
+        mComments.add("Quote 9");
+        mComments.add("Quote 10");
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);

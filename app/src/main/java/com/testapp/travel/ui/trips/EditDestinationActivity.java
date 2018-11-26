@@ -124,6 +124,7 @@ public class EditDestinationActivity extends AppCompatActivity
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
+        Toast.makeText(this,"Map is ready",Toast.LENGTH_SHORT).show();
         mMap = googleMap;
         mMap.setOnMapLongClickListener(this);
         mMap.setOnMarkerClickListener(this);

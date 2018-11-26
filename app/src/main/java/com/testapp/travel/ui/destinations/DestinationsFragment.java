@@ -54,7 +54,7 @@ public class DestinationsFragment extends Fragment {
     public static final String TAG = "DestinationsFragment";
     public static final String EXTRA_PLACE = "place";
 
- //   Place searchplace;
+    //   Place searchplace;
     com.testapp.travel.data.model.Place searchplace;
     String latLong;
     RecyclerView recyclerView;
@@ -67,7 +67,7 @@ public class DestinationsFragment extends Fragment {
     String photoURl;
     String name;
 
-    String types = "amusement_park|aquarium|museum|park|zoo|art_gallery";
+    String types = "amusement_park|aquarium|museum|park|zoo|art_gallery|church|casino|hindu_temple|library|mosque|night_club|stadium|synagogue";
     //  String[] type = {"amusement_park", "aquarium", "museum", "park", "zoo", "art_gallery"};
 
 
@@ -96,19 +96,19 @@ public class DestinationsFragment extends Fragment {
 
         recyclerView.setAdapter(placesAdapter);
 
-      //  StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
-        LinearLayoutManager manager = new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false);
+        //  StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+        LinearLayoutManager manager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(manager);
         recyclerView.setItemAnimator(new SlideInUpAnimator());
 
         imageView = (com.flaviofaria.kenburnsview.KenBurnsView) rootView.findViewById(R.id.photoCollapse);
 
         Intent intent = getActivity().getIntent();
-     //   com.testapp.travel.model.Place place = (com.testapp.travel.model.Place) Parcels.unwrap(intent
-       //         .getParcelableExtra(EXTRA_PLACE));
+        //   com.testapp.travel.model.Place place = (com.testapp.travel.model.Place) Parcels.unwrap(intent
+        //         .getParcelableExtra(EXTRA_PLACE));
 
         searchplace = (com.testapp.travel.data.model.Place) Parcels.unwrap(intent
-                         .getParcelableExtra(EXTRA_PLACE));
+                .getParcelableExtra(EXTRA_PLACE));
         if (searchplace.getPhotoUrl() != null) {
             Glide.with(getActivity()).load(searchplace.getPhotoUrl()).into(imageView);
             photoURl = searchplace.getPhotoUrl();
@@ -122,7 +122,7 @@ public class DestinationsFragment extends Fragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent CreateTrip=new Intent(getActivity(),AddTripActivity.class);
+                Intent CreateTrip = new Intent(getActivity(), AddTripActivity.class);
                 CreateTrip.putExtra("SearchedLocation", Parcels.wrap(searchplace));
                 getActivity().startActivity(CreateTrip);
             }
@@ -152,9 +152,9 @@ public class DestinationsFragment extends Fragment {
                     if (photoURl == null && resultsArray.length() > 0) {
                         Glide.with(getActivity()).load(placesList.get(0).getPhotoUrl()).into(imageView);
                     }
-                 //   if (searchplace != null) {
-                        mCollapsing.setTitle(searchplace.getName());
-                   // }
+                    //   if (searchplace != null) {
+                    mCollapsing.setTitle(searchplace.getName());
+                    // }
 
                     placesAdapter.notifyDataSetChanged();
                 } catch (JSONException e) {
@@ -212,7 +212,7 @@ public class DestinationsFragment extends Fragment {
             if (resultCode == RESULT_OK) {
                 Place place = PlaceAutocomplete.getPlace(getActivity(), data);
                 placesList.clear();
-              //  latLong = searchplace.getLatLng().latitude + "," + searchplace.getLatLng().longitude;
+                //  latLong = searchplace.getLatLng().latitude + "," + searchplace.getLatLng().longitude;
                 searchplace = new com.testapp.travel.data.model.Place();
                 searchplace.setLatitude(place.getLatLng().latitude);
                 searchplace.setLongitude(place.getLatLng().longitude);

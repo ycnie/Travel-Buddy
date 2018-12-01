@@ -90,4 +90,10 @@
     <string name="title_activity_add_companion">AddCompanionActivity</string>
 
 
+    //chat
+    <string name="chat">Chat</string>
+    <string name="send">Send</string>
+    <string name="friend_list">Friend List</string>
+
+
 </resources>

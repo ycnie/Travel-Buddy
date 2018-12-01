@@ -8,8 +8,10 @@ import com.google.firebase.database.IgnoreExtraProperties;
 public class User {
 
     public String displayName;
+    public String email;
     public String profileImageUrl;
     public String userId;
+    public Message message;
 
     public User() {
         // Default constructor required for calls to DataSnapshot.getValue(CompanionInvite.class)

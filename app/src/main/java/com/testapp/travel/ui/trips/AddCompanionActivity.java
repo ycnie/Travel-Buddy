@@ -98,6 +98,7 @@ public class AddCompanionActivity extends AppCompatActivity {
                                 addedCompanionList.add(user);
                                 addedUserIds.add(user.userId);
                                 Log.i(TAG, "add user now...and addedUserIds size is :" + addedUserIds.size());
+                                addedCompanionImageAdapter.notifyDataSetChanged();
                             }
                         }
                         @Override public void onCancelled(DatabaseError databaseError) { }
@@ -183,7 +184,12 @@ public class AddCompanionActivity extends AppCompatActivity {
                 if(added==false) {
                     //TODO:Add trip to collaborator's list
                    // FirebaseUtil.getUsersRef().child(selectedFromList.userId).child("trips").child(trip.getTripId()).setValue(true);
+                    DatabaseReference mUserRef = FirebaseUtil.getCurrentUserRef();
                     FirebaseUtil.getTripsRef().child(trip.getTripId()).child("companion").child(selectedFromList.userId).setValue(true);
+//                    FirebaseUtil.getCompanionsRef().child(selectedFromList.userId).child(mUserRef.getKey()).setValue(true);
+//                    FirebaseUtil.getCompanionsRef().child(mUserRef.getKey()).child(selectedFromList.userId).setValue(true);
+                    FirebaseUtil.getCompanionsRef().child(selectedFromList.userId).push().setValue(mUserRef.getKey());
+                    FirebaseUtil.getCompanionsRef().child(mUserRef.getKey()).push().setValue(selectedFromList.userId);
                     addedCompanionList.add(selectedFromList);
                     addedUserIds.add(selectedFromList.userId);
                     companionList.remove(selectedFromList);

@@ -14,8 +14,10 @@
         style="@style/TwoWayView"
         android:layout_width="match_parent"
         android:layout_height="80dp"
-        android:drawSelectorOnTop="false"
-        android:background="@color/colorPrimary"/>
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="0dp"
+        android:background="@color/colorPrimary"
+        android:drawSelectorOnTop="false" />
 
     <ListView
         android:id="@+id/lvCompanionList"

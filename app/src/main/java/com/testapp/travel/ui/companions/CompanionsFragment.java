@@ -16,6 +16,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.firebase.ui.database.FirebaseIndexRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -24,8 +26,10 @@ import com.google.firebase.database.ValueEventListener;
 import com.testapp.travel.R;
 import com.testapp.travel.data.model.Friend;
 import com.testapp.travel.data.model.ListFriend;
-import com.google.firebase.database.Query;
 import com.testapp.travel.data.model.Message;
+import com.testapp.travel.data.model.User;
+import com.testapp.travel.utils.FirebaseUtil;
+import com.google.firebase.database.Query;
 import com.testapp.travel.utils.StaticConfig;
 
 import java.text.SimpleDateFormat;
@@ -72,7 +76,6 @@ public class CompanionsFragment extends Fragment {
             getListFriendUId();
             Log.i(TAG, String.valueOf(listFriendId.size()));
         }
-
 
         return rootView;
     }
@@ -122,6 +125,26 @@ public class CompanionsFragment extends Fragment {
         //mRecyclerView.setAdapter(mAdapter);
     }
 
+
+//    private FirebaseRecyclerAdapter<User, CompanionViewHolder> getFirebaseRecyclerAdapter(Query query) {
+////
+////        String uid = getCurrentUserId();
+////
+////        return new FirebaseIndexRecyclerAdapter<User, CompanionViewHolder>(
+////                User.class,
+////                R.layout.widget_cardview_companion,
+////                CompanionViewHolder.class,
+////                FirebaseUtil.getCompanionsRef().child(uid),
+////                FirebaseUtil.getUsersRef()) {
+////            @Override
+////            protected void populateViewHolder(CompanionViewHolder viewHolder, User model, int position) {
+////                String key = this.getRef(position).getKey();
+////                Timber.d("position %d key %s", position, key);
+////                viewHolder.setAuthor(model.displayName, key);
+////                viewHolder.setIcon(model.profileImageUrl, key);
+////            }
+////        };
+////    }
 
     private void getListFriendUId() {
         Log.i(TAG, StaticConfig.UID);
@@ -186,33 +209,12 @@ public class CompanionsFragment extends Fragment {
     }
 
 
-//    private FirebaseRecyclerAdapter<User, CompanionViewHolder> getFirebaseRecyclerAdapter(Query query) {
-//
-//        String uid = getCurrentUserId();
-//
-//        return new FirebaseIndexRecyclerAdapter<User, CompanionViewHolder>(
-//                User.class,
-//                R.layout.widget_cardview_companion,
-//                CompanionViewHolder.class,
-//                FirebaseUtil.getCompanionsRef().child(uid),
-//                FirebaseUtil.getUsersRef()) {
-//            @Override
-//            protected void populateViewHolder(CompanionViewHolder viewHolder, User model, int position) {
-//                String key = this.getRef(position).getKey();
-//                Timber.d("position %d key %s", position, key);
-//                viewHolder.setAuthor(model.displayName, key);
-//                viewHolder.setIcon(model.profileImageUrl, key);
-//            }
-//        };
-//    }
-
-
     @Override
     public void onDestroy() {
         super.onDestroy();
-//        if (mAdapter != null && mAdapter instanceof ListFriendsAdapter) {
-//            ((ListFriendsAdapter) mAdapter).cleanup();
-//        }
+        if (mAdapter != null && mAdapter instanceof FirebaseRecyclerAdapter) {
+            ((FirebaseRecyclerAdapter) mAdapter).cleanup();
+        }
     }
 
 
@@ -426,4 +428,5 @@ class ItemFriendViewHolder extends RecyclerView.ViewHolder{
         this.context = context;
     }
 }
+
 

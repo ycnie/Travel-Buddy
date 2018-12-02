@@ -137,6 +137,7 @@ public class MainActivity extends SingleFragmentActivity implements DrawerItemSe
 
     protected void updateNavigationView() {
         mUser = FirebaseAuth.getInstance().getCurrentUser();
+
         User user  = new User();
         user.profileImageUrl = mUser.getPhotoUrl().toString();
         user.displayName = mUser.getDisplayName();

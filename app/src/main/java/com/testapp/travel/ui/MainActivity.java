@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.testapp.travel.R;
+import com.testapp.travel.data.model.User;
 import com.testapp.travel.ui.navigation.DrawerItemSelectedListener;
 import com.testapp.travel.utils.FirebaseUtil;
 import com.testapp.travel.utils.GoogleUtil;
@@ -26,6 +27,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
+import com.testapp.travel.utils.SharedPreferenceHelper;
+import com.testapp.travel.utils.StaticConfig;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -134,6 +137,15 @@ public class MainActivity extends SingleFragmentActivity implements DrawerItemSe
 
     protected void updateNavigationView() {
         mUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        User user  = new User();
+        user.profileImageUrl = mUser.getPhotoUrl().toString();
+        user.displayName = mUser.getDisplayName();
+        user.email = mUser.getEmail();
+        user.userId = mUser.getUid();
+        StaticConfig.UID = mUser.getUid();
+        SharedPreferenceHelper.getInstance(getApplicationContext()).saveUserInfo(user);
+
         View header = mNavigationView.getHeaderView(0);
         mEmail = (TextView) header.findViewById(R.id.email);
         mDisplayName = (TextView) header.findViewById(R.id.userDisplayName);

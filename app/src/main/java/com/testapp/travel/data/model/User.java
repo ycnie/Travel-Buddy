@@ -4,15 +4,19 @@ import android.net.Uri;
 
 import com.google.firebase.database.IgnoreExtraProperties;
 
+import java.util.Objects;
+
 @IgnoreExtraProperties
 public class User {
 
     public String displayName;
+    public String email;
     public String profileImageUrl;
     public String userId;
+    public Message message;
 
     public User() {
-        // Default constructor required for calls to DataSnapshot.getValue(CompanionInvite.class)
+        // Default constructor required for calls to DataSnapshot.getValue(User.class)
     }
 
     public User(String displayName, Uri profileImageUrl) {
@@ -28,4 +32,5 @@ public class User {
             this.profileImageUrl = profileImageUrl;
         }
     }
+
 }

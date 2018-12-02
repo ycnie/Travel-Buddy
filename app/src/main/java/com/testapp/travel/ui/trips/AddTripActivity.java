@@ -276,6 +276,7 @@ public class AddTripActivity extends AppCompatActivity implements OnMapReadyCall
 
     }
 
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;

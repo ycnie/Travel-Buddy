@@ -74,6 +74,7 @@
                     android:scheme="https" />
             </intent-filter>
         </activity>
+        <activity android:name=".ui.companions.ChatActivity"/>
         <activity
             android:name=".ui.files.FilesActivity"
             android:label="@string/title_my_storage"

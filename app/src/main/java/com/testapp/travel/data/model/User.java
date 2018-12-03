@@ -10,7 +10,6 @@ import java.util.Objects;
 public class User {
 
     public String displayName;
-    public String email;
     public String profileImageUrl;
     public String userId;
     public Message message;
@@ -24,6 +23,7 @@ public class User {
         if (profileImageUrl != null) {
             this.profileImageUrl = profileImageUrl.toString();
         }
+        message = new Message();
     }
 
     public User(String displayName, String profileImageUrl) {
@@ -31,6 +31,8 @@ public class User {
         if (profileImageUrl != null) {
             this.profileImageUrl = profileImageUrl;
         }
+        message = new Message();
+
     }
 
 }

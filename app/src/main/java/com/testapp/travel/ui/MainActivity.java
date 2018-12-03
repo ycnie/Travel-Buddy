@@ -141,7 +141,6 @@ public class MainActivity extends SingleFragmentActivity implements DrawerItemSe
         User user  = new User();
         user.profileImageUrl = mUser.getPhotoUrl().toString();
         user.displayName = mUser.getDisplayName();
-        user.email = mUser.getEmail();
         user.userId = mUser.getUid();
         StaticConfig.UID = mUser.getUid();
         SharedPreferenceHelper.getInstance(getApplicationContext()).saveUserInfo(user);

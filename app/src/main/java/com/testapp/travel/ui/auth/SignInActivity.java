@@ -9,6 +9,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.VisibleForTesting;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -80,12 +81,15 @@ public class SignInActivity extends AppCompatActivity {
                     Timber.d("onAuthStateChanged:signed_in %s", user.getUid());
                     String name = "";
                     Uri profileImageUrl = null;
+                    String email = "";
                     for (UserInfo profile : user.getProviderData()) {
                         // Name, email address, and profile photo Url
                         name = profile.getDisplayName();
                         profileImageUrl = profile.getPhotoUrl();
+                        email = profile.getEmail();
                     }
                     User appUser = new User(name, profileImageUrl);
+                    //Log.i("Signin", email);
                     FirebaseUtil.saveUser(appUser);
 
                     // User is signed in

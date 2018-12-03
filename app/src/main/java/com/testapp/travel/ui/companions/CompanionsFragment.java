@@ -183,7 +183,6 @@ public class CompanionsFragment extends Fragment {
                         Friend friend = new Friend();
                         HashMap mapUserInfo = (HashMap) dataSnapshot.getValue();
                         friend.displayName = (String) mapUserInfo.get("displayName");
-                        friend.email = (String) mapUserInfo.get("email");
                         friend.profileImageUrl = (String) mapUserInfo.get("profileImageUrl");
                         friend.id = id;
                         Message message = new Message();

@@ -30,7 +30,6 @@ public class SharedPreferenceHelper {
 
     public void saveUserInfo(User user) {
         editor.putString(SHARE_KEY_NAME, user.displayName);
-        editor.putString(SHARE_KEY_EMAIL, user.email);
         editor.putString(SHARE_KEY_AVATA, user.profileImageUrl);
         editor.putString(SHARE_KEY_UID, StaticConfig.UID);
         editor.apply();
@@ -43,7 +42,6 @@ public class SharedPreferenceHelper {
 
         User user = new User();
         user.displayName = userName;
-        user.email = email;
         user.profileImageUrl = avatar;
 
         return user;

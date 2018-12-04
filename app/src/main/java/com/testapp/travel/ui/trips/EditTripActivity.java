@@ -59,6 +59,8 @@ public class EditTripActivity extends AppCompatActivity
     LinearLayout lyHotel;
     @BindView(R.id.lyPhotos)
     LinearLayout lyPhotos;
+    @BindView(R.id.lyWeather)
+    LinearLayout lyWeather;
     @BindView(R.id.tvDone)
     TextView tvDone;
     @BindView(R.id.tvPageTitle)
@@ -92,6 +94,7 @@ public class EditTripActivity extends AppCompatActivity
         lyHotel.setOnClickListener(this);
         lyLocation.setOnClickListener(this);
         lyPhotos.setOnClickListener(this);
+        lyWeather.setOnClickListener(this);
         tvDone.setOnClickListener(this);
 
         DatabaseReference mListItemRef= FirebaseUtil.getTripsRef().child(trip.getTripId()).child("destinations");//.getRef().child("KXQ5mRVEbFxYDPoLtiA");
@@ -181,6 +184,11 @@ public class EditTripActivity extends AppCompatActivity
                         .putExtra("Trip", Parcels.wrap(trip));
                 startActivity(intentPhotos);
                 break;
+
+            case R.id.lyWeather:
+
+                break;
+
             case R.id.tvDone:
                 Intent intent=new Intent(this,MainActivity.class);
                 startActivity(intent);

@@ -186,6 +186,8 @@ public class EditTripActivity extends AppCompatActivity
                 break;
 
             case R.id.lyWeather:
+                Intent weather=new Intent(this,DisplayWeatherActivity.class);
+                startActivity(weather);
 
                 break;
 

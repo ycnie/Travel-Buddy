@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.testapp.travel">
 
     <uses-sdk xmlns:tools="http://schemas.android.com/tools"
@@ -18,7 +19,7 @@
         android:required="true" />
 
     <application
-        android:name="com.testapp.travel.TravelBUddy"
+        android:name=".TravelBUddy"
         android:allowBackup="true"
         android:icon="@mipmap/ic_app_icon"
         android:label="@string/app_name"
@@ -74,7 +75,7 @@
                     android:scheme="https" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.companions.ChatActivity"/>
+        <activity android:name=".ui.companions.ChatActivity" />
         <activity
             android:name=".ui.files.FilesActivity"
             android:label="@string/title_my_storage"
@@ -167,7 +168,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.testapp.travel.ui.MainActivity" />
         </activity>
-
         <activity
             android:name=".ui.trips.AddPhotoActivity"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -200,7 +200,8 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.trips.AddCompanionActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".ui.trips.DisplayWeatherActivity"></activity>
     </application>
 
 </manifest>

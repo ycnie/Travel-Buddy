@@ -138,12 +138,6 @@ public class MainActivity extends SingleFragmentActivity implements DrawerItemSe
     protected void updateNavigationView() {
         mUser = FirebaseAuth.getInstance().getCurrentUser();
 
-        User user  = new User();
-        user.profileImageUrl = mUser.getPhotoUrl().toString();
-        user.displayName = mUser.getDisplayName();
-        user.userId = mUser.getUid();
-        StaticConfig.UID = mUser.getUid();
-        SharedPreferenceHelper.getInstance(getApplicationContext()).saveUserInfo(user);
 
         View header = mNavigationView.getHeaderView(0);
         mEmail = (TextView) header.findViewById(R.id.email);
@@ -212,6 +206,14 @@ public class MainActivity extends SingleFragmentActivity implements DrawerItemSe
         if (mUser != null) {
             String name = "";
             Uri photoUrl = null;
+
+            User user  = new User();
+            user.profileImageUrl = mUser.getPhotoUrl().toString();
+            user.displayName = mUser.getDisplayName();
+            user.userId = mUser.getUid();
+            StaticConfig.UID = mUser.getUid();
+            SharedPreferenceHelper.getInstance(getApplicationContext()).saveUserInfo(user);
+
             for (UserInfo profile : mUser.getProviderData()) {
                 // Name, email address, and profile photo Url
                 name = profile.getDisplayName();

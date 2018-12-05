@@ -173,8 +173,8 @@ public class AddPhotoActivity extends AppCompatActivity implements View.OnClickL
         switch (id) {
             case R.id.tvDone:
                 savePhoto();
-                Intent intent = new Intent(this, DisplayPhotosActivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(this, DisplayPhotosActivity.class);
+//                startActivity(intent);
                 finish();
                 break;
         }

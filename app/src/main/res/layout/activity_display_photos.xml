@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:fitsSystemWindows="true">
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar"
@@ -17,13 +17,15 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:popupTheme="@style/AppTheme.PopupOverlay"
-            android:titleTextColor="@android:color/white">
+            android:titleTextColor="@android:color/white"
+            app:popupTheme="@style/AppTheme.PopupOverlay">
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="5dp"
                 android:gravity="center">
+
                 <TextView
                     android:id="@+id/tvPageTitle"
                     android:layout_width="match_parent"
@@ -36,47 +38,93 @@
                     android:id="@+id/ivAddPhoto"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
-                    android:src="@drawable/add_photo"
-                    android:textColor="@android:color/white"
                     android:layout_alignParentRight="true"
-                    android:layout_marginRight="10dp" />
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/add_photo"
+                    android:textColor="@android:color/white" />
             </RelativeLayout>
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_marginTop="?attr/actionBarSize">
 
-    <ImageView
-        android:id="@+id/blurView"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#3f000000"
-        android:scaleType="centerCrop" />
+        android:layout_marginTop="?attr/actionBarSize">
 
-    <com.testapp.travel.ui.helpers.SpeedRecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="400dp"
-        android:layout_marginBottom="30dp"
-        android:layout_marginTop="40dp" />
+        <ImageView
+            android:id="@+id/blurView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#3f000000"
+            android:scaleType="centerCrop" />
 
-    <TextView
-        android:id="@+id/tvLocation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@android:color/white"
-        android:layout_below="@id/recyclerView"
-        android:gravity="center"/>
+        <!--<com.testapp.travel.ui.helpers.SpeedRecyclerView-->
+            <!--android:id="@+id/recyclerViewPhoto"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="400dp"-->
+            <!--android:layout_marginTop="40dp"-->
+            <!--android:layout_marginBottom="30dp"-->
+            <!--android:foregroundGravity="center" />-->
 
-    <TextView
-        android:id="@+id/tvComment"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="San Francisco"
-        android:textColor="@android:color/white"
-        android:layout_below="@id/tvLocation"
-        android:gravity="center"/>
-</RelativeLayout>
+        <!--<TextView-->
+            <!--android:id="@+id/tvComment"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_below="@id/recyclerViewPhoto"-->
+            <!--android:gravity="center"-->
+            <!--android:text="Comments Here"-->
+            <!--android:textColor="@android:color/white" />-->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:weightSum="10"
+            android:layout_marginTop="?attr/actionBarSize">
+
+            <com.testapp.travel.ui.helpers.SpeedRecyclerView
+                android:id="@+id/recyclerViewPhoto"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="8"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:foregroundGravity="center" />
+
+            <TextView
+                android:id="@+id/tvComment"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:text="Comments Here"
+                android:textColor="@android:color/white" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:orientation="vertical"-->
+        <!--android:weightSum="10"-->
+        <!--android:layout_marginTop="?attr/actionBarSize">-->
+        <!---->
+        <!--<com.testapp.travel.ui.helpers.SpeedRecyclerView-->
+            <!--android:id="@+id/recyclerViewPhoto"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="0dp"-->
+            <!--android:layout_weight="7"-->
+            <!--android:layout_marginTop="40dp"-->
+            <!--android:layout_marginBottom="30dp"-->
+            <!--android:foregroundGravity="center" />-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/tvComment"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="0dp"-->
+            <!--android:layout_weight="3"-->
+            <!--android:gravity="center"-->
+            <!--android:text="Comments Here"-->
+            <!--android:textColor="@android:color/white" />-->
+    <!--</LinearLayout>-->
 </android.support.design.widget.CoordinatorLayout>

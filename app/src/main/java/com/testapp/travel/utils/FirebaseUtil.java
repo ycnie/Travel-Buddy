@@ -93,6 +93,8 @@ public class FirebaseUtil {
         return getBaseRef().child("invitation");
     }
 
+    public static DatabaseReference getUserPhotoRef() { return getBaseRef().child("userPhoto");}
+
     public static DatabaseReference getPhotosRef() {
         return getBaseRef().child("photos");
     }
@@ -196,10 +198,14 @@ public class FirebaseUtil {
         String key = getPhotosRef().push().getKey();
         getPhotosRef().child(key).setValue(photo);
         DatabaseReference trip=getTripsRef().child(tripId);
+        DatabaseReference userPhoto=getUserPhotoRef().child(getCurrentUserId());
         if(trip !=null){
             trip.child("photos")
                     .child(key)
                     .setValue(true);
+        }
+        if (userPhoto != null) {
+            userPhoto.child(key).setValue(photo);
         }
     }
 

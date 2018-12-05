@@ -4,19 +4,28 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Base64;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
 import com.testapp.travel.R;
+import com.testapp.travel.data.model.Photo;
 import com.testapp.travel.data.model.Trip;
 import com.testapp.travel.ui.helpers.CardScaleHelper;
 import com.testapp.travel.utils.BlurBitmapUtils;
+import com.testapp.travel.utils.FirebaseUtil;
 import com.testapp.travel.utils.ViewSwitchUtils;
 
 import org.parceler.Parcels;
@@ -28,9 +37,11 @@ public class DisplayPhotosActivity extends AppCompatActivity {
 
     private RecyclerView mRecyclerView;
     private ImageView mBlurView;
-    private TextView tvLocation;
+//    private TextView tvLocation;
     private TextView tvComment;
     private List<Integer> mPhotos = new ArrayList<>();
+    private List<Bitmap> mPhotosBitmaps = new ArrayList<>();
+    private RecyclerView.Adapter mAdapter;
    // private List<String> mTexts = new ArrayList<>();
     private List<String> mComments = new ArrayList<>();
     private CardScaleHelper mCardScaleHelper = null;
@@ -38,6 +49,8 @@ public class DisplayPhotosActivity extends AppCompatActivity {
     private int mLastPos = -1;
     private ImageView ivAddPhoto;
     private Trip trip;
+
+    private int TAKE_PHTOT = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,50 +75,52 @@ public class DisplayPhotosActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
     private void init() {
-        //for (int i = 0; i < 10; i++) {
-        mPhotos.add(R.drawable.travel_1);
-        mPhotos.add(R.drawable.travel_2);
-        mPhotos.add(R.drawable.travel_3);
-        mPhotos.add(R.drawable.travel_4);
-        mPhotos.add(R.drawable.travel_5);
-        mPhotos.add(R.drawable.travel_6);
-        mPhotos.add(R.drawable.travel_7);
-        mPhotos.add(R.drawable.travel_8);
-        mPhotos.add(R.drawable.travel_9);
-        mPhotos.add(R.drawable.travel_10);
-        //}
+        DatabaseReference mTripPhotoRef = FirebaseUtil.getTripsRef().child(trip.getTripId()).child("photos");
+        mTripPhotoRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                mPhotosBitmaps.clear();
+                mComments.clear();
+                for (DataSnapshot photoIdDs : dataSnapshot.getChildren()) {
+                    String photoId = photoIdDs.getKey();
+                    DatabaseReference mPhotoRef = FirebaseUtil.getPhotosRef().child(photoId);
+                    mPhotoRef.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            Photo photo = dataSnapshot.getValue(Photo.class);
+                            if (photo != null) {
+                                byte[] imageArray = Base64.decode(photo.getImage(), Base64.DEFAULT);
+                                Bitmap photoBitmap = BitmapFactory.decodeByteArray(imageArray, 0, imageArray.length);
+                                mPhotosBitmaps.add(photoBitmap);
+                                mComments.add(photo.getComment());
+                                mAdapter.notifyDataSetChanged();
+                                notifyBackgroundChange();
+                            }
+                        }
 
-   /*     mTexts.add("San Francisco");
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
 
-        mTexts.add("New York");
-        mTexts.add("Mountain View");
-        mTexts.add("Canada");
-        mTexts.add("San Francisco");
-        mTexts.add("New York");
-        mTexts.add("Mountain View");
-        mTexts.add("Canada");
-        mTexts.add("San Francisco");
-        mTexts.add("New York");*/
+                        }
+                    });
+                }
+            }
 
-        mComments.add("Quote 1");
-        mComments.add("Quote 2");
-        mComments.add("Quote 3");
-        mComments.add("Quote 4");
-        mComments.add("Quote 5");
-        mComments.add("Quote 6");
-        mComments.add("Quote 7");
-        mComments.add("Quote 8");
-        mComments.add("Quote 9");
-        mComments.add("Quote 10");
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
 
-        mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+            }
+        });
+
+        mRecyclerView = (RecyclerView) findViewById(R.id.recyclerViewPhoto);
         final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         mRecyclerView.setLayoutManager(linearLayoutManager);
-        mRecyclerView.setAdapter(new CardAdapter(mPhotos));
+        mAdapter = new CardAdapter(mPhotosBitmaps);
+        mRecyclerView.setAdapter(mAdapter);
         mCardScaleHelper = new CardScaleHelper();
         mCardScaleHelper.setCurrentItemPos(2);
         mCardScaleHelper.attachToRecyclerView(mRecyclerView);
-        tvLocation=(TextView)findViewById(R.id.tvLocation) ;
+//        tvLocation=(TextView)findViewById(R.id.tvLocation) ;
         tvComment=(TextView)findViewById(R.id.tvComment) ;
         ivAddPhoto=(ImageView)findViewById(R.id.ivAddPhoto);
         ivAddPhoto.setOnClickListener(new View.OnClickListener() {
@@ -114,6 +129,7 @@ public class DisplayPhotosActivity extends AppCompatActivity {
                 Intent intent=new Intent(DisplayPhotosActivity.this,AddPhotoActivity.class)
                         .putExtra("Trip", Parcels.wrap(trip));
                 startActivity(intent);
+//                startActivityForResult(intent, TAKE_PHTOT);
             }
         });
 
@@ -132,26 +148,30 @@ public class DisplayPhotosActivity extends AppCompatActivity {
             }
         });
 
-        notifyBackgroundChange();
     }
 
     private void notifyBackgroundChange() {
         if (mLastPos == mCardScaleHelper.getCurrentItemPos()) return;
         mLastPos = mCardScaleHelper.getCurrentItemPos();
-        final int resId = mPhotos.get(mCardScaleHelper.getCurrentItemPos());
+        if (mLastPos >= mPhotosBitmaps.size() || mLastPos >= mComments.size()) return;
         mBlurView.removeCallbacks(mBlurRunnable);
         mBlurRunnable = new Runnable() {
             @Override
             public void run() {
-                Bitmap bitmap = BitmapFactory.decodeResource(getResources(), resId);
+                Bitmap bitmap = mPhotosBitmaps.get(mLastPos);
                 ViewSwitchUtils.startSwitchBackgroundAnim(mBlurView, BlurBitmapUtils.getBlurBitmap(mBlurView.getContext(), bitmap, 15));
             }
         };
 
        // tvLocation.setText(mTexts.get(mLastPos));
-
         tvComment.setText(mComments.get(mLastPos));
-
         mBlurView.postDelayed(mBlurRunnable, 500);
     }
+
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        if (requestCode == TAKE_PHTOT) {
+//            Toast.makeText(getApplicationContext(), "New photo added!", Toast.LENGTH_LONG).show();
+//        }
+//    }
 }

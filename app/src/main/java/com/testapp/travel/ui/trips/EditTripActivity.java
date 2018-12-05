@@ -8,10 +8,13 @@ import android.support.customtabs.CustomTabsIntent;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.google.firebase.database.ChildEventListener;
 import com.testapp.travel.R;
 import com.testapp.travel.data.model.Place;
 import com.testapp.travel.data.model.Trip;
@@ -67,6 +70,8 @@ public class EditTripActivity extends AppCompatActivity
     TextView tvPageTitle;
     @BindView(R.id.tvDate)
     TextView tvDate;
+    @BindView(R.id.tvDeleteTrip)
+    TextView tvDeleteTrip;
     ArrayList<Place> destinations;
 
     @Override
@@ -96,6 +101,7 @@ public class EditTripActivity extends AppCompatActivity
         lyPhotos.setOnClickListener(this);
         lyWeather.setOnClickListener(this);
         tvDone.setOnClickListener(this);
+        tvDeleteTrip.setOnClickListener(this);
 
         DatabaseReference mListItemRef= FirebaseUtil.getTripsRef().child(trip.getTripId()).child("destinations");//.getRef().child("KXQ5mRVEbFxYDPoLtiA");
         destinations=new ArrayList<Place>();
@@ -192,8 +198,15 @@ public class EditTripActivity extends AppCompatActivity
                 break;
 
             case R.id.tvDone:
-                Intent intent=new Intent(this,MainActivity.class);
-                startActivity(intent);
+                Intent intentDone=new Intent(this,MainActivity.class);
+                startActivity(intentDone);
+                finish();
+                break;
+
+            case R.id.tvDeleteTrip:
+                String tripId = trip.getTripId();
+                FirebaseUtil.getTripsRef().child(tripId).removeValue();
+                FirebaseUtil.getUsersRef().child(FirebaseUtil.getCurrentUserId()).child("trips").child(tripId).removeValue();
                 finish();
         }
 

@@ -1,5 +1,6 @@
 package com.testapp.travel.ui.trips;
 
+import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,10 +19,15 @@ import jameson.io.library.util.ToastUtils;
  *
  */
 class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
-    private List<Integer> mList = new ArrayList<>();
+//    private List<Integer> mList;
+    private List<Bitmap> mList;
     private CardAdapterHelper mCardAdapterHelper = new CardAdapterHelper();
 
-    public CardAdapter(List<Integer> mList) {
+//    public CardAdapter(List<Integer> mList) {
+//        this.mList = mList;
+//    }
+
+    public CardAdapter(List<Bitmap> mList) {
         this.mList = mList;
     }
 
@@ -35,7 +41,8 @@ class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         mCardAdapterHelper.onBindViewHolder(holder.itemView, position, getItemCount());
-        holder.mImageView.setImageResource(mList.get(position));
+//        holder.mImageView.setImageResource(mList.get(position));
+        holder.mImageView.setImageBitmap(mList.get(position));
         holder.mImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

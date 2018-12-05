@@ -1,0 +1,623 @@
+Index: app/src/main/java/com/testapp/travel/ui/companions/userProfile.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/testapp/travel/ui/companions/userProfile.java	(date 1543981747296)
++++ app/src/main/java/com/testapp/travel/ui/companions/userProfile.java	(date 1543981747296)
+@@ -0,0 +1,66 @@
++package com.testapp.travel.ui.companions;
++
++import android.content.Intent;
++import android.os.Bundle;
++import android.support.annotation.Nullable;
++import android.support.v7.app.AppCompatActivity;
++import android.widget.TextView;
++
++import com.bumptech.glide.Glide;
++import com.google.firebase.database.ChildEventListener;
++import com.google.firebase.database.DataSnapshot;
++import com.google.firebase.database.DatabaseError;
++import com.google.firebase.database.FirebaseDatabase;
++import com.google.firebase.database.ValueEventListener;
++import com.testapp.travel.R;
++import com.testapp.travel.data.model.Friend;
++import com.testapp.travel.data.model.Message;
++import com.testapp.travel.data.model.User;
++import com.testapp.travel.utils.StaticConfig;
++
++import java.util.HashMap;
++import java.util.Iterator;
++
++import de.hdodenhof.circleimageview.CircleImageView;
++
++public class userProfile extends AppCompatActivity {
++
++    private CircleImageView photoUrl;
++    private TextView userName;
++    private TextView userEmail;
++    private CharSequence friendId;
++
++    @Override
++    protected void onCreate(@Nullable Bundle savedInstanceState) {
++
++        super.onCreate(savedInstanceState);
++        setContentView(R.layout.activity_user_profile);
++//        photoUrl = (CircleImageView)findViewById(R.id.photot_url);
++//        userName = (TextView)findViewById(R.id.user_name);
++//        userEmail = (TextView)findViewById(R.id.user_email);
++//        Intent intentData = getIntent();
++//        friendId = intentData.getStringExtra("FriendID");
++//        FirebaseDatabase.getInstance().getReference().child("users/" + friendId).addListenerForSingleValueEvent(new ValueEventListener() {
++//            @Override
++//            public void onDataChange(DataSnapshot dataSnapshot) {
++//                if (dataSnapshot.getValue() != null) {
++//                    HashMap mapUserInfo = (HashMap) dataSnapshot.getValue();
++//                    userName.setText((String) mapUserInfo.get("displayName"));
++//
++//                    if((String) mapUserInfo.get("profileImageUrl") != null){
++//                        Glide.with(getApplicationContext())
++//                                .load((String) mapUserInfo.get("profileImageUrl"))
++//                                .into(photoUrl);
++//                    }
++//
++//
++//                }
++//            }
++//
++//            @Override
++//            public void onCancelled(DatabaseError databaseError) {
++//
++//            }
++//        });
++    }
++}
+Index: app/src/main/res/layout/activity_user_profile.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/activity_user_profile.xml	(date 1543985849351)
++++ app/src/main/res/layout/activity_user_profile.xml	(date 1543985849351)
+@@ -0,0 +1,69 @@
++<?xml version="1.0" encoding="utf-8"?>
++<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
++    android:orientation="vertical" android:layout_width="match_parent"
++    android:layout_height="match_parent">
++
++
++    <LinearLayout
++        android:layout_width="match_parent"
++        android:layout_height="match_parent"
++        android:layout_weight="1"
++        android:orientation="horizontal"
++        android:layout_marginLeft="10dp"
++        android:layout_marginRight="10dp"
++        android:layout_marginTop="20dp"
++        >
++
++        <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
++            android:id="@+id/photot_url"
++            android:layout_width="0dp"
++            android:layout_height="50dp"
++            android:layout_margin="10dp"
++            android:layout_weight="1"
++            app:civ_border_color="@color/colorPrimary" />
++
++        <LinearLayout
++            android:layout_width="0dp"
++            android:layout_height="wrap_content"
++            android:layout_marginStart="10dp"
++            android:layout_weight="5"
++            android:orientation="vertical">
++
++            <TextView
++                android:id="@+id/user_name"
++                android:layout_width="match_parent"
++                android:layout_height="0dp"
++                android:layout_weight="1"
++                android:gravity="center_vertical"
++                android:textAppearance="?android:attr/textAppearanceMedium"
++                android:textColor="@color/cardview_dark_background" />
++
++            <TextView
++                android:id="@+id/user_email"
++                android:layout_width="match_parent"
++                android:layout_height="0dp"
++                android:layout_weight="1"
++                android:gravity="center_vertical|right"
++                android:paddingRight="10dp"
++                android:textAppearance="?android:attr/textAppearanceSmall"
++                android:textColor="@color/cardview_dark_background" />
++
++        </LinearLayout>
++
++
++    </LinearLayout>
++
++    <TextView
++        android:id="@+id/timeline"
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content"
++        android:layout_weight="2"
++        android:text="Timeline" />
++
++    <TextView
++        android:id="@+id/photos"
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content"
++        android:layout_weight="2"
++        android:text="Photots" />
++</LinearLayout>
+\ No newline at end of file
+Index: app/src/main/res/menu/activity_main_drawer.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/menu/activity_main_drawer.xml	(date 1543888196000)
++++ app/src/main/res/menu/activity_main_drawer.xml	(date 1543981115755)
+@@ -13,7 +13,7 @@
+         <item
+             android:id="@+id/nav_timeline"
+             android:icon="@drawable/ic_view_sequential"
+-            android:title="Timeline" />
++            android:title="Profile" />
+         <item
+             android:id="@+id/nav_storage"
+             android:icon="@drawable/ic_file_multiple"
+Index: app/src/main/java/com/testapp/travel/ui/companions/CompanionsFragment.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/testapp/travel/ui/companions/CompanionsFragment.java	(date 1543888196000)
++++ app/src/main/java/com/testapp/travel/ui/companions/CompanionsFragment.java	(date 1543981139805)
+@@ -216,6 +216,14 @@
+         }
+     }
+ 
++    @Override
++    public void onActivityResult(int requestCode, int resultCode, Intent data) {
++        super.onActivityResult(requestCode, resultCode, data);
++        if (ACTION_START_CHAT == requestCode && data != null && ListFriendsAdapter.mapMark != null) {
++            ListFriendsAdapter.mapMark.put(data.getStringExtra("idFriend"), false);
++        }
++    }
++
+ 
+     @Override
+     public void onSaveInstanceState(Bundle savedInstanceState) {
+Index: app/src/main/res/values/styles.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/values/styles.xml	(date 1543888196000)
++++ app/src/main/res/values/styles.xml	(date 1543985082980)
+@@ -76,4 +76,5 @@
+         <item name="android:orientation">horizontal</item>
+     </style>
+ 
++
+ </resources>
+Index: app/src/main/java/com/testapp/travel/ui/trips/AddTripActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/testapp/travel/ui/trips/AddTripActivity.java	(date 1543888196000)
++++ app/src/main/java/com/testapp/travel/ui/trips/AddTripActivity.java	(date 1544003538092)
+@@ -37,6 +37,7 @@
+ import com.testapp.travel.data.model.Trip;
+ import com.testapp.travel.data.model.TripTypes;
+ import com.testapp.travel.ui.companions.CompanionsActivity;
++import com.testapp.travel.utils.Airport;
+ import com.testapp.travel.utils.FirebaseUtil;
+ import com.testapp.travel.utils.MapUtil;
+ import com.google.android.gms.maps.CameraUpdateFactory;
+@@ -301,7 +302,9 @@
+                     Trip trip = new Trip();
+                     trip.setBeginDate(etBeginDate.getText().toString());
+                     trip.setEndDate(etEndDate.getText().toString());
++                    searchedPlace.setAirport(Airport.getAirport(searchedPlace.getName()));
+                     trip.setSearchDestination(searchedPlace);
++
+                     trip.setTripName(etBeginDate.getText().toString());
+                     ArrayList<Integer> tripTypes = getTripTypes();
+                     trip.setTripTypes(tripTypes);
+Index: app/src/main/java/com/testapp/travel/ui/trips/EditTripActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/testapp/travel/ui/trips/EditTripActivity.java	(date 1543888196000)
++++ app/src/main/java/com/testapp/travel/ui/trips/EditTripActivity.java	(date 1544002216019)
+@@ -172,11 +172,15 @@
+                 break;
+ 
+             case R.id.lyHotel:
+-                String url = "https://www.airbnb.com/";
+-                CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
+-                builder.setToolbarColor(ContextCompat.getColor(this, R.color.colorPrimary));
+-                CustomTabsIntent customTabsIntent = builder.build();
+-                customTabsIntent.launchUrl(this, Uri.parse(url));
++                Intent intentFlight=new Intent(this, flightPricesActivity.class)
++                        .putExtra("Trip", Parcels.wrap(trip));;
++                startActivity(intentFlight);
++
++//                String url = "https://www.airbnb.com/";
++//                CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
++//                builder.setToolbarColor(ContextCompat.getColor(this, R.color.colorPrimary));
++//                CustomTabsIntent customTabsIntent = builder.build();
++//                customTabsIntent.launchUrl(this, Uri.parse(url));
+                 break;
+ 
+             case R.id.lyPhotos:
+Index: app/src/main/java/com/testapp/travel/data/model/User.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/testapp/travel/data/model/User.java	(date 1543888196000)
++++ app/src/main/java/com/testapp/travel/data/model/User.java	(date 1543982731676)
+@@ -13,6 +13,8 @@
+     public String profileImageUrl;
+     public String userId;
+     public Message message;
++    public float rating;
++    public int noReviews;
+ 
+     public User() {
+         // Default constructor required for calls to DataSnapshot.getValue(User.class)
+@@ -35,4 +37,5 @@
+ 
+     }
+ 
++
+ }
+\ No newline at end of file
+Index: app/src/main/res/layout/content_edit_trip.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/content_edit_trip.xml	(date 1543888196000)
++++ app/src/main/res/layout/content_edit_trip.xml	(date 1544005120785)
+@@ -164,7 +164,7 @@
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:layout_marginBottom="5dp"
+-                        android:text="Lodging"
++                        android:text="Flights"
+                         android:textColor="#1F2C33"
+                         android:textSize="16sp"
+                         android:textStyle="bold" />
+@@ -174,7 +174,7 @@
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:layout_marginTop="5dp"
+-                        android:text="Airbnb - Homes, experiences, and places"
++                        android:text="Check flight prices for your trip"
+                         android:textSize="14sp"
+                         android:textStyle="bold" />
+                 </LinearLayout>
+Index: app/src/main/AndroidManifest.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/AndroidManifest.xml	(date 1543888196000)
++++ app/src/main/AndroidManifest.xml	(date 1543998954421)
+@@ -75,7 +75,13 @@
+                     android:scheme="https" />
+             </intent-filter>
+         </activity>
+-        <activity android:name=".ui.companions.ChatActivity" />
++        <activity
++            android:name=".ui.companions.ChatActivity"
++            android:launchMode="singleTop"
++            android:parentActivityName=".ui.companions.CompanionsActivity" />
++        <activity
++            android:name=".ui.companions.userProfile"
++            android:parentActivityName=".ui.companions.ChatActivity" />
+         <activity
+             android:name=".ui.files.FilesActivity"
+             android:label="@string/title_my_storage"
+@@ -201,7 +207,7 @@
+         <activity
+             android:name=".ui.trips.AddCompanionActivity"
+             android:theme="@style/AppTheme.NoActionBar" />
+-        <activity android:name=".ui.trips.DisplayWeatherActivity"></activity>
++        <activity android:name=".ui.trips.flightPricesActivity"></activity>
+     </application>
+ 
+ </manifest>
+\ No newline at end of file
+Index: gradle.properties
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>windows-1252
+===================================================================
+--- gradle.properties	(date 1543888196000)
++++ gradle.properties	(date 1543981115758)
+@@ -21,7 +21,7 @@
+ GRIPSACK_SIGNING_KEY_PASSWORD=
+ GRIPSACK_SIGNING_STORE_PASSWORD=
+ HOCKEYAPP_API_TOKEN_GRIPSACK=
+-GEO_API_KEY=AIzaSyAYI-zFhy2HyfKH-5JWbzj-qYTPHA0z-TQ
+-GEO_API_PLACES_KEY="AIzaSyAYI-zFhy2HyfKH-5JWbzj-qYTPHA0z-TQ"
+-#GEO_API_KEY="AIzaSyDYLmsQluvlph5aE3C9pFHCkm3SdlXRzxA"
+-#GEO_API_PLACES_KEY="AIzaSyDYLmsQluvlph5aE3C9pFHCkm3SdlXRzxA"
+\ No newline at end of file
++#GEO_API_KEY=AIzaSyAYI-zFhy2HyfKH-5JWbzj-qYTPHA0z-TQ
++#GEO_API_PLACES_KEY="AIzaSyAYI-zFhy2HyfKH-5JWbzj-qYTPHA0z-TQ"
++GEO_API_KEY="AIzaSyDYLmsQluvlph5aE3C9pFHCkm3SdlXRzxA"
++GEO_API_PLACES_KEY="AIzaSyDYLmsQluvlph5aE3C9pFHCkm3SdlXRzxA"
+\ No newline at end of file
+Index: app/src/main/java/com/testapp/travel/data/model/Place.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/testapp/travel/data/model/Place.java	(date 1543888196000)
++++ app/src/main/java/com/testapp/travel/data/model/Place.java	(date 1544001572290)
+@@ -23,6 +23,7 @@
+     private float rating;
+     private String photoUrl;
+     private String vicinity;
++    private String airport;
+ 
+     public void setLatitude(double latitude) {
+         this.latitude = latitude;
+@@ -48,6 +49,10 @@
+         this.photoUrl = photoUrl;
+     }
+ 
++    public void setAirport(String airport) {
++        this.airport = airport;
++    }
++
+     public void setTypes(ArrayList<String> types) {
+         this.types = types;
+     }
+@@ -88,6 +93,9 @@
+         return photoUrl;
+     }
+ 
++    public String getAirport() {
++        return airport;
++    }
+     public Place(){
+ 
+     }
+Index: app/src/main/java/com/testapp/travel/ui/explore/ExploreFragment.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/testapp/travel/ui/explore/ExploreFragment.java	(date 1543888196000)
++++ app/src/main/java/com/testapp/travel/ui/explore/ExploreFragment.java	(date 1544001939970)
+@@ -39,6 +39,8 @@
+ import org.parceler.Parcels;
+ 
+ import java.util.ArrayList;
++import java.util.Arrays;
++import java.util.List;
+ 
+ import cz.msebera.android.httpclient.Header;
+ import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
+@@ -58,8 +60,10 @@
+     ExploreRecyclerAdapter ad;
+ 
+     //List of popular destinations
+-    String[] placesName = {"San Francisco", "New York", "Seattle", "Sydney", "Agra", "Abu Dhabi",
+-            "Toronto", "Paris", "Italy", "Chicago", "Shangai", "Montreal", "Kaula Lampur"};
++//    String[] placesName = {"San Francisco", "New York", "Seattle", "Sydney", "Agra", "Abu Dhabi",
++//            "Toronto", "Paris", "Barcelona", "Chicago", "Shangai", "Montreal", "Kaula Lampur"};
++    String[] placesName = {"San Francisco", "New York"};
++    String[] placesAirport = {"sfoa", "nyca"};
+ 
+     private static final int MY_PERMISSION_REQUEST_FINE_LOCATION = 101;
+ 
+@@ -196,9 +200,13 @@
+                 Place place = new Place();
+                 place.setLatitude(searchplace.getLatLng().latitude);
+                 place.setLongitude(searchplace.getLatLng().longitude);
+-                place.setName((String) searchplace.getName());
++                String placeName=(String) searchplace.getName();
++                place.setName(placeName);
+                 place.setPlaceid(searchplace.getId());
+                 place.setRating(searchplace.getRating());
++                List<String> abcd  = Arrays.asList(placesName);
++                int i = abcd.indexOf(placeName);
++                place.setAirport(placesAirport[i]);
+ 
+                 Intent intent = new Intent(getActivity(), DestinationsActivity.class);
+                 intent.putExtra(DestinationsFragment.EXTRA_PLACE, Parcels.wrap(place));
+Index: app/src/main/res/layout/item_friend.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/item_friend.xml	(date 1543888196000)
++++ app/src/main/res/layout/item_friend.xml	(date 1543981140209)
+@@ -19,13 +19,13 @@
+         android:gravity="center">
+ 
+         <de.hdodenhof.circleimageview.CircleImageView
+-            xmlns:app="http://schemas.android.com/apk/res-auto"
+-            android:id="@+id/icon_avata"
+-            android:layout_width="0dp"
+-            android:layout_height="50dp"
+-            android:layout_margin="10dp"
+-            android:layout_weight="1"
+-            app:civ_border_color="@color/colorPrimary"/>
++        xmlns:app="http://schemas.android.com/apk/res-auto"
++        android:id="@+id/icon_avata"
++        android:layout_width="0dp"
++        android:layout_height="50dp"
++        android:layout_margin="10dp"
++        android:layout_weight="1"
++        app:civ_border_color="@color/colorPrimary"/>
+ 
+         <LinearLayout
+             android:layout_width="0dp"
+Index: app/build.gradle
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/build.gradle	(date 1543888196000)
++++ app/build.gradle	(date 1543999537080)
+@@ -68,6 +68,7 @@
+     })
+     compile 'com.android.support:appcompat-v7:25.0.0'
+     compile 'com.android.support:cardview-v7:25.0.0'
++
+     compile 'com.android.support:design:25.0.0'
+     compile 'com.android.support:preference-v7:25.0.0'
+     compile 'com.android.support:recyclerview-v7:25.0.0'
+@@ -114,6 +115,7 @@
+     compile 'uk.co.chrisjenx:calligraphy:2.0.2'
+     compile 'org.lucasr.twowayview:twowayview:0.1.4'
+     compile 'jp.wasabeef:recyclerview-animators:2.2.3'
++
+ }
+ 
+ hockeyapp {
+Index: app/src/main/java/com/testapp/travel/utils/FirebaseUtil.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/testapp/travel/utils/FirebaseUtil.java	(date 1543888196000)
++++ app/src/main/java/com/testapp/travel/utils/FirebaseUtil.java	(date 1543982731644)
+@@ -1,8 +1,6 @@
+ package com.testapp.travel.utils;
+ 
+ 
+-import android.util.Log;
+-
+ import com.testapp.travel.data.model.CompanionInvite;
+ import com.testapp.travel.data.model.Photo;
+ import com.testapp.travel.data.model.Place;
+@@ -29,6 +27,8 @@
+         return null;
+     }
+ 
++
++
+     public static DatabaseReference getCurrentUserRef() {
+         String uid = getCurrentUserId();
+         if (uid != null) {
+@@ -110,7 +110,10 @@
+         getUsersRef().child(uid).child("profileImageUrl").setValue(user.profileImageUrl);
+         getUsersRef().child(uid).child("userId").setValue(uid);
+         getUsersRef().child(uid).child("message").setValue(user.message);
++
+     }
++
++
+ 
+     public static void saveCompanionInvitation(String inviteId) {
+         String uid = getCurrentUserId();
+Index: app/src/main/res/layout/activity_trip_timeline.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/activity_trip_timeline.xml	(date 1543888196000)
++++ app/src/main/res/layout/activity_trip_timeline.xml	(date 1543982820075)
+@@ -5,7 +5,7 @@
+     android:layout_width="match_parent"
+     android:layout_height="match_parent"
+     android:fitsSystemWindows="true"
+-    tools:context="com.testapp.travel.ui.trips.TripTimelineActivity">
++    >
+ 
+     <android.support.design.widget.AppBarLayout
+         android:id="@+id/app_bar"
+Index: app/src/main/java/com/testapp/travel/ui/companions/ChatActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/testapp/travel/ui/companions/ChatActivity.java	(date 1543888196000)
++++ app/src/main/java/com/testapp/travel/ui/companions/ChatActivity.java	(date 1543981139784)
+@@ -29,6 +29,7 @@
+ 
+ import java.util.ArrayList;
+ import java.util.HashMap;
++import java.util.List;
+ 
+ import de.hdodenhof.circleimageview.CircleImageView;
+ 
+@@ -66,7 +67,7 @@
+             linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+             recyclerChat = (RecyclerView) findViewById(R.id.recyclerChat);
+             recyclerChat.setLayoutManager(linearLayoutManager);
+-            adapter = new ListMessageAdapter(this, conversation, bitmapAvataFriend, base64AvataUser);
++            adapter = new ListMessageAdapter(this, conversation, bitmapAvataFriend, base64AvataUser, idFriend);
+             FirebaseDatabase.getInstance().getReference().child("message/" + roomId).addChildEventListener(new ChildEventListener() {
+                 @Override
+                 public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+@@ -150,13 +151,15 @@
+     private HashMap<String, String> bitmapAvata;
+     private HashMap<String, DatabaseReference> bitmapAvataDB;
+     private String bitmapAvataUser;
++    private List<CharSequence> idFriend;
+ 
+-    public ListMessageAdapter(Context context, Conversation conversation, HashMap<String, String> bitmapAvata, String bitmapAvataUser) {
++    public ListMessageAdapter(Context context, Conversation conversation, HashMap<String, String> bitmapAvata, String bitmapAvataUser, List<CharSequence> idFriend) {
+         this.context = context;
+         this.conversation = conversation;
+         this.bitmapAvata = bitmapAvata;
+         this.bitmapAvataUser = bitmapAvataUser;
+         bitmapAvataDB = new HashMap<>();
++        this.idFriend = idFriend;
+     }
+ 
+     @Override
+@@ -177,6 +180,15 @@
+         if (holder instanceof ItemMessageFriendHolder) {
+             ((ItemMessageFriendHolder) holder).txtContent.setText(conversation.getListMessageData().get(position).text);
+             String currentAvata = bitmapAvata.get(conversation.getListMessageData().get(position).idSender);
++            ((ItemMessageFriendHolder) holder).avata.setOnClickListener(new View.OnClickListener() {
++                @Override
++                public void onClick(View view) {
++                    Intent intent = new Intent(context, userProfile.class);
++                    intent.putExtra("FriendID", idFriend.get(0));
++                    context.startActivity(intent);
++
++                }
++            });
+ 
+             if (currentAvata != null) {
+                 Glide.with(context)
+@@ -211,6 +223,16 @@
+ 
+         } else if (holder instanceof ItemMessageUserHolder) {
+             ((ItemMessageUserHolder) holder).txtContent.setText(conversation.getListMessageData().get(position).text);
++            ((ItemMessageUserHolder) holder).avata.setOnClickListener(new View.OnClickListener() {
++                @Override
++                public void onClick(View view) {
++                    Intent intent = new Intent(context, userProfile.class);
++                    intent.putExtra("FriendID", StaticConfig.UID);
++                    context.startActivity(intent);
++
++                }
++            });
++
+             if (bitmapAvataUser != null) {
+                 //https://github.com/codepath/android_guides/wiki/Displaying-Images-with-the-Glide-Library
+                 Glide.with(context)
+@@ -245,6 +267,8 @@
+         txtContent = (TextView) itemView.findViewById(R.id.textContentUser);
+         avata = (CircleImageView) itemView.findViewById(R.id.imageView2);
+     }
++
++
+ }
+ 
+ class ItemMessageFriendHolder extends RecyclerView.ViewHolder {

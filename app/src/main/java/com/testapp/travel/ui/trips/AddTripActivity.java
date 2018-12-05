@@ -37,6 +37,7 @@ import com.testapp.travel.data.model.Place;
 import com.testapp.travel.data.model.Trip;
 import com.testapp.travel.data.model.TripTypes;
 import com.testapp.travel.ui.companions.CompanionsActivity;
+import com.testapp.travel.utils.Airport;
 import com.testapp.travel.utils.FirebaseUtil;
 import com.testapp.travel.utils.MapUtil;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -301,7 +302,9 @@ public class AddTripActivity extends AppCompatActivity implements OnMapReadyCall
                     Trip trip = new Trip();
                     trip.setBeginDate(etBeginDate.getText().toString());
                     trip.setEndDate(etEndDate.getText().toString());
+                    searchedPlace.setAirport(Airport.getAirport(searchedPlace.getName()));
                     trip.setSearchDestination(searchedPlace);
+
                     trip.setTripName(etBeginDate.getText().toString());
                     ArrayList<Integer> tripTypes = getTripTypes();
                     trip.setTripTypes(tripTypes);

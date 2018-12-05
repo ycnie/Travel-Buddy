@@ -75,7 +75,13 @@
                     android:scheme="https" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.companions.ChatActivity" />
+        <activity
+            android:name=".ui.companions.ChatActivity"
+            android:launchMode="singleTop"
+            android:parentActivityName=".ui.companions.CompanionsActivity" />
+        <activity
+            android:name=".ui.companions.userProfile"
+            android:parentActivityName=".ui.companions.ChatActivity" />
         <activity
             android:name=".ui.files.FilesActivity"
             android:label="@string/title_my_storage"
@@ -201,7 +207,7 @@
         <activity
             android:name=".ui.trips.AddCompanionActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".ui.trips.DisplayWeatherActivity"></activity>
+        <activity android:name=".ui.trips.flightPricesActivity"></activity>
     </application>
 
 </manifest>

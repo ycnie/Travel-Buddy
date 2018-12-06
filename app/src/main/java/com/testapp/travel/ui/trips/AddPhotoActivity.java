@@ -206,7 +206,7 @@ public class AddPhotoActivity extends AppCompatActivity implements View.OnClickL
 
     public Bitmap getScaledBitmap(Bitmap bitmap){
         //Bitmap scaledBitmap = Bitmap.createScaledBitmap(bitmap, ivPreview.getWidth(), ivPreview.getHeight(), true);
-        Bitmap scaledBitmap = Bitmap.createScaledBitmap(bitmap, 400, 200, true);
+        Bitmap scaledBitmap = Bitmap.createScaledBitmap(bitmap, 1400, 700, true);
         return scaledBitmap;
     }
 

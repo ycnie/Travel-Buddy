@@ -95,7 +95,7 @@
     <string name="send">Send</string>
     <string name="friend_list">Friend List</string>
 
-    //weather
+    <!--//weather-->
     <string name="wth_high_label">"High: "</string>
     <string name="wth_low_label">"Low: "</string>
     <string name="wth_more_info">More Information</string>
@@ -109,7 +109,9 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+
     <!--//user_profile-->
+
     <string name="add_friend">Add</string>
     <string name="rating_me">Rate Your Companion</string>
     <string name="rating_star">5.0</string>
@@ -124,6 +126,7 @@
     <string name="location">Location</string>
     <string name="work">Work</string>
     <string name="title_activity_maps_places_visited">MapsPlacesVisited</string>
+
 
 
 </resources>

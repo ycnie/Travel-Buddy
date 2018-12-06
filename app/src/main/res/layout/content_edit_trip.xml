@@ -140,27 +140,27 @@
                     android:layout_below="@+id/ibCompanion"/>
 
                 <ImageButton
-                    android:id="@+id/ibHotel"
+                    android:id="@+id/ibFlight"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
-                    android:src="@drawable/hotel"
+                    android:src="@drawable/ic_airplanemode_active_black_24dp"
                     android:background="#FAFAFA"
                     android:layout_below="@+id/viewLine2"/>
 
                 <LinearLayout
-                    android:id="@+id/lyHotel"
+                    android:id="@+id/lyFlight"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_below="@+id/viewLine2"
                     android:layout_marginLeft="15dp"
                     android:layout_marginTop="15dp"
                     android:layout_marginBottom="5dp"
-                    android:layout_toRightOf="@+id/ibHotel"
+                    android:layout_toRightOf="@+id/ibFlight"
                     android:orientation="vertical">
 
 
                     <TextView
-                        android:id="@+id/tvHotelTitle"
+                        android:id="@+id/tvFlightTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="5dp"
@@ -170,7 +170,7 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/tvHotelDescription"
+                        android:id="@+id/tvFlightDescription"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
@@ -184,7 +184,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="#D6E6E5"
-                    android:layout_below="@+id/ibHotel"/>
+                    android:layout_below="@+id/ibFlight"/>
 
                 <ImageButton
                     android:id="@+id/ibPhotos"
@@ -241,7 +241,7 @@
                     android:layout_below="@+id/viewLine4"
                     android:layout_marginTop="0dp"
                     android:background="#FAFAFA"
-                    android:src="@drawable/weather_sunny" />
+                    android:src="@drawable/ic_wb_sunny_black_24dp" />
                 <!-- android:layout_alignParentStart="true" -->
 
                 <LinearLayout

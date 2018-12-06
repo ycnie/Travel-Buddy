@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
@@ -180,7 +181,6 @@
                     android:layout_weight="1"/>
 
             </LinearLayout>
-
             <LinearLayout
                 android:layout_marginTop="25dp"
                 android:layout_width="match_parent"
@@ -255,8 +255,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/add_friend" />
-
-
             <Button
                 android:id="@+id/rating_friend_button"
                 android:textColor="#fff"
@@ -281,9 +279,4 @@
         </LinearLayout>
 
     </LinearLayout>
-
-
-
-
-
 </ScrollView>

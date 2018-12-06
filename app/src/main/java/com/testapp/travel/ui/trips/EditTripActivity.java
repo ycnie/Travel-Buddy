@@ -8,18 +8,15 @@ import android.support.customtabs.CustomTabsIntent;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.google.firebase.database.ChildEventListener;
 import com.testapp.travel.R;
 import com.testapp.travel.data.model.Place;
 import com.testapp.travel.data.model.Trip;
 import com.testapp.travel.ui.MainActivity;
-import com.testapp.travel.ui.companions.CompanionsActivity;
 import com.testapp.travel.utils.FirebaseUtil;
 import com.testapp.travel.utils.MapUtil;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -28,18 +25,14 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FirebaseStorage;
 
 import org.parceler.Parcels;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import butterknife.BindView;
@@ -56,10 +49,12 @@ public class EditTripActivity extends AppCompatActivity
     TextView tvTripName;*/
     @BindView(R.id.lyLocation)
     LinearLayout lyLocation;
+    @BindView(R.id.lyAirbnb)
+    LinearLayout lyAirbnb;
     @BindView(R.id.lyCompanion)
     LinearLayout lyCompanion;
-    @BindView(R.id.lyHotel)
-    LinearLayout lyHotel;
+    @BindView(R.id.lyFlight)
+    LinearLayout lyFlight;
     @BindView(R.id.lyPhotos)
     LinearLayout lyPhotos;
     @BindView(R.id.lyWeather)
@@ -96,7 +91,8 @@ public class EditTripActivity extends AppCompatActivity
         tvDate.setText(trip.getBeginDate());
         //tvTripName.setText("Edit"trip.getTripName());
         lyCompanion.setOnClickListener(this);
-        lyHotel.setOnClickListener(this);
+        lyFlight.setOnClickListener(this);
+        lyAirbnb.setOnClickListener(this);
         lyLocation.setOnClickListener(this);
         lyPhotos.setOnClickListener(this);
         lyWeather.setOnClickListener(this);
@@ -182,6 +178,11 @@ public class EditTripActivity extends AppCompatActivity
                         .putExtra("Trip", Parcels.wrap(trip));
                 startActivity(intentPhotos);
                 break;
+            case R.id.lyFlight:
+                Intent intentFlight=new Intent(this,flightPricesActivity.class)
+                        .putExtra("Trip", Parcels.wrap(trip));
+                startActivity(intentFlight);
+                break;
 
             case R.id.lyWeather:
                 Intent intentWeather=new Intent(this,DisplayWeatherActivity.class)
@@ -191,14 +192,11 @@ public class EditTripActivity extends AppCompatActivity
 
             case R.id.lyAirbnb:
 
-                String url = "https://www.airbnb.com/";
-                CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
-                builder.setToolbarColor(ContextCompat.getColor(this, R.color.colorPrimary));
-                CustomTabsIntent customTabsIntent = builder.build();
-                customTabsIntent.launchUrl(this, Uri.parse(url));
+                Intent airbnbIntent=new Intent(this,AirbnbActivity.class)
+                        .putExtra("Trip", Parcels.wrap(trip));
+                startActivity(airbnbIntent);
 
                 break;
-
             case R.id.tvDone:
                 Intent intentDone=new Intent(this,MainActivity.class);
                 startActivity(intentDone);

@@ -102,7 +102,7 @@ public class MapsPlacesVisited extends FragmentActivity implements OnMapReadyCal
                         Double longitude = ds.child("position").child("longitude").getValue(Double.class);
                         Double latitude = ds.child("position").child("latitude").getValue(Double.class);
                         LatLng position = new LatLng(latitude, longitude);
-                        mMap.addMarker(new MarkerOptions().position(position).title(locationName).icon(BitmapDescriptorFactory.fromResource(R.drawable.places_ic_search)));
+                        mMap.addMarker(new MarkerOptions().position(position).title(locationName).icon(BitmapDescriptorFactory.fromResource(R.drawable.mapmarker)));
                     }
                 }
 
@@ -128,7 +128,7 @@ public class MapsPlacesVisited extends FragmentActivity implements OnMapReadyCal
                 Log.d("GEO","Geolocate : " + address.toString());
                 LatLng location = new LatLng(address.getLatitude(),address.getLongitude());
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(location));
-                mMap.addMarker(new MarkerOptions().position(location).title(searchString).icon(BitmapDescriptorFactory.fromResource(R.drawable.places_ic_search)));
+                mMap.addMarker(new MarkerOptions().position(location).title(searchString).icon(BitmapDescriptorFactory.fromResource(R.drawable.mapmarker)));
                 addloctoDB(searchString,location);
             }
 
@@ -151,8 +151,8 @@ public class MapsPlacesVisited extends FragmentActivity implements OnMapReadyCal
         @Override
         public void onMapReady(GoogleMap googleMap) {
             mMap = googleMap;
-            mMap.setMyLocationEnabled(true);
-            mMap.getUiSettings().setMyLocationButtonEnabled(true);
+            mMap.setMyLocationEnabled(false);
+            mMap.getUiSettings().setMyLocationButtonEnabled(false);
             mMap.getUiSettings().setZoomGesturesEnabled(true);
             mMap.getUiSettings().setMapToolbarEnabled(false);
 

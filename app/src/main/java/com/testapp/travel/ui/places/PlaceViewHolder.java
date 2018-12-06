@@ -16,10 +16,13 @@
 
 package com.testapp.travel.ui.places;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -34,6 +37,7 @@ public class PlaceViewHolder extends RecyclerView.ViewHolder {
     private ImageView mPlacePhoto;
     private TextView mPlaceName;
     private View paletteView;
+    private Button uberLogo;
 
     public PlaceViewHolder(View itemView) {
         super(itemView);
@@ -41,6 +45,9 @@ public class PlaceViewHolder extends RecyclerView.ViewHolder {
         mPlacePhoto = (ImageView) mView.findViewById(R.id.placePhoto);
         mPlaceName = (TextView) mView.findViewById(R.id.placeName);
         paletteView = mView.findViewById(R.id.vPalette);
+        uberLogo=(Button)mView.findViewById(R.id.uberLogo);
+
+
     }
 
     public void setPhoto(String url, final String uid) {
@@ -80,4 +87,21 @@ public class PlaceViewHolder extends RecyclerView.ViewHolder {
             }
         });
     }
+
+    public void setUber(Double latitude,Double longitude, final String uid) {
+        uberLogo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                        String uri = "uber://?action=setPickup&client_id=vsjy8iaHiUBOieVKh7k66yiKGWTaGwA3&pickup=my_location" +
+                                "&dropoff[latitude]="+latitude+"&dropoff[longitude]="+longitude;
+                        Intent intent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse(uri));
+
+                        itemView.getContext().startActivity(intent);
+
+
+            }
+        });
+    }
+
 }

@@ -1,6 +1,8 @@
 package com.testapp.travel.ui.places;
 
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
@@ -9,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.firebase.ui.database.FirebaseIndexRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -28,7 +31,7 @@ public class BucketlistFragment extends Fragment {
 
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter<PlaceViewHolder> mAdapter;
-
+    private Button btnUber;
 
     private static final String KEY_LAYOUT_POSITION = "layoutPosition";
     private int mRecyclerViewPosition = 0;
@@ -41,7 +44,9 @@ public class BucketlistFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_places_bucketlist, container, false);
         rootView.setTag(TAG);
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
+
         return rootView;
+
     }
 
     @Override
@@ -52,7 +57,7 @@ public class BucketlistFragment extends Fragment {
             return;
         }
 
-        GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 2);
+        GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 1);
         mRecyclerView.setLayoutManager(layoutManager);
 
         if (savedInstanceState != null) {
@@ -92,6 +97,7 @@ public class BucketlistFragment extends Fragment {
                 Timber.d("position %d key %s", position, key);
                 viewHolder.setName(model.getName(), key);
                 viewHolder.setPhoto(model.getPhotoUrl(), key);
+               viewHolder.setUber(model.getLatitude(),model.getLongitude(),key);
             }
         };
     }

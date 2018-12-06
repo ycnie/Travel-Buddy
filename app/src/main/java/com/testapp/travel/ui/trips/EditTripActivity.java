@@ -189,8 +189,14 @@ public class EditTripActivity extends AppCompatActivity
                 startActivity(intentPhotos);
                 break;
 
+            case R.id.lyAirbnb:
+                Intent intentAirbnb=new Intent(this, AirbnbActivity.class)
+                        .putExtra("Trip", Parcels.wrap(trip));;
+                startActivity(intentAirbnb);
+
+
             case R.id.lyWeather:
-                Intent weather=new Intent(this,DisplayWeatherActivity.class);
+                Intent weather=new Intent(this,AirbnbActivity.class).putExtra("Trip", Parcels.wrap(trip));
                 startActivity(weather);
 
                 break;

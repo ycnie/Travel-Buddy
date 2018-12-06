@@ -32,6 +32,7 @@ import com.google.android.gms.location.places.ui.PlaceAutocomplete;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+import com.testapp.travel.utils.Airport;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -39,6 +40,8 @@ import org.json.JSONObject;
 import org.parceler.Parcels;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
@@ -58,8 +61,10 @@ public class ExploreFragment extends Fragment {
     ExploreRecyclerAdapter ad;
 
     //List of popular destinations
-    String[] placesName = {"San Francisco", "New York", "Seattle", "Sydney", "Agra", "Abu Dhabi",
-            "Toronto", "Paris", "Italy", "Chicago", "Shangai", "Montreal", "Kaula Lampur"};
+//    String[] placesName = {"San Francisco", "New York", "Seattle", "Sydney", "Agra", "Abu Dhabi",
+//            "Toronto", "Paris", "Barcelona", "Chicago", "Shangai", "Montreal", "Kaula Lampur"};
+    String[] placesName = Airport.placesName;
+    String[] placesAirport = Airport.placesAirport;
 
     private static final int MY_PERMISSION_REQUEST_FINE_LOCATION = 101;
 
@@ -196,9 +201,13 @@ public class ExploreFragment extends Fragment {
                 Place place = new Place();
                 place.setLatitude(searchplace.getLatLng().latitude);
                 place.setLongitude(searchplace.getLatLng().longitude);
-                place.setName((String) searchplace.getName());
+                String placeName=(String) searchplace.getName();
+                place.setName(placeName);
                 place.setPlaceid(searchplace.getId());
                 place.setRating(searchplace.getRating());
+                List<String> abcd  = Arrays.asList(placesName);
+                int i = abcd.indexOf(placeName);
+                place.setAirport(placesAirport[i]);
 
                 Intent intent = new Intent(getActivity(), DestinationsActivity.class);
                 intent.putExtra(DestinationsFragment.EXTRA_PLACE, Parcels.wrap(place));

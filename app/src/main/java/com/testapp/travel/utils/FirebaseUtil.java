@@ -1,8 +1,6 @@
 package com.testapp.travel.utils;
 
 
-import android.util.Log;
-
 import com.testapp.travel.data.model.CompanionInvite;
 import com.testapp.travel.data.model.Photo;
 import com.testapp.travel.data.model.Place;
@@ -28,6 +26,8 @@ public class FirebaseUtil {
         }
         return null;
     }
+
+
 
     public static DatabaseReference getCurrentUserRef() {
         String uid = getCurrentUserId();
@@ -110,7 +110,10 @@ public class FirebaseUtil {
         getUsersRef().child(uid).child("profileImageUrl").setValue(user.profileImageUrl);
         getUsersRef().child(uid).child("userId").setValue(uid);
         getUsersRef().child(uid).child("message").setValue(user.message);
+
     }
+
+
 
     public static void saveCompanionInvitation(String inviteId) {
         String uid = getCurrentUserId();

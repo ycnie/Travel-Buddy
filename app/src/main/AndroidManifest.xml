@@ -207,7 +207,8 @@
         <activity
             android:name=".ui.trips.AddCompanionActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".ui.trips.flightPricesActivity"></activity>
+        <activity android:name=".ui.trips.flightPricesActivity" />
+        <activity android:name=".ui.trips.AirbnbActivity"></activity>
     </application>
 
 </manifest>

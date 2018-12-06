@@ -14,11 +14,11 @@
         android:layout_height="match_parent">
 
         <fragment
-            class="com.google.android.gms.maps.SupportMapFragment"
             android:id="@+id/map"
             android:name="com.google.android.gms.maps.SupportMapFragment"
+            class="com.google.android.gms.maps.SupportMapFragment"
             android:layout_width="match_parent"
-            android:layout_height="270dp" />
+            android:layout_height="200dp" />
 
         <android.support.v7.widget.CardView
             xmlns:card_view="http://schemas.android.com/apk/res-auto"
@@ -164,7 +164,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="5dp"
-                        android:text="Lodging"
+                        android:text="Flights"
                         android:textColor="#1F2C33"
                         android:textSize="16sp"
                         android:textStyle="bold" />
@@ -174,7 +174,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:text="Airbnb - Homes, experiences, and places"
+                        android:text="Check flight prices for your trip"
                         android:textSize="14sp"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -256,24 +256,90 @@
 
 
                     <TextView
+                        android:id="@+id/tvWeatherTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/tvWeatherTitle"
-                        android:textSize="16sp"
-                        android:text="Weather"
+                        android:layout_marginBottom="5dp"
+                        android:text="Airbnb"
                         android:textColor="#1F2C33"
-                        android:textStyle="bold"
-                        android:layout_marginBottom="5dp"/>
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/tvWeatherDescription"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/tvWeatherDescription"
+                        android:layout_marginTop="5dp"
+                        android:text="Book an Airbnb to feel at home"
                         android:textSize="14sp"
-                        android:text="View the weather for your trip"
-                        android:textStyle="bold"
-                        android:layout_marginTop="5dp" />
+                        android:textStyle="bold" />
                 </LinearLayout>
+
+
+
+
+                <View
+                    android:id="@+id/viewLine5"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#D6E6E5"
+                    android:layout_below="@+id/ibWeather"/>
+
+                <ImageButton
+                    android:id="@+id/ibAirbnb"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:src="@drawable/hotel"
+                    android:background="#FAFAFA"
+                    android:layout_below="@+id/viewLine5"/>
+
+                <LinearLayout
+                    android:id="@+id/lyAirbnb"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/viewLine5"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_toRightOf="@+id/ibWeather"
+                    android:orientation="vertical">
+
+
+                    <TextView
+                        android:id="@+id/tvAirbnbTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:text="Placeholder"
+                        android:textColor="#1F2C33"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tvAirbnbDescription"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text="Can be used for weather"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
             </RelativeLayout>

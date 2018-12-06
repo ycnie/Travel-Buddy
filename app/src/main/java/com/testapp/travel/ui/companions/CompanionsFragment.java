@@ -151,12 +151,10 @@ public class CompanionsFragment extends Fragment {
         FirebaseDatabase.getInstance().getReference().child("companions/" + StaticConfig.UID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.getValue() != null) {
-                    HashMap mapRecord = (HashMap) dataSnapshot.getValue();
-                    Iterator listKey = mapRecord.keySet().iterator();
-                    while (listKey.hasNext()) {
-                        String key = listKey.next().toString();
-                        listFriendId.add(mapRecord.get(key).toString());
+                if (dataSnapshot != null) {
+                    for(DataSnapshot data : dataSnapshot.getChildren()) {
+                        listFriendId.add(data.getKey());
+                        Log.i("friendlist", data.getKey());
                     }
                     getAllFriendInfo(0);
                 }

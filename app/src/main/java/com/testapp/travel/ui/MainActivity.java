@@ -152,6 +152,7 @@ public class MainActivity extends SingleFragmentActivity implements DrawerItemSe
         if(currentUserId!=null) {
             DatabaseReference UserInforef = FirebaseUtil.getUsersRef().child(currentUserId);
 
+
             //Get number of trips
             UserInforef.child("trips").addValueEventListener(new ValueEventListener() {
                 @Override
@@ -197,6 +198,7 @@ public class MainActivity extends SingleFragmentActivity implements DrawerItemSe
 
                 }
             });
+
         }
         else{
             mTripsCount.setText(String.valueOf(0));

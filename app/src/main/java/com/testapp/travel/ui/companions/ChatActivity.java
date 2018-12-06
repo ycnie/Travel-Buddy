@@ -1,8 +1,12 @@
 package com.testapp.travel.ui.companions;
 
-import android.content.Context;
+
+import android.app.Activity;
+import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
+
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -24,6 +28,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.testapp.travel.R;
 import com.testapp.travel.data.model.Conversation;
 import com.testapp.travel.data.model.Message;
+import com.testapp.travel.ui.userProfile.userProfileFragment;
 import com.testapp.travel.utils.SharedPreferenceHelper;
 import com.testapp.travel.utils.StaticConfig;
 
@@ -146,14 +151,14 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
 
 class ListMessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private Context context;
+    private Activity context;
     private Conversation conversation;
     private HashMap<String, String> bitmapAvata;
     private HashMap<String, DatabaseReference> bitmapAvataDB;
     private String bitmapAvataUser;
     private List<CharSequence> idFriend;
 
-    public ListMessageAdapter(Context context, Conversation conversation, HashMap<String, String> bitmapAvata, String bitmapAvataUser, List<CharSequence> idFriend) {
+    public ListMessageAdapter(Activity context, Conversation conversation, HashMap<String, String> bitmapAvata, String bitmapAvataUser, List<CharSequence> idFriend) {
         this.context = context;
         this.conversation = conversation;
         this.bitmapAvata = bitmapAvata;
@@ -183,9 +188,18 @@ class ListMessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             ((ItemMessageFriendHolder) holder).avata.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent(context, userProfile.class);
-                    intent.putExtra("FriendID", idFriend.get(0));
-                    context.startActivity(intent);
+
+                    FragmentTransaction transaction = context.getFragmentManager().beginTransaction();
+                    Fragment prev = context.getFragmentManager().findFragmentByTag("userProfile");
+                    if (prev != null) {
+                        transaction.remove(prev);
+                    }
+                    transaction.addToBackStack(null);
+                    Bundle bundle = new Bundle();
+                    bundle.putCharSequence("FriendID", idFriend.get(0));
+                    userProfileFragment frag = new userProfileFragment();
+                    frag.setArguments(bundle);
+                    frag.show(transaction, "userProfile");
 
                 }
             });
@@ -223,15 +237,6 @@ class ListMessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         } else if (holder instanceof ItemMessageUserHolder) {
             ((ItemMessageUserHolder) holder).txtContent.setText(conversation.getListMessageData().get(position).text);
-            ((ItemMessageUserHolder) holder).avata.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(context, userProfile.class);
-                    intent.putExtra("FriendID", StaticConfig.UID);
-                    context.startActivity(intent);
-
-                }
-            });
 
             if (bitmapAvataUser != null) {
                 //https://github.com/codepath/android_guides/wiki/Displaying-Images-with-the-Glide-Library

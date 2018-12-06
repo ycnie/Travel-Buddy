@@ -75,13 +75,11 @@
                     android:scheme="https" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".ui.companions.ChatActivity"
-            android:launchMode="singleTop"
-            android:parentActivityName=".ui.companions.CompanionsActivity" />
-        <activity
-            android:name=".ui.companions.userProfile"
-            android:parentActivityName=".ui.companions.ChatActivity" />
+
+        <activity android:name=".ui.companions.ChatActivity"
+            android:parentActivityName=".ui.companions.CompanionsActivity"
+            android:launchMode = "singleTop"/>
+
         <activity
             android:name=".ui.files.FilesActivity"
             android:label="@string/title_my_storage"

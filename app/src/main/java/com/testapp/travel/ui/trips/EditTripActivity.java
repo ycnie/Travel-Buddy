@@ -172,15 +172,11 @@ public class EditTripActivity extends AppCompatActivity
                 break;
 
             case R.id.lyHotel:
-                Intent intentFlight=new Intent(this, flightPricesActivity.class)
-                        .putExtra("Trip", Parcels.wrap(trip));;
-                startActivity(intentFlight);
-
-//                String url = "https://www.airbnb.com/";
-//                CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
-//                builder.setToolbarColor(ContextCompat.getColor(this, R.color.colorPrimary));
-//                CustomTabsIntent customTabsIntent = builder.build();
-//                customTabsIntent.launchUrl(this, Uri.parse(url));
+                String url = "https://www.airbnb.com/";
+                CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
+                builder.setToolbarColor(ContextCompat.getColor(this, R.color.colorPrimary));
+                CustomTabsIntent customTabsIntent = builder.build();
+                customTabsIntent.launchUrl(this, Uri.parse(url));
                 break;
 
             case R.id.lyPhotos:
@@ -189,16 +185,13 @@ public class EditTripActivity extends AppCompatActivity
                 startActivity(intentPhotos);
                 break;
 
-            case R.id.lyAirbnb:
-                Intent intentAirbnb=new Intent(this, AirbnbActivity.class)
-                        .putExtra("Trip", Parcels.wrap(trip));;
-                startActivity(intentAirbnb);
-
-
             case R.id.lyWeather:
-                Intent weather=new Intent(this,AirbnbActivity.class).putExtra("Trip", Parcels.wrap(trip));
-                startActivity(weather);
+                Intent intentWeather=new Intent(this,DisplayWeatherActivity.class)
+                        .putExtra("Trip", Parcels.wrap(trip));
+                startActivity(intentWeather);
+                break;
 
+            case R.id.lyAirbnb:
                 break;
 
             case R.id.tvDone:

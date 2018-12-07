@@ -1,8 +1,10 @@
 package com.testapp.travel.ui.trips;
 
 
+
 import android.content.Intent;
 import android.net.Uri;
+
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.customtabs.CustomTabsIntent;
@@ -24,6 +26,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.testapp.travel.R;
 import com.testapp.travel.data.model.Trip;
 import com.testapp.travel.utils.FirebaseUtil;
+
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -84,14 +87,21 @@ public class DisplayWeatherActivity extends AppCompatActivity {
     // API
     OkHttpClient client = new OkHttpClient();
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_weather);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Weather");
+
 
         // Allow network on main thread
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
+
 
         // UI
         tvCityName = (TextView) findViewById(R.id.tvCityName);
@@ -103,6 +113,7 @@ public class DisplayWeatherActivity extends AppCompatActivity {
         tvColdDays = (TextView) findViewById(R.id.tvColdDays);
         tvPackingDescription = (TextView) findViewById(R.id.tvPackingDescription);
         btnMoreInfo = (Button) findViewById(R.id.btnMoreInfo);
+
 
         // Initializing other global variables
         weather = new ArrayList<String>();
@@ -183,7 +194,16 @@ public class DisplayWeatherActivity extends AppCompatActivity {
             outputString = outputString + "and " + Integer.toString(coldDays) + " cold days, ";
         }
         descriptioStr = outputString;
+
     }
+}
+/*
+    public void getDataFromDatabase(Trip trip) {
+        // Getting database references
+        DatabaseReference mBeginDateReference= FirebaseUtil.getTripsRef().child(trip.getTripId()).child("beginDate");
+        DatabaseReference mEndDateReference= FirebaseUtil.getTripsRef().child(trip.getTripId()).child("endDate");
+        DatabaseReference mCityNameReference= FirebaseUtil.getTripsRef().child(trip.getTripId()).child("searchDestination").child("name");
+
 
     private void getDayType() {
         for (int i = 0; i < numOfDays; i++) {
@@ -331,5 +351,7 @@ public class DisplayWeatherActivity extends AppCompatActivity {
     private static double round(double value, int precision) {
         int scale = (int) Math.pow(10, precision);
         return (double) Math.round(value * scale) / scale;
+
     }
 }
+

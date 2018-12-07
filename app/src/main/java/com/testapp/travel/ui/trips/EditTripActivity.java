@@ -190,11 +190,13 @@ public class EditTripActivity extends AppCompatActivity
                 break;
 
             case R.id.lyAirbnb:
+
                 String url = "https://www.airbnb.com/";
                 CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
                 builder.setToolbarColor(ContextCompat.getColor(this, R.color.colorPrimary));
                 CustomTabsIntent customTabsIntent = builder.build();
                 customTabsIntent.launchUrl(this, Uri.parse(url));
+
                 break;
 
             case R.id.tvDone:

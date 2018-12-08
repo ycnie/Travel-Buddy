@@ -1,10 +1,15 @@
 package com.testapp.travel.ui.companions;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,6 +23,9 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseIndexRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -31,6 +39,7 @@ import com.testapp.travel.data.model.User;
 import com.testapp.travel.utils.FirebaseUtil;
 import com.google.firebase.database.Query;
 import com.testapp.travel.utils.StaticConfig;
+
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -54,10 +63,13 @@ public class CompanionsFragment extends Fragment {
     private static final String KEY_LAYOUT_POSITION = "layoutPosition";
     private int mRecyclerViewPosition = 0;
     private OnCompanionSelectedListener mListener;
+    private BroadcastReceiver deleteFriendReceiver;
+
 
     private ArrayList<String> listFriendId = new ArrayList<>();
     private ListFriend dataListFriend = new ListFriend();
     public static int ACTION_START_CHAT = 1;
+    public static final String ACTION_DELETE_FRIEND = "com.testapp.travel.ui.companion.DELETE_FRIEND";
 
 
     public static CompanionsFragment newInstance() {
@@ -85,6 +97,7 @@ public class CompanionsFragment extends Fragment {
         if (mRecyclerView != null) {
             mRecyclerView.setAdapter(null);
         }
+        getActivity().unregisterReceiver(deleteFriendReceiver);
         super.onDestroyView();
     }
 
@@ -96,8 +109,7 @@ public class CompanionsFragment extends Fragment {
             return;
         }
 
-        //GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 2);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         mRecyclerView.setLayoutManager(linearLayoutManager);
 
         if (savedInstanceState != null) {
@@ -109,42 +121,30 @@ public class CompanionsFragment extends Fragment {
         }
 
         Timber.d("Restoring recycler view position: %d", mRecyclerViewPosition);
-//        Query companionsQuery = FirebaseUtil.getCompanionsRef();
-//        mAdapter = getFirebaseRecyclerAdapter(companionsQuery);
-//        mAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
-//            @Override
-//            public void onItemRangeInserted(int positionStart, int itemCount) {
-//                super.onItemRangeInserted(positionStart, itemCount);
-//                // TODO: Refresh feed view.
-//            }
-//        });
+
 
         mAdapter = new ListFriendsAdapter(getActivity().getApplicationContext(), dataListFriend, getActivity());
         mRecyclerView.setAdapter(mAdapter);
 
-        //mRecyclerView.setAdapter(mAdapter);
+        deleteFriendReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                String idDeleted = intent.getExtras().getString("idFriend");
+                for (Friend friend : dataListFriend.getListFriend()) {
+                    if(idDeleted.equals(friend.id)){
+                        ArrayList<Friend> friends = dataListFriend.getListFriend();
+                        friends.remove(friend);
+                        break;
+                    }
+                }
+                mAdapter.notifyDataSetChanged();
+            }
+        };
+        IntentFilter intentFilter = new IntentFilter(ACTION_DELETE_FRIEND);
+        getActivity().registerReceiver(deleteFriendReceiver, intentFilter);
+
     }
 
-
-//    private FirebaseRecyclerAdapter<User, CompanionViewHolder> getFirebaseRecyclerAdapter(Query query) {
-////
-////        String uid = getCurrentUserId();
-////
-////        return new FirebaseIndexRecyclerAdapter<User, CompanionViewHolder>(
-////                User.class,
-////                R.layout.widget_cardview_companion,
-////                CompanionViewHolder.class,
-////                FirebaseUtil.getCompanionsRef().child(uid),
-////                FirebaseUtil.getUsersRef()) {
-////            @Override
-////            protected void populateViewHolder(CompanionViewHolder viewHolder, User model, int position) {
-////                String key = this.getRef(position).getKey();
-////                Timber.d("position %d key %s", position, key);
-////                viewHolder.setAuthor(model.displayName, key);
-////                viewHolder.setIcon(model.profileImageUrl, key);
-////            }
-////        };
-////    }
 
     private void getListFriendUId() {
         Log.i(TAG, StaticConfig.UID);
@@ -170,7 +170,6 @@ public class CompanionsFragment extends Fragment {
         if (index == listFriendId.size()) {
             //save list friend
             mAdapter.notifyDataSetChanged();
-            // mSwipeRefreshLayout.setRefreshing(false);
 
         } else {
             final String id = listFriendId.get(index);
@@ -206,12 +205,14 @@ public class CompanionsFragment extends Fragment {
     }
 
 
+
     @Override
     public void onDestroy() {
         super.onDestroy();
         if (mAdapter != null && mAdapter instanceof FirebaseRecyclerAdapter) {
             ((FirebaseRecyclerAdapter) mAdapter).cleanup();
         }
+
     }
 
     @Override
@@ -277,6 +278,7 @@ class ListFriendsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public static Map<String, ChildEventListener> mapChildListener;
     public static Map<String, ChildEventListener> mapChildListenerOnline;
     public static Map<String, Boolean> mapMark;
+    //LovelyProgressDialog dialogWaitDeleting;
 
 
     public ListFriendsAdapter(Context context, ListFriend listFriend, Activity activity) {
@@ -287,6 +289,7 @@ class ListFriendsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         mapChildListener = new HashMap<>();
         mapMark = new HashMap<>();
         mapChildListenerOnline = new HashMap<>();
+       // dialogWaitDeleting = new LovelyProgressDialog(activity);
     }
 
     @Override
@@ -327,7 +330,38 @@ class ListFriendsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     }
                 });
         //todo: delete friend
+        ((View) ((ItemFriendViewHolder) holder).txtName.getParent().getParent().getParent())
+                .setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View view) {
+                        String friendName = (String)((ItemFriendViewHolder) holder).txtName.getText();
 
+                        new AlertDialog.Builder(activity)
+                                .setTitle("Delete Friend")
+                                .setMessage("Are you sure want to delete "+ friendName+ "?")
+                                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        final String idFriendRemoval = listFriend.getListFriend().get(position).id;
+//                                        dialogInterface.dismiss();
+//                                        dialogWaitDeleting.setTitle("Deleting...")
+//                                                .setCancelable(false)
+//                                                .setTopColorRes(R.color.colorAccent)
+//                                                .show();
+                                        deleteFriend(idFriendRemoval);
+
+                                    }
+                                })
+                                .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        dialogInterface.dismiss();
+                                    }
+                                }).show();
+
+                        return true;
+                    }
+                });
 
 
         if (listFriend.getListFriend().get(position).message.text.length() > 0) {
@@ -414,6 +448,21 @@ class ListFriendsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     @Override
     public int getItemCount() {
         return listFriend.getListFriend() != null ? listFriend.getListFriend().size() : 0;
+    }
+
+    private void deleteFriend(final String idFriend) {
+        if (idFriend != null) {
+            FirebaseDatabase.getInstance().getReference().child("companions").child(StaticConfig.UID).child(idFriend).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+
+                    Intent intentDeleted = new Intent(CompanionsFragment.ACTION_DELETE_FRIEND);
+                    intentDeleted.putExtra("idFriend", idFriend);
+                    context.sendBroadcast(intentDeleted);
+                }
+            });
+            FirebaseDatabase.getInstance().getReference().child("companions").child(idFriend).child(StaticConfig.UID).removeValue();
+        }
     }
 
 

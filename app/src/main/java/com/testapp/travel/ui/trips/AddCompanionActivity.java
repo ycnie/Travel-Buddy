@@ -1,5 +1,8 @@
 package com.testapp.travel.ui.trips;
 
+import android.app.Fragment;
+import android.app.FragmentTransaction;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.ParcelFormatException;
 import android.support.design.widget.FloatingActionButton;
@@ -21,6 +24,7 @@ import com.testapp.travel.R;
 import com.testapp.travel.data.model.Place;
 import com.testapp.travel.data.model.Trip;
 import com.testapp.travel.data.model.User;
+import com.testapp.travel.ui.userProfile.userProfileFragment;
 import com.testapp.travel.utils.FirebaseUtil;
 import com.testapp.travel.utils.MapUtil;
 import com.google.android.gms.maps.model.LatLng;
@@ -28,6 +32,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
+import com.testapp.travel.utils.StaticConfig;
 import com.testapp.travel.utils.Utility;
 
 import org.lucasr.twowayview.TwoWayView;
@@ -40,7 +45,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class AddCompanionActivity extends AppCompatActivity {
+public class AddCompanionActivity extends AppCompatActivity implements userProfileFragment.AddFriendListener {
     Trip trip;
     private SearchView searchView;
     CompanionListAdapter companionAdapter;
@@ -51,6 +56,8 @@ public class AddCompanionActivity extends AppCompatActivity {
     ArrayList<User> addedCompanionList;
     Set<String> addedUserIds;
     Set<String> userIds;
+    User selectedFromList;
+
 
     private String TAG = "TAG";
 
@@ -174,7 +181,7 @@ public class AddCompanionActivity extends AppCompatActivity {
         lvCompanionList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view,int position, long id)
             {
-                User selectedFromList =(User)lvCompanionList.getItemAtPosition(position);
+                selectedFromList =(User)lvCompanionList.getItemAtPosition(position);
                 boolean added=false;
                 for(User user:addedCompanionList){
                     if(user.displayName.equals(selectedFromList.displayName)){
@@ -184,24 +191,56 @@ public class AddCompanionActivity extends AppCompatActivity {
                 if(added==false) {
                     //TODO:Add trip to collaborator's list
                    // FirebaseUtil.getUsersRef().child(selectedFromList.userId).child("trips").child(trip.getTripId()).setValue(true);
-                    DatabaseReference mUserRef = FirebaseUtil.getCurrentUserRef();
-                    FirebaseUtil.getTripsRef().child(trip.getTripId()).child("companion").child(selectedFromList.userId).setValue(true);
-                    FirebaseUtil.getCompanionsRef().child(selectedFromList.userId).child(mUserRef.getKey()).setValue(true);
-                    FirebaseUtil.getCompanionsRef().child(mUserRef.getKey()).child(selectedFromList.userId).setValue(true);
+//                    DatabaseReference mUserRef = FirebaseUtil.getCurrentUserRef();
+//                    FirebaseUtil.getTripsRef().child(trip.getTripId()).child("companion").child(selectedFromList.userId).setValue(true);
+//                    FirebaseUtil.getCompanionsRef().child(selectedFromList.userId).child(mUserRef.getKey()).setValue(true);
+//                    FirebaseUtil.getCompanionsRef().child(mUserRef.getKey()).child(selectedFromList.userId).setValue(true);
+
 //                    FirebaseUtil.getCompanionsRef().child(selectedFromList.userId).push().setValue(mUserRef.getKey());
 //                    FirebaseUtil.getCompanionsRef().child(mUserRef.getKey()).push().setValue(selectedFromList.userId);
-                    addedCompanionList.add(selectedFromList);
-                    addedUserIds.add(selectedFromList.userId);
-                    companionList.remove(selectedFromList);
-                    addedCompanionImageAdapter.notifyDataSetChanged();
-                    companionAdapter.notifyDataSetChanged();
+                    showUserProfile(selectedFromList.userId,trip.getTripId());
+//                    addedCompanionList.add(selectedFromList);
+//                    addedUserIds.add(selectedFromList.userId);
+//                    companionList.remove(selectedFromList);
+//                    addedCompanionImageAdapter.notifyDataSetChanged();
+//                    companionAdapter.notifyDataSetChanged();
                 }
+
             }});
 
 //        companionAdapter=new CompanionListAdapter(this,companionList);
 //        lvCompanionList.setAdapter(companionAdapter);
 //        Log.i(TAG, "the size of companionAdapter: " + companionAdapter.getCount());
     }
+
+    public void showUserProfile(String userId, String tripId) {
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        Fragment prev = getFragmentManager().findFragmentByTag("userProfile");
+        if (prev != null) {
+            transaction.remove(prev);
+        }
+        transaction.addToBackStack(null);
+        Bundle bundle = new Bundle();
+        bundle.putCharSequence("FriendID", userId);
+        bundle.putString("tripId", tripId);
+        userProfileFragment frag = new userProfileFragment();
+        frag.setArguments(bundle);
+        frag.show(transaction, "userProfile");
+    }
+
+    @Override
+    public void onAddedFriend() {
+        FirebaseUtil.getTripsRef().child(trip.getTripId()).child("companion").child(selectedFromList.userId).setValue(true);
+        addedCompanionList.add(selectedFromList);
+        addedUserIds.add(selectedFromList.userId);
+        companionList.remove(selectedFromList);
+        addedCompanionImageAdapter.notifyDataSetChanged();
+        companionAdapter.notifyDataSetChanged();
+
+    }
+
+
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

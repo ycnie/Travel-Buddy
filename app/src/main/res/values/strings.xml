@@ -110,6 +110,8 @@
     <string name="rating_me">Rate Your Companion</string>
     <string name="rating_star">5.0</string>
     <string name="done">DONE</string>
+    <string name="addFriendToTrip">Add Companion to this trip</string>
+    <string name="title_activity_unnecessary">Map</string>
 
 
 </resources>

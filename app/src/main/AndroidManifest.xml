@@ -75,11 +75,10 @@
                     android:scheme="https" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".ui.companions.ChatActivity"
-            android:parentActivityName=".ui.companions.CompanionsActivity"
-            android:launchMode = "singleTop"/>
-
+        <activity
+            android:name=".ui.companions.ChatActivity"
+            android:launchMode="singleTop"
+            android:parentActivityName=".ui.companions.CompanionsActivity" />
         <activity
             android:name=".ui.files.FilesActivity"
             android:label="@string/title_my_storage"
@@ -210,7 +209,7 @@
             android:name=".ui.trips.AddCompanionActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ui.trips.flightPricesActivity" />
-        <activity android:name=".ui.trips.AirbnbActivity"></activity>
+        <activity android:name=".ui.trips.AirbnbActivity" />
     </application>
 
 </manifest>

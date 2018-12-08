@@ -1,6 +1,7 @@
 package com.testapp.travel.ui.userProfile;
 
 
+import android.app.Activity;
 import android.app.DialogFragment;
 import android.app.FragmentManager;
 import android.os.Bundle;
@@ -20,6 +21,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.testapp.travel.R;
+import com.testapp.travel.ui.trips.AddCompanionActivity;
 import com.testapp.travel.utils.FirebaseUtil;
 import com.testapp.travel.utils.StaticConfig;
 
@@ -40,11 +42,14 @@ public class userProfileFragment extends DialogFragment implements View.OnClickL
     private TextView mTripsCount;
     private TextView mBucketListCount;
     private CharSequence friendId;
+    private String tripId;
     private Button addFriend;
     private Button rateFriend;
+    private Button addFriendToTrip;
     private TextView ratingTxt;
     private Float sumOfRating = 5f;
     private Long numOfPeople = 1L;
+
 
 
     public userProfileFragment() {
@@ -65,9 +70,12 @@ public class userProfileFragment extends DialogFragment implements View.OnClickL
         mTripsCount = (TextView) rootView.findViewById(R.id.userTripCount);
         mBucketListCount = (TextView) rootView.findViewById(R.id.userBucketListCount);
         addFriend = (Button) rootView.findViewById(R.id.add_friend_button);
+        addFriend.setOnClickListener(this);
         rateFriend = (Button) rootView.findViewById(R.id.rating_friend_button);
         ratingTxt = (TextView) rootView.findViewById(R.id.avg_rating);
         rateFriend.setOnClickListener(this);
+        addFriendToTrip = (Button) rootView.findViewById(R.id.add_friend_to_trip_button);
+        addFriendToTrip.setOnClickListener(this);
 
 
         return rootView;
@@ -77,6 +85,7 @@ public class userProfileFragment extends DialogFragment implements View.OnClickL
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         friendId = getArguments().getCharSequence("FriendID");
+        tripId = getArguments().getString("tripId");
         FirebaseDatabase.getInstance().getReference().child("users/" + friendId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -179,9 +188,14 @@ public class userProfileFragment extends DialogFragment implements View.OnClickL
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.child(String.valueOf(friendId)).exists()) {
                     addFriend.setVisibility(View.GONE);
+                    Activity ac = getActivity();
+                    if(ac instanceof AddFriendListener) {
+                        addFriendToTrip.setVisibility(View.VISIBLE);
+                    }
                 }
                 else {
                     rateFriend.setVisibility(View.GONE);
+                    addFriendToTrip.setVisibility(View.GONE);
                 }
             }
 
@@ -220,6 +234,9 @@ public class userProfileFragment extends DialogFragment implements View.OnClickL
                break;
             case R.id.add_friend_button:
                 addingFriend();
+                break;
+            case R.id.add_friend_to_trip_button:
+                addFriendToTrip();
                 break;
         }
     }
@@ -268,8 +285,25 @@ public class userProfileFragment extends DialogFragment implements View.OnClickL
     }
 
     public void addingFriend() {
+        DatabaseReference mUserRef = FirebaseUtil.getCurrentUserRef();
+        FirebaseUtil.getCompanionsRef().child(String.valueOf(friendId)).child(StaticConfig.UID).setValue(true);
+        FirebaseUtil.getCompanionsRef().child(StaticConfig.UID).child(String.valueOf(friendId)).setValue(true);
+        AddFriendListener ac = (AddFriendListener)getActivity();
+        ac.onAddedFriend();
+        dismiss();
 
     }
+
+    public void addFriendToTrip() {
+        AddFriendListener ac = (AddFriendListener)getActivity();
+        ac.onAddedFriend();
+        dismiss();
+    }
+
+    public interface AddFriendListener {
+        void onAddedFriend();
+    }
+
 
 
 

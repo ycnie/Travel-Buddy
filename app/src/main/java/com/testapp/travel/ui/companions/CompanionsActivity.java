@@ -1,5 +1,6 @@
 package com.testapp.travel.ui.companions;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -7,8 +8,11 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -30,6 +34,7 @@ public class CompanionsActivity extends SingleFragmentActivity implements Compan
 
     private static final int REQUEST_INVITE = 0;
     public FloatingActionButton mFab;
+    public CompanionsFragment fragment;
 
     public static Intent newIntent(Context packageContext) {
         Intent intent = new Intent(packageContext, CompanionsActivity.class);
@@ -51,6 +56,7 @@ public class CompanionsActivity extends SingleFragmentActivity implements Compan
         super.onCreate(savedInstanceState);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+
         mFab = (FloatingActionButton) findViewById(R.id.fab);
         mFab.setVisibility(View.VISIBLE);
         mFab.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_account_plus));
@@ -67,6 +73,12 @@ public class CompanionsActivity extends SingleFragmentActivity implements Compan
                 startActivityForResult(intent, REQUEST_INVITE);
             }
         });
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+       FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragment = new CompanionsFragment();
+        fragmentTransaction.add(R.id.fragment_container, fragment);
+        fragmentTransaction.commit();
     }
 
     @Override
@@ -159,7 +171,7 @@ public class CompanionsActivity extends SingleFragmentActivity implements Compan
     }
 
     private void showMessage(String msg) {
-        Snackbar.make(mActivityFragment.getView(), msg, Snackbar.LENGTH_LONG).show();
+        Snackbar.make(fragment.getView(), msg, Snackbar.LENGTH_LONG).show();
     }
 
     @Override

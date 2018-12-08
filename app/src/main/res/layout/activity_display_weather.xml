@@ -8,6 +8,22 @@
     android:fitsSystemWindows="true"
     android:orientation="vertical">
 
+    <!--
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+    </android.support.design.widget.AppBarLayout>
+    -->
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -46,7 +62,6 @@
                 android:gravity="right|center_horizontal"
                 android:text="@string/wth_high_label"
                 android:textColor="@color/wthOrange"
-
                 android:textStyle="bold"
                 tools:textSize="18sp" />
 
@@ -70,7 +85,6 @@
                 android:paddingLeft="5dp"
                 android:text="@string/wth_low_label"
                 android:textColor="@color/wthOrange"
-
                 android:textStyle="bold"
                 tools:textSize="18sp" />
 
@@ -82,7 +96,6 @@
                 android:gravity="left|center_horizontal"
                 android:text="0"
                 android:textColor="@color/color_white"
-
                 tools:textSize="18sp" />
         </LinearLayout>
 
@@ -97,7 +110,6 @@
             android:paddingBottom="5dp"
             android:text="Your trip is 7 days"
             android:textColor="@color/color_white"
-
             tools:textSize="24sp" />
 
         <LinearLayout
@@ -152,7 +164,6 @@
                 android:gravity="center_vertical|center_horizontal"
                 android:text="x1"
                 android:textColor="@color/color_white"
-
                 android:textStyle="bold"
                 tools:textSize="24sp" />
 
@@ -174,7 +185,6 @@
                 android:layout_weight="1"
                 android:gravity="center_vertical|center_horizontal"
                 android:text="x4"
-
                 android:textColor="@color/color_white"
 
                 android:textStyle="bold"
@@ -203,8 +213,6 @@
             android:background="@color/wthOrange"
             android:text="@string/wth_more_info"
             android:textColor="@color/color_white" />
-
-
     </LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>

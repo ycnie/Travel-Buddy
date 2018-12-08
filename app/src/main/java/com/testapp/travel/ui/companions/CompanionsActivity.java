@@ -34,7 +34,7 @@ public class CompanionsActivity extends SingleFragmentActivity implements Compan
 
     private static final int REQUEST_INVITE = 0;
     public FloatingActionButton mFab;
-    public CompanionsFragment fragment;
+    //public CompanionsFragment fragment;
 
     public static Intent newIntent(Context packageContext) {
         Intent intent = new Intent(packageContext, CompanionsActivity.class);
@@ -74,11 +74,6 @@ public class CompanionsActivity extends SingleFragmentActivity implements Compan
             }
         });
 
-        FragmentManager fragmentManager = getSupportFragmentManager();
-       FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragment = new CompanionsFragment();
-        fragmentTransaction.add(R.id.fragment_container, fragment);
-        fragmentTransaction.commit();
     }
 
     @Override
@@ -171,7 +166,7 @@ public class CompanionsActivity extends SingleFragmentActivity implements Compan
     }
 
     private void showMessage(String msg) {
-        Snackbar.make(fragment.getView(), msg, Snackbar.LENGTH_LONG).show();
+        Snackbar.make(mActivityFragment.getView(), msg, Snackbar.LENGTH_LONG).show();
     }
 
     @Override

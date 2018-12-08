@@ -24,9 +24,17 @@ import com.testapp.travel.R;
 import com.testapp.travel.data.model.Trip;
 import com.testapp.travel.utils.FirebaseUtil;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import org.parceler.Parcels;
 
+import java.io.IOException;
+
 public class DisplayWeatherActivity extends AppCompatActivity {
+
+    // REMOVE!!
+    private final String DarkSkyAPIKey = "9aa1d999aa51aa7851111119a32ecd62";
 
     // UI
     private TextView tvCityName;
@@ -40,6 +48,7 @@ public class DisplayWeatherActivity extends AppCompatActivity {
     private Button btnMoreInfo;
 
     // Info
+    String TAG = "WTH";
     private Trip trip;
     private String beginDateStr;
     private long beginDateUnix;
@@ -52,6 +61,9 @@ public class DisplayWeatherActivity extends AppCompatActivity {
     private double tripLowTemp;
     private double tripHighTemp;
     private boolean rain;
+    private String weather[];
+    private int temps[][];
+    private String tempJSON;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +91,8 @@ public class DisplayWeatherActivity extends AppCompatActivity {
         destinationStr = trip.getSearchDestination().getName();
         latitudeStr = trip.getSearchDestination().getLatitude();
         longitudeStr = trip.getSearchDestination().getLongitude();
+        //TODO:weather = new String[numOfDays];
+        //TODO:temps = new int[numOfDays][2];
 
         // Get information about the trip
         datesToUnixTimestamp();
@@ -87,6 +101,8 @@ public class DisplayWeatherActivity extends AppCompatActivity {
         // Setting UI elements
         tvCityName.setText(destinationStr);
         tvTripDays.setText("Your trip is " + Integer.toString(numOfDays) + " days");
+        //tvHighTemp.setText(Double.toString(round(tripHighTemp, 2)));
+        //tvLowTemp.setText(Double.toString(round(tripLowTemp, 2)));
 
         // More information button
         btnMoreInfo.setOnClickListener(new View.OnClickListener() {
@@ -102,8 +118,35 @@ public class DisplayWeatherActivity extends AppCompatActivity {
                 customTabsIntent.launchUrl(getBaseContext(), Uri.parse(url));
             }
         });
-
     }
+
+
+    /*
+     * parseJSONString()
+     * Parses the JSON strings in the global variable weather for the high and low temperatures of
+     * the day, and saves them in the global variable temps in the format [dayNum][0 = low temp; 1
+     * = high temp]
+     */
+    private void parseJSONString() {
+        for (int i = 0; i < numOfDays; i++) {
+            String temp = weather[i].split("\"apparentTemperatureLow\": ")[1];
+            temp = temp.split(",")[0];
+            temps[i][0] = Integer.parseInt((weather[i].split("\"apparentTemperatureLow\": "))[1].split(",")[0]);
+            temps[i][1] = Integer.parseInt((weather[i].split("\"apparentTemperatureHigh\": "))[1].split(",")[0]);
+            if (i == 0) {
+                tripLowTemp = temps[i][0];
+                tripHighTemp = temps[i][1];
+            } else {
+                if (temps[i][0] < tripLowTemp) {
+                    tripLowTemp = temps[i][0];
+                }
+                if (temps[i][1] > tripHighTemp) {
+                    tripHighTemp = temps[i][1];
+                }
+            }
+        }
+    }
+
     /*
      * dateSplitter(String date)
      * @params:     date: the date in string type in the format MM-DD-YYYY
@@ -115,7 +158,8 @@ public class DisplayWeatherActivity extends AppCompatActivity {
 
     /*
      * datesToUnixTimestamp()
-     * Converts beginDateStr and endDateStr Stings to unix timestamps of type long
+     * Converts beginDateStr and endDateStr Stings to unix timestamps of type long, in the timezone
+     * of the destination
      */
     private void datesToUnixTimestamp() {
         String splitStartDate[] = dateSplitter(beginDateStr);
@@ -133,7 +177,6 @@ public class DisplayWeatherActivity extends AppCompatActivity {
         int newEndYear = Integer.parseInt(splitEndDate[2]) - 1;
         endDateUnix = (newEndYear * 31556926) + (newEndMonth * 2629743) + (newEndDay * 86400);
     }
-
     /*
      * getNumDays()
      * Uses beginDate and endDate to calculate the total number of days in the trip and saves the
@@ -144,5 +187,17 @@ public class DisplayWeatherActivity extends AppCompatActivity {
         for (long currentUnix = beginDateUnix; currentUnix <= endDateUnix; currentUnix += 86400) {
             numOfDays++;
         }
+    }
+
+    /*
+     * round(double value, int precision)
+     * Rounds a number to a certain number of decimal places
+     * @params:     value: the value to be rounded
+     *              precision: The number of decimal places to round to
+     * @returns:    The rounded double
+     */
+    private static double round(double value, int precision) {
+        int scale = (int) Math.pow(10, precision);
+        return (double) Math.round(value * scale) / scale;
     }
 }

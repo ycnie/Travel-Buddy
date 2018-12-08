@@ -27,6 +27,9 @@
     <color name="grey_500">#a4a4a4</color>
     <color name="grey_800">#212121</color>
 
+    <!-- weather -->
+    <color name="wthOrange">#FFA000</color>
+
 
 
 

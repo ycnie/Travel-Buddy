@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:fitsSystemWindows="true">
-
+    android:background="@color/colorPrimaryDark"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+    <!--
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -20,7 +21,7 @@
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
     </android.support.design.widget.AppBarLayout>
-
+    -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -31,10 +32,11 @@
             android:id="@+id/tvCityName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
+            android:layout_weight="1"
             android:gravity="center"
             android:padding="5dp"
             android:text="New York City"
+            android:textColor="@color/color_white"
             android:textSize="30sp"
             android:textStyle="bold" />
 
@@ -56,6 +58,7 @@
                 android:layout_weight="1"
                 android:gravity="right|center_horizontal"
                 android:text="@string/wth_high_label"
+                android:textColor="@color/wthOrange"
                 android:textStyle="bold"
                 tools:textSize="18sp" />
 
@@ -67,6 +70,7 @@
                 android:gravity="left|center_horizontal"
                 android:paddingRight="5dp"
                 android:text="100"
+                android:textColor="@color/color_white"
                 tools:textSize="18sp" />
 
             <TextView
@@ -77,6 +81,7 @@
                 android:gravity="right|center_horizontal"
                 android:paddingLeft="5dp"
                 android:text="@string/wth_low_label"
+                android:textColor="@color/wthOrange"
                 android:textStyle="bold"
                 tools:textSize="18sp" />
 
@@ -87,6 +92,7 @@
                 android:layout_weight="1"
                 android:gravity="left|center_horizontal"
                 android:text="0"
+                android:textColor="@color/color_white"
                 tools:textSize="18sp" />
         </LinearLayout>
 
@@ -100,6 +106,7 @@
             android:paddingRight="5dp"
             android:paddingBottom="5dp"
             android:text="Your trip is 7 days"
+            android:textColor="@color/color_white"
             tools:textSize="24sp" />
 
         <LinearLayout
@@ -153,6 +160,7 @@
                 android:layout_weight="1"
                 android:gravity="center_vertical|center_horizontal"
                 android:text="x1"
+                android:textColor="@color/color_white"
                 android:textStyle="bold"
                 tools:textSize="24sp" />
 
@@ -163,6 +171,7 @@
                 android:layout_weight="1"
                 android:gravity="center_vertical|center_horizontal"
                 android:text="x2"
+                android:textColor="@color/color_white"
                 android:textStyle="bold"
                 tools:textSize="24sp" />
 
@@ -173,6 +182,7 @@
                 android:layout_weight="1"
                 android:gravity="center_vertical|center_horizontal"
                 android:text="x4"
+                android:textColor="@color/color_white"
                 android:textStyle="bold"
                 tools:textSize="24sp" />
 
@@ -188,6 +198,7 @@
             android:paddingRight="5dp"
             android:paddingBottom="5dp"
             android:text="You should pack for 1 warm days, 2 moderate days, and 4 cold days"
+            android:textColor="@color/color_white"
             tools:textSize="24sp" />
 
         <Button
@@ -195,7 +206,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/wth_more_info" />
+            android:background="@color/wthOrange"
+            android:text="@string/wth_more_info"
+            android:textColor="@color/color_white" />
 
     </LinearLayout>
 

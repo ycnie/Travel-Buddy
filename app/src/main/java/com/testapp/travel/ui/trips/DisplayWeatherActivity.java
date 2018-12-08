@@ -1,10 +1,16 @@
 package com.testapp.travel.ui.trips;
 
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.customtabs.CustomTabsIntent;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -35,16 +41,19 @@ public class DisplayWeatherActivity extends AppCompatActivity {
 
     // Info
     Trip trip;
-
+    String beginDateStr;
+    String endDateStr;
+    String destinationStr;
+    Double latitudeStr;
+    Double longitudeStr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_weather);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("Weather");
+        //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        //setSupportActionBar(toolbar);
+        //getSupportActionBar().setTitle("Weather");
 
         // UI
         tvCityName = (TextView) findViewById(R.id.tvCityName);
@@ -60,100 +69,31 @@ public class DisplayWeatherActivity extends AppCompatActivity {
         trip = new Trip();
         trip = (Trip) Parcels.unwrap(getIntent()
                 .getParcelableExtra("Trip"));
-        /*
-        getDataFromDatabase(trip);
 
-        tvCity.setText(cityName);
+        // Get information from trip
+        beginDateStr = trip.getBeginDate();
+        endDateStr = trip.getEndDate();
+        destinationStr = trip.getSearchDestination().getName();
+        latitudeStr = trip.getSearchDestination().getLatitude();
+        longitudeStr = trip.getSearchDestination().getLongitude();
 
-        Toast.makeText(this, startDateSt, Toast.LENGTH_SHORT).show();
-        */
+        // Setting UI elements
+        tvCityName.setText(destinationStr);
+
+        // More information button
+        btnMoreInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // [0] = month; [1] = day; [2] = year
+                String dateSplit[] = beginDateStr.split("-");
+                String dsDate = dateSplit[2] + "-" + dateSplit[0] + "-" + dateSplit[1];
+                String url = "https://darksky.net/details/" + Double.toString(latitudeStr) + "," + Double.toString(longitudeStr) + "/" + dsDate + "/us12/en";
+                CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
+                builder.setToolbarColor(ContextCompat.getColor(getBaseContext(), R.color.colorPrimary));
+                CustomTabsIntent customTabsIntent = builder.build();
+                customTabsIntent.launchUrl(getBaseContext(), Uri.parse(url));
+            }
+        });
+
     }
 }
-/*
-    public void getDataFromDatabase(Trip trip) {
-        // Getting database references
-        DatabaseReference mBeginDateReference= FirebaseUtil.getTripsRef().child(trip.getTripId()).child("beginDate");
-        DatabaseReference mEndDateReference= FirebaseUtil.getTripsRef().child(trip.getTripId()).child("endDate");
-        DatabaseReference mCityNameReference= FirebaseUtil.getTripsRef().child(trip.getTripId()).child("searchDestination").child("name");
-
-        // Attach a listener to read the data at our posts references
-        // Start date
-        mBeginDateReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot snapshot) {
-                try{
-                    if (snapshot.getValue() != null) {
-                        try {
-                            startDateSt = (String) snapshot.getValue();
-                            Log.e("FB", "" + snapshot.getValue());
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    } else {
-                        Log.e("FB", "it's null");
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError firebaseError) {
-                Log.e("onCancelled", " cancelled");
-            }
-        });
-
-        // End Date
-        mEndDateReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot snapshot) {
-                try{
-                    if (snapshot.getValue() != null) {
-                        try {
-                            endDateSt = (String) snapshot.getValue();
-                            Log.e("FB", "" + snapshot.getValue());
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    } else {
-                        Log.e("FB", "it's null");
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError firebaseError) {
-                Log.e("onCancelled", " cancelled");
-            }
-        });
-
-        // City Name
-        mCityNameReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot snapshot) {
-                try{
-                    if (snapshot.getValue() != null) {
-                        try {
-                            cityName = (String) snapshot.getValue();
-                            Log.e("FB", "" + snapshot.getValue());
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    } else {
-                        Log.e("FB", "it's null");
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError firebaseError) {
-                Log.e("onCancelled", " cancelled");
-            }
-        });
-    }
-}
-*/

@@ -205,6 +205,10 @@
             android:name=".ui.trips.DisplayPhotosActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
+            android:name=".ui.trips.DisplayWeatherActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:parentActivityName=".ui.trips.EditTripActivity" />
+        <activity
             android:name=".ui.trips.AddCompanionActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ui.trips.flightPricesActivity" />

@@ -1,177 +1,289 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
     android:layout_height="match_parent">
-
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="220dp"
-        android:alpha="0.9"
-        android:background="@drawable/header"
-        android:paddingBottom="8dp"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingTop="@dimen/activity_vertical_margin"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark">
-
-        <ImageView
-            android:id="@+id/rating_star"
-            android:layout_width="wrap_content"
-            android:layout_height="25dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginStart="143dp"
-            android:src="@drawable/round_star"
-            />
-
-        <TextView
-            android:id="@+id/avg_rating"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@id/rating_star"
-            android:layout_marginTop="12dp"
-            android:layout_toRightOf="@id/rating_star"
-            android:text="@string/rating_star"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/photo_url"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_alignParentTop="true"
-            android:layout_centerInParent="true"
-            android:paddingTop="@dimen/nav_header_vertical_spacing"
-            app:civ_border_color="@color/color_white"
-            app:civ_border_width="2dp" />
-
-        <TextView
-            android:id="@+id/user_name"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:gravity="center"
-            android:paddingTop="8dp"
-            android:textSize="22sp"
-            android:textStyle="bold"
-            tools:text="Bob Mail" />
+            android:layout_height="220dp"
+            android:alpha="0.9"
+            android:background="@drawable/header"
+            android:paddingBottom="8dp"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/activity_vertical_margin"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
+            <ImageView
+                android:id="@+id/rating_star"
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:layout_marginStart="143dp"
+                android:layout_marginLeft="143dp"
+                android:src="@drawable/round_star"
+                />
+
+            <TextView
+                android:id="@+id/avg_rating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/rating_star"
+                android:layout_marginTop="12dp"
+                android:layout_toRightOf="@id/rating_star"
+                android:text="@string/rating_star"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/photo_url"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerInParent="true"
+                android:paddingTop="@dimen/nav_header_vertical_spacing"
+                app:civ_border_color="@color/color_white"
+                app:civ_border_width="2dp" />
+
+            <TextView
+                android:id="@+id/user_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:paddingTop="8dp"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                tools:text="Bob Mail" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="25dp"
+                android:orientation="horizontal"
+                android:paddingTop="8dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/userFriendsText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Friends"
+                        android:textStyle="bold"
+
+                        />
+
+                    <TextView
+                        android:id="@+id/userFriendsCount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="20"
+                        android:textStyle="bold"
+
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tripsText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Trips"
+                        android:textStyle="bold"
+
+                        />
+
+                    <TextView
+                        android:id="@+id/userTripCount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="30"
+                        android:textStyle="bold"
+
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/userBucketListText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="BucketList"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/userBucketListCount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="20"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </LinearLayout>
+
+        </RelativeLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="25dp"
-            android:orientation="horizontal"
-            android:paddingTop="8dp">
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            >
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center_horizontal"
-                android:orientation="vertical">
+                android:layout_marginTop="25dp"
+                android:orientation="horizontal"
+                >
+
+                <ImageView
+                    android:id="@+id/ic_gender"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:src="@drawable/ic_gender"
+                    android:layout_weight="1"/>
 
                 <TextView
-                    android:id="@+id/userFriendsText"
+                    android:id="@+id/gender"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Friends"
+                    android:layout_gravity="center_vertical"
+                    android:text="female"
                     android:textStyle="bold"
+                    android:layout_weight="1"/>
 
-                    />
-
-                <TextView
-                    android:id="@+id/userFriendsCount"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="20"
-                    android:textStyle="bold"
-
-                    />
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_marginTop="25dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center_horizontal"
-                android:orientation="vertical">
+                android:orientation="horizontal"
+                >
 
-                <TextView
-                    android:id="@+id/tripsText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Trips"
-                    android:textStyle="bold"
-
+                <ImageView
+                    android:id="@+id/ic_language"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:src="@drawable/ic_language"
+                    android:layout_weight="1"
                     />
 
                 <TextView
-                    android:id="@+id/userTripCount"
+                    android:id="@+id/language"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="30"
+                    android:layout_gravity="center_vertical"
+                    android:text="English"
                     android:textStyle="bold"
-
-                    />
+                    android:layout_weight="1"/>
             </LinearLayout>
 
             <LinearLayout
+                android:layout_marginTop="25dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/ic_location"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:src="@drawable/ic_location_on_black_24dp"
+                    android:layout_weight="1"/>
+                <TextView
+                    android:id="@+id/location"
+                    android:textStyle="bold"
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Address"
+                    android:layout_weight="1"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_marginTop="25dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/ic_work"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:src="@drawable/ic_work"
+                    android:layout_weight="1"/>
+                <TextView
+                    android:id="@+id/work"
+                    android:textStyle="bold"
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="work"
+                    android:layout_weight="1"/>
+            </LinearLayout>
+            <Button
+                android:id="@+id/add_friend_button"
+                android:textColor="#fff"
+                android:background="@drawable/btnstyle"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center_horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center_horizontal"
-                android:orientation="vertical">
+                android:text="@string/add_friend" />
 
-                <TextView
-                    android:id="@+id/userBucketListText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="BucketList"
-                    android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/userBucketListCount"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="20"
-                    android:textStyle="bold" />
-            </LinearLayout>
+            <Button
+                android:id="@+id/rating_friend_button"
+                android:textColor="#fff"
+                android:background="@drawable/btnstyle"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/rating_me" />
+
+            <Button
+                android:id="@+id/add_friend_to_trip_button"
+                android:textColor="#fff"
+                android:background="@drawable/btnstyle"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:text="@string/addFriendToTrip" />
+
         </LinearLayout>
 
-
-    </RelativeLayout>
-
-    <Button
-        android:id="@+id/add_friend_button"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:text="@string/add_friend" />
+    </LinearLayout>
 
 
-    <Button
-        android:id="@+id/rating_friend_button"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:text="@string/rating_me" />
 
-    <Button
-        android:id="@+id/add_friend_to_trip_button"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:visibility="gone"
-        android:text="@string/addFriendToTrip" />
 
-</LinearLayout>
+
+</ScrollView>

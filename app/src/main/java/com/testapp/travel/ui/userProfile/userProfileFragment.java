@@ -4,14 +4,20 @@ package com.testapp.travel.ui.userProfile;
 import android.app.Activity;
 import android.app.DialogFragment;
 import android.app.FragmentManager;
+import android.graphics.Point;
 import android.os.Bundle;
 
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.Display;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -47,6 +53,14 @@ public class userProfileFragment extends DialogFragment implements View.OnClickL
     private Button rateFriend;
     private Button addFriendToTrip;
     private TextView ratingTxt;
+    private TextView gender;
+    private TextView address;
+    private TextView language;
+    private TextView work;
+    private ImageView ic_gender;
+    private ImageView ic_location;
+    private ImageView ic_language;
+    private ImageView ic_work;
     private Float sumOfRating = 5f;
     private Long numOfPeople = 1L;
 
@@ -76,6 +90,14 @@ public class userProfileFragment extends DialogFragment implements View.OnClickL
         rateFriend.setOnClickListener(this);
         addFriendToTrip = (Button) rootView.findViewById(R.id.add_friend_to_trip_button);
         addFriendToTrip.setOnClickListener(this);
+        gender = (TextView) rootView.findViewById(R.id.gender);
+        address =(TextView) rootView.findViewById(R.id.location);
+        language = (TextView) rootView.findViewById(R.id.language);
+        work = (TextView) rootView.findViewById(R.id.work);
+        ic_gender = (ImageView) rootView.findViewById(R.id.ic_gender);
+        ic_language = (ImageView) rootView.findViewById(R.id.ic_language);
+        ic_location = (ImageView) rootView.findViewById(R.id.ic_location);
+        ic_work = (ImageView) rootView.findViewById(R.id.ic_work);
 
 
         return rootView;
@@ -97,6 +119,37 @@ public class userProfileFragment extends DialogFragment implements View.OnClickL
                         Glide.with(getActivity())
                                 .load((String) mapUserInfo.get("profileImageUrl"))
                                 .into(photoUrl);
+                    }
+                    if(mapUserInfo.containsKey("gender")) {
+                        gender.setText((String)mapUserInfo.get("gender"));
+
+
+                    }
+                    else{
+                        gender.setVisibility(View.GONE);
+                        ic_gender.setVisibility(View.GONE);
+                    }
+                    if(mapUserInfo.containsKey("address")) {
+                        address.setText((String)mapUserInfo.get("address"));
+
+                    }
+                    else {
+                        address.setVisibility(View.GONE);
+                        ic_location.setVisibility(View.GONE);
+                    }
+                    if(mapUserInfo.containsKey("language")) {
+                        language.setText((String)mapUserInfo.get("language"));
+                    }
+                    else {
+                        language.setVisibility(View.GONE);
+                        ic_language.setVisibility(View.GONE);
+                    }
+                    if(mapUserInfo.containsKey("work")) {
+                        work.setText((String)mapUserInfo.get("work"));
+                    }
+                    else {
+                        work.setVisibility(View.GONE);
+                        ic_work.setVisibility(View.GONE);
                     }
 
 
@@ -181,6 +234,7 @@ public class userProfileFragment extends DialogFragment implements View.OnClickL
             }
         });
 
+
         //check if is already companion
         //https://stackoverflow.com/questions/38948905/how-can-i-check-if-a-value-exists-already-in-a-firebase-data-class-android
         FirebaseUtil.getCompanionsRef().child(StaticConfig.UID).addListenerForSingleValueEvent(new ValueEventListener(){
@@ -191,6 +245,7 @@ public class userProfileFragment extends DialogFragment implements View.OnClickL
                     Activity ac = getActivity();
                     if(ac instanceof AddFriendListener) {
                         addFriendToTrip.setVisibility(View.VISIBLE);
+                        rateFriend.setVisibility(View.GONE);
                     }
                 }
                 else {
@@ -303,6 +358,7 @@ public class userProfileFragment extends DialogFragment implements View.OnClickL
     public interface AddFriendListener {
         void onAddedFriend();
     }
+
 
 
 

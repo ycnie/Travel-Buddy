@@ -1,5 +1,6 @@
 package com.testapp.travel.ui;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.testapp.travel.R;
 import com.testapp.travel.data.model.User;
+import com.testapp.travel.ui.files.FilesActivity;
 import com.testapp.travel.ui.navigation.DrawerItemSelectedListener;
 import com.testapp.travel.utils.FirebaseUtil;
 import com.testapp.travel.utils.GoogleUtil;
@@ -143,6 +145,14 @@ public class MainActivity extends SingleFragmentActivity implements DrawerItemSe
         mEmail = (TextView) header.findViewById(R.id.email);
         mDisplayName = (TextView) header.findViewById(R.id.userDisplayName);
         mProfileImageView = (CircleImageView) header.findViewById(R.id.profileImageView);
+        mProfileImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = FilesActivity.newIntent(getApplicationContext());
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                getApplicationContext().startActivity(intent);
+            }
+        });
         mFriendsCount = (TextView) header.findViewById(R.id.userFriendsCount);
         mTripsCount = (TextView) header.findViewById(R.id.userTripCount);
         mBucketListCount = (TextView) header.findViewById(R.id.userBucketListCount);

@@ -112,6 +112,13 @@
     <string name="done">DONE</string>
     <string name="addFriendToTrip">Add Companion to this trip</string>
     <string name="title_activity_unnecessary">Map</string>
+    <string name="save">Save</string>
+    <string name="male">male</string>
+    <string name="female">female</string>
+    <string name="other">other</string>
+    <string name="Gender">Gender</string>
+    <string name="location">Location</string>
+    <string name="work">Work</string>
 
 
 </resources>

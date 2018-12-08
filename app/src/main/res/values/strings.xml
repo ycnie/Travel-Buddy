@@ -68,7 +68,7 @@
     <string name="send_failed">Sending invitations failed</string>
 
 
-    //Strings for Places API
+    <!--//Strings for Places API-->
     <string name="add_bucketlist">Added to BucketList</string>
     <string name="add_likedlist">Added to LikedList</string>
     <string name="add_trip">Added to Trip</string>
@@ -90,7 +90,7 @@
     <string name="title_activity_add_companion">AddCompanionActivity</string>
 
 
-    //chat
+    <!--//chat-->
     <string name="chat">Chat</string>
     <string name="send">Send</string>
     <string name="friend_list">Friend List</string>
@@ -105,7 +105,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
-    //user_profile
+    <!--//user_profile-->
     <string name="add_friend">Add</string>
     <string name="rating_me">Rate Your Companion</string>
     <string name="rating_star">5.0</string>
@@ -119,6 +119,7 @@
     <string name="Gender">Gender</string>
     <string name="location">Location</string>
     <string name="work">Work</string>
+    <string name="title_activity_maps_places_visited">MapsPlacesVisited</string>
 
 
 </resources>

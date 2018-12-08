@@ -33,7 +33,7 @@
             android:value="@integer/google_play_services_version" />
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyAYI-zFhy2HyfKH-5JWbzj-qYTPHA0z-TQ" />
+            android:value="AIzaSyDYLmsQluvlph5aE3C9pFHCkm3SdlXRzxA" />
 
         <activity
             android:name=".ui.MainActivity"
@@ -210,6 +210,10 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ui.trips.flightPricesActivity" />
         <activity android:name=".ui.trips.AirbnbActivity" />
+        <activity
+            android:name=".ui.places.MapsPlacesVisited"
+            android:label="@string/title_activity_maps_places_visited"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

@@ -139,9 +139,9 @@ public class DestinationsAdapter extends RecyclerView.Adapter<DestinationsAdapte
                     break;*/
 
                 case R.id.item_image:
-                    Intent intent=new Intent(mContext,AddTripActivity.class);
-                    intent.putExtra("SearchedLocation", Parcels.wrap(place));
-                    mContext.startActivity(intent);
+//                    Intent intent=new Intent(mContext,AddTripActivity.class);
+//                    intent.putExtra("SearchedLocation", Parcels.wrap(place));
+//                    mContext.startActivity(intent);
                     break;
 
             }

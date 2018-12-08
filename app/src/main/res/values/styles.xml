@@ -60,7 +60,8 @@
 
 
     <style name="Preference" parent="AppTheme.NoActionBar"></style>
-    <style name ="CollapsingBarText" parent="TextAppearance.AppCompat.Title">
+
+    <style name="CollapsingBarText" parent="TextAppearance.AppCompat.Title">
         <item name="android:textSize">30sp</item>
         <item name="android:textStyle">bold</item>
     </style>

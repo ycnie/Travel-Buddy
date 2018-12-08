@@ -12,6 +12,7 @@ import com.testapp.travel.R;
 import com.testapp.travel.ui.companions.CompanionsActivity;
 import com.testapp.travel.ui.explore.ExploreFragment;
 import com.testapp.travel.ui.files.FilesActivity;
+import com.testapp.travel.ui.places.MapsPlacesVisited;
 import com.testapp.travel.ui.places.MyPlacesActivity;
 import com.testapp.travel.ui.settings.SettingsActivity;
 import com.testapp.travel.ui.timeline.TimelineActivity;
@@ -26,6 +27,7 @@ import com.testapp.travel.ui.trips.UpcomingFragment;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.firebase.auth.FirebaseAuth;
+import com.testapp.travel.ui.trips.flightPricesActivity;
 
 public class DrawerItemSelectedListener implements
         NavigationView.OnNavigationItemSelectedListener {
@@ -75,9 +77,9 @@ public class DrawerItemSelectedListener implements
 
 
             case R.id.nav_places_visited:
-                intent = MyPlacesActivity.newIntent(mContext);
-                intent.putExtra(MyPlacesActivity.EXTRA_ITEMTYPE,"visited");
-                mContext.startActivity(intent);
+                Intent intentFlight=new Intent(mContext, MapsPlacesVisited.class);
+                mContext.startActivity(intentFlight);
+//                mContext.startActivity(intent);
            //     fragmentClass = VisitedFragment.class;
                 break;
 

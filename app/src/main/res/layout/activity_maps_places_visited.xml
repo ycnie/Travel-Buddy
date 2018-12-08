@@ -28,7 +28,7 @@
             android:layout_height="15dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
-            android:src="@drawable/ic_send"/>
+            android:src="@drawable/ic_search"/>
 
         <EditText
             android:id="@+id/input_search"
@@ -53,7 +53,7 @@
         android:layout_alignParentEnd="true"
         android:layout_gravity="end|bottom"
         android:layout_margin="15dp"
-        android:src="@drawable/ic_action_bucket"
+        android:src="@drawable/addmark"
         android:layout_alignParentRight="true" />
     <!--
     <android.support.design.widget.FloatingActionButton

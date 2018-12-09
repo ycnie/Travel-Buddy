@@ -100,7 +100,10 @@
     <string name="wth_low_label">"Low: "</string>
     <string name="wth_more_info">More Information</string>
     <string name="darksky_spi_key">9aa1d999aa51aa7851111119a32ecd62</string>
+<<<<<<< HEAD
 
+=======
+>>>>>>> c2bac28... Moved DarkSky API key to strings.xml
 
 
     <!-- TODO: Remove or change this placeholder text -->

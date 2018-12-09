@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true">
@@ -75,6 +76,13 @@
                     android:textStyle="bold"
                     android:layout_weight="1"/>
 
+                <ImageView
+                    android:id="@+id/gender_ic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/ic_edit" />
+
             </LinearLayout>
 
             <LinearLayout
@@ -100,6 +108,13 @@
                     android:text="English"
                     android:textStyle="bold"
                     android:layout_weight="1"/>
+
+                <ImageView
+                    android:id="@+id/language_ic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/ic_edit" />
             </LinearLayout>
 
             <LinearLayout
@@ -121,6 +136,13 @@
                     android:layout_height="wrap_content"
                     android:text="Address"
                     android:layout_weight="1"/>
+
+                <ImageView
+                    android:id="@+id/location_ic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/ic_edit" />
             </LinearLayout>
             <LinearLayout
                 android:layout_marginTop="25dp"
@@ -141,6 +163,13 @@
                     android:layout_height="wrap_content"
                     android:text="work"
                     android:layout_weight="1"/>
+
+                <ImageView
+                    android:id="@+id/work_ic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/ic_edit" />
             </LinearLayout>
         </LinearLayout>
 

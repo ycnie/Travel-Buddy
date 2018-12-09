@@ -6,7 +6,7 @@ import java.util.List;
 public class Airport {
     //    public static String[] placesName = {"San Francisco", "New York"};
 //    public static String[]  placesAirport = {"sfoa", "nyca"};
-    public static String[] placesName = {"San Francisco", "New York", "Seattle", "Sydney", "Agra", "Abu Dhabi", "Toronto", "Paris", "Barcelona", "Chicago", "Shangai", "Montreal", "Kaula Lampur"};
+    public static String[] placesName = {"San Francisco", "New York", "Seattle", "Sydney", "Agra", "Abu Dhabi", "Toronto", "Paris", "Barcelona", "Chicago", "Shanghai", "Montreal", "Kaula Lampur"};
     public static String[] placesAirport = {"sfoa", "nyca", "seaa", "syda", "agr", "auha", "ytoa", "pari", "bcn", "chia", "csha", "ymqa", "kul"};
 
 

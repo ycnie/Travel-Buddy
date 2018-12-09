@@ -2,10 +2,12 @@ package com.testapp.travel.ui.files;
 
 import android.app.FragmentManager;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -37,6 +39,10 @@ public class FilesFragment extends Fragment implements selectGenderFragment.onCl
     private TextView address;
     private TextView language;
     private TextView work;
+    private ImageView editGender;
+    private  ImageView editAddress;
+    private ImageView editLanguage;
+    private  ImageView editWork;
 
     public static FilesFragment newInstance() {
         return new FilesFragment();
@@ -48,7 +54,8 @@ public class FilesFragment extends Fragment implements selectGenderFragment.onCl
         userName = (TextView)rootView.findViewById(R.id.user_name);
         photoUrl = (CircleImageView) rootView.findViewById(R.id.photo_url);
         gender = (TextView) rootView.findViewById(R.id.gender);
-        gender.setOnClickListener(new View.OnClickListener() {
+        editGender = (ImageView) rootView.findViewById(R.id.gender_ic);
+        editGender.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 android.support.v4.app.FragmentManager fm = getFragmentManager();
@@ -62,7 +69,8 @@ public class FilesFragment extends Fragment implements selectGenderFragment.onCl
             }
         });
         address =(TextView) rootView.findViewById(R.id.location);
-        address.setOnClickListener(new View.OnClickListener() {
+        editAddress = (ImageView) rootView.findViewById(R.id.location_ic);
+        editAddress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 android.support.v4.app.FragmentManager fm = getFragmentManager();
@@ -76,7 +84,8 @@ public class FilesFragment extends Fragment implements selectGenderFragment.onCl
             }
         });
         language = (TextView) rootView.findViewById(R.id.language);
-        language.setOnClickListener(new View.OnClickListener() {
+        editLanguage = (ImageView) rootView.findViewById(R.id.language_ic);
+        editLanguage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 android.support.v4.app.FragmentManager fm = getFragmentManager();
@@ -87,7 +96,8 @@ public class FilesFragment extends Fragment implements selectGenderFragment.onCl
             }
         });
         work = (TextView) rootView.findViewById(R.id.work);
-        work.setOnClickListener(new View.OnClickListener() {
+        editWork = (ImageView) rootView.findViewById(R.id.work_ic);
+        editWork.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 android.support.v4.app.FragmentManager fm = getFragmentManager();

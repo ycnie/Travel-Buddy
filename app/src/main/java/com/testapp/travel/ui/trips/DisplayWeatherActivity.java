@@ -39,10 +39,6 @@ import okhttp3.Response;
 
 public class DisplayWeatherActivity extends AppCompatActivity {
 
-    // REMOVE!!
-    //TODO: Move API key
-    private final String DarkSkyAPIKey = "9aa1d999aa51aa7851111119a32ecd62";
-
     // Finals
     private final double ColdWeatherThresh = 50.0;
     private final double WarmWeatherThresh = 70.0;
@@ -209,7 +205,7 @@ public class DisplayWeatherActivity extends AppCompatActivity {
 
     private void getAllWeather() {
         for (int i = 0; i < numOfDays; i++) {
-            String url = "https://api.darksky.net/forecast/" + DarkSkyAPIKey + "/" + Double.toString(round(latitudeStr, 4)) + "," + Double.toString(round(longitudeStr, 4)) + "," + String.valueOf(beginDateUnix + (i * 86400) + "?exclude=currently,minutely,hourly,alerts,flags");
+            String url = "https://api.darksky.net/forecast/" + R.string.darksky_spi_key + "/" + Double.toString(round(latitudeStr, 4)) + "," + Double.toString(round(longitudeStr, 4)) + "," + String.valueOf(beginDateUnix + (i * 86400) + "?exclude=currently,minutely,hourly,alerts,flags");
             try {
                 int num = numOfDays;
                 weather.add(getOneWeather(url));

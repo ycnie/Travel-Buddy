@@ -40,6 +40,7 @@ import okhttp3.Response;
 public class DisplayWeatherActivity extends AppCompatActivity {
 
     // REMOVE!!
+    //TODO: Move API key
     private final String DarkSkyAPIKey = "9aa1d999aa51aa7851111119a32ecd62";
 
     // Finals

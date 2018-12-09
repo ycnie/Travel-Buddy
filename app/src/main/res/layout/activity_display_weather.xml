@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+    <!--
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+    </android.support.design.widget.AppBarLayout>
+    -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="?attr/actionBarSize"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvCityName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="New York City"
+            android:textColor="@color/color_white"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/lyTop"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:gravity="center_vertical|center_horizontal"
+            android:orientation="horizontal"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:paddingBottom="5dp">
+
+            <TextView
+                android:id="@+id/tvHighLabel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="right|center_horizontal"
+                android:text="@string/wth_high_label"
+                android:textColor="@color/wthOrange"
+                android:textStyle="bold"
+                tools:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tvHighTemp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="left|center_horizontal"
+                android:paddingRight="5dp"
+                android:text="100"
+                android:textColor="@color/color_white"
+                tools:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tvLowLabel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="right|center_horizontal"
+                android:paddingLeft="5dp"
+                android:text="@string/wth_low_label"
+                android:textColor="@color/wthOrange"
+                android:textStyle="bold"
+                tools:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tvLowTemp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="left|center_horizontal"
+                android:text="0"
+                android:textColor="@color/color_white"
+                tools:textSize="18sp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvTripDays"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:gravity="center_vertical|center_horizontal"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:paddingBottom="5dp"
+            android:text="Your trip is 7 days"
+            android:textColor="@color/color_white"
+            tools:textSize="24sp" />
+
+        <LinearLayout
+            android:id="@+id/lyWeatherIcons"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="4"
+            android:gravity="bottom"
+            android:orientation="horizontal"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:paddingBottom="5dp">
+
+            <ImageView
+                android:id="@+id/ivWarmIcon"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/weather_sunny256" />
+
+            <ImageView
+                android:id="@+id/ivModerateIcon"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/weather_cloudy256" />
+
+            <ImageView
+                android:id="@+id/ivColdIcon"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/weather_snowflake256" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lyPackingText"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:gravity="top|center_horizontal"
+            android:orientation="horizontal"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:paddingBottom="5dp">
+
+            <TextView
+                android:id="@+id/tvWarmDays"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="x1"
+                android:textColor="@color/color_white"
+                android:textStyle="bold"
+                tools:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/tvModerateDays"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="x2"
+                android:textColor="@color/color_white"
+                android:textStyle="bold"
+                tools:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/tvColdDays"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="x4"
+                android:textColor="@color/color_white"
+                android:textStyle="bold"
+                tools:textSize="24sp" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvPackingDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:gravity="center"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:paddingBottom="5dp"
+            android:text="You should pack for 1 warm days, 2 moderate days, and 4 cold days"
+            android:textColor="@color/color_white"
+            tools:textSize="24sp" />
+
+        <Button
+            android:id="@+id/btnMoreInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/wthOrange"
+            android:text="@string/wth_more_info"
+            android:textColor="@color/color_white" />
+
+    </LinearLayout>
+
+</android.support.design.widget.CoordinatorLayout>

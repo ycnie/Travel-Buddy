@@ -29,6 +29,7 @@ import com.testapp.travel.utils.StaticConfig;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -66,7 +67,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
             linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
             recyclerChat = (RecyclerView) findViewById(R.id.recyclerChat);
             recyclerChat.setLayoutManager(linearLayoutManager);
-            adapter = new ListMessageAdapter(this, conversation, bitmapAvataFriend, base64AvataUser);
+            adapter = new ListMessageAdapter(this, conversation, bitmapAvataFriend, base64AvataUser, idFriend);
             FirebaseDatabase.getInstance().getReference().child("message/" + roomId).addChildEventListener(new ChildEventListener() {
                 @Override
                 public void onChildAdded(DataSnapshot dataSnapshot, String s) {
@@ -150,13 +151,15 @@ class ListMessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private HashMap<String, String> bitmapAvata;
     private HashMap<String, DatabaseReference> bitmapAvataDB;
     private String bitmapAvataUser;
+    private List<CharSequence> idFriend;
 
-    public ListMessageAdapter(Context context, Conversation conversation, HashMap<String, String> bitmapAvata, String bitmapAvataUser) {
+    public ListMessageAdapter(Context context, Conversation conversation, HashMap<String, String> bitmapAvata, String bitmapAvataUser, List<CharSequence> idFriend) {
         this.context = context;
         this.conversation = conversation;
         this.bitmapAvata = bitmapAvata;
         this.bitmapAvataUser = bitmapAvataUser;
         bitmapAvataDB = new HashMap<>();
+        this.idFriend = idFriend;
     }
 
     @Override
@@ -177,6 +180,15 @@ class ListMessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         if (holder instanceof ItemMessageFriendHolder) {
             ((ItemMessageFriendHolder) holder).txtContent.setText(conversation.getListMessageData().get(position).text);
             String currentAvata = bitmapAvata.get(conversation.getListMessageData().get(position).idSender);
+            ((ItemMessageFriendHolder) holder).avata.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(context, userProfile.class);
+                    intent.putExtra("FriendID", idFriend.get(0));
+                    context.startActivity(intent);
+
+                }
+            });
 
             if (currentAvata != null) {
                 Glide.with(context)
@@ -211,6 +223,16 @@ class ListMessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         } else if (holder instanceof ItemMessageUserHolder) {
             ((ItemMessageUserHolder) holder).txtContent.setText(conversation.getListMessageData().get(position).text);
+            ((ItemMessageUserHolder) holder).avata.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(context, userProfile.class);
+                    intent.putExtra("FriendID", StaticConfig.UID);
+                    context.startActivity(intent);
+
+                }
+            });
+
             if (bitmapAvataUser != null) {
                 //https://github.com/codepath/android_guides/wiki/Displaying-Images-with-the-Glide-Library
                 Glide.with(context)
@@ -245,6 +267,8 @@ class ItemMessageUserHolder extends RecyclerView.ViewHolder {
         txtContent = (TextView) itemView.findViewById(R.id.textContentUser);
         avata = (CircleImageView) itemView.findViewById(R.id.imageView2);
     }
+
+
 }
 
 class ItemMessageFriendHolder extends RecyclerView.ViewHolder {

@@ -13,6 +13,8 @@ public class User {
     public String profileImageUrl;
     public String userId;
     public Message message;
+    public float rating;
+    public int noReviews;
 
     public User() {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
@@ -34,5 +36,6 @@ public class User {
         message = new Message();
 
     }
+
 
 }

@@ -67,7 +67,10 @@ public class DestinationsFragment extends Fragment {
     String photoURl;
     String name;
 
-    String types = "amusement_park|aquarium|museum|park|zoo|art_gallery|church|casino|hindu_temple|library|mosque|night_club|stadium|synagogue";
+    //change this
+//    String types = "amusement_park|aquarium|museum|park|zoo|art_gallery|church|casino|hindu_temple|library|mosque|night_club|stadium|synagogue";
+    String types = "park";
+
     //  String[] type = {"amusement_park", "aquarium", "museum", "park", "zoo", "art_gallery"};
 
 

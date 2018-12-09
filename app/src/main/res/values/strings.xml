@@ -95,6 +95,10 @@
     <string name="send">Send</string>
     <string name="friend_list">Friend List</string>
 
+    //weather
+    <string name="wth_high_label">"High: "</string>
+    <string name="wth_low_label">"Low: "</string>
+    <string name="wth_more_info">More Information</string>
 
 
 </resources>

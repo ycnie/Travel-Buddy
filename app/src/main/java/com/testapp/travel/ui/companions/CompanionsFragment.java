@@ -216,6 +216,14 @@ public class CompanionsFragment extends Fragment {
         }
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (ACTION_START_CHAT == requestCode && data != null && ListFriendsAdapter.mapMark != null) {
+            ListFriendsAdapter.mapMark.put(data.getStringExtra("idFriend"), false);
+        }
+    }
+
 
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {

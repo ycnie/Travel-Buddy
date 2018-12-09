@@ -171,14 +171,6 @@ public class EditTripActivity extends AppCompatActivity
                 startActivity(intentCompanion);
                 break;
 
-            case R.id.lyHotel:
-                String url = "https://www.airbnb.com/";
-                CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
-                builder.setToolbarColor(ContextCompat.getColor(this, R.color.colorPrimary));
-                CustomTabsIntent customTabsIntent = builder.build();
-                customTabsIntent.launchUrl(this, Uri.parse(url));
-                break;
-
             case R.id.lyPhotos:
                 Intent intentPhotos=new Intent(this,DisplayPhotosActivity.class)
                         .putExtra("Trip", Parcels.wrap(trip));
@@ -186,7 +178,17 @@ public class EditTripActivity extends AppCompatActivity
                 break;
 
             case R.id.lyWeather:
+                Intent intentWeather=new Intent(this,DisplayWeatherActivity.class)
+                        .putExtra("Trip", Parcels.wrap(trip));
+                startActivity(intentWeather);
+                break;
 
+            case R.id.lyAirbnb:
+                String url = "https://www.airbnb.com/";
+                CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
+                builder.setToolbarColor(ContextCompat.getColor(this, R.color.colorPrimary));
+                CustomTabsIntent customTabsIntent = builder.build();
+                customTabsIntent.launchUrl(this, Uri.parse(url));
                 break;
 
             case R.id.tvDone:

@@ -23,6 +23,7 @@ public class Place implements Serializable {
     private float rating;
     private String photoUrl;
     private String vicinity;
+    private String airport;
 
     public void setLatitude(double latitude) {
         this.latitude = latitude;
@@ -46,6 +47,10 @@ public class Place implements Serializable {
 
     public void setPhotoUrl(String photoUrl) {
         this.photoUrl = photoUrl;
+    }
+
+    public void setAirport(String airport) {
+        this.airport = airport;
     }
 
     public void setTypes(ArrayList<String> types) {
@@ -88,6 +93,9 @@ public class Place implements Serializable {
         return photoUrl;
     }
 
+    public String getAirport() {
+        return airport;
+    }
     public Place(){
 
     }

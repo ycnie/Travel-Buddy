@@ -14,11 +14,11 @@
         android:layout_height="match_parent">
 
         <fragment
-            class="com.google.android.gms.maps.SupportMapFragment"
             android:id="@+id/map"
             android:name="com.google.android.gms.maps.SupportMapFragment"
+            class="com.google.android.gms.maps.SupportMapFragment"
             android:layout_width="match_parent"
-            android:layout_height="270dp" />
+            android:layout_height="200dp" />
 
         <android.support.v7.widget.CardView
             xmlns:card_view="http://schemas.android.com/apk/res-auto"
@@ -65,14 +65,14 @@
                     >
 
                     <TextView
+                        android:id="@+id/tvLocationTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/tvLocationTitle"
-                        android:textSize="16sp"
+                        android:layout_marginBottom="5dp"
                         android:text="Destinations"
                         android:textColor="#1F2C33"
-                        android:textStyle="bold"
-                        android:layout_marginBottom="5dp"/>
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -151,33 +151,32 @@
                     android:id="@+id/lyHotel"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical"
+                    android:layout_below="@+id/viewLine2"
+                    android:layout_marginLeft="15dp"
                     android:layout_marginTop="15dp"
                     android:layout_marginBottom="5dp"
-                    android:layout_marginLeft="15dp"
                     android:layout_toRightOf="@+id/ibHotel"
-                    android:layout_below="@+id/viewLine2"
-                    >
+                    android:orientation="vertical">
 
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
                         android:id="@+id/tvHotelTitle"
-                        android:textSize="16sp"
-                        android:text="Lodging"
-                        android:textColor="#1F2C33"
-                        android:textStyle="bold"
-                        android:layout_marginBottom="5dp"/>
-
-                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:text="Flights"
+                        android:textColor="#1F2C33"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
                         android:id="@+id/tvHotelDescription"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text="Check flight prices for your trip"
                         android:textSize="14sp"
-                        android:text="Airbnb - Homes, experiences, and places"
-                        android:textStyle="bold"
-                        android:layout_marginTop="5dp" />
+                        android:textStyle="bold" />
                 </LinearLayout>
 
                 <View
@@ -239,9 +238,11 @@
                     android:id="@+id/ibWeather"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
-                    android:src="@drawable/camera"
+                    android:layout_below="@+id/viewLine4"
+                    android:layout_marginTop="0dp"
                     android:background="#FAFAFA"
-                    android:layout_below="@+id/viewLine4"/>
+                    android:src="@drawable/weather_sunny" />
+                <!-- android:layout_alignParentStart="true" -->
 
                 <LinearLayout
                     android:id="@+id/lyWeather"
@@ -257,24 +258,90 @@
 
 
                     <TextView
+                        android:id="@+id/tvWeatherTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/tvWeatherTitle"
-                        android:textSize="16sp"
+                        android:layout_marginBottom="5dp"
                         android:text="Weather"
                         android:textColor="#1F2C33"
-                        android:textStyle="bold"
-                        android:layout_marginBottom="5dp"/>
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/tvWeatherDescription"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/tvWeatherDescription"
+                        android:layout_marginTop="5dp"
+                        android:text="Check the weather for your trip"
                         android:textSize="14sp"
-                        android:text="View the weather for your trip"
-                        android:textStyle="bold"
-                        android:layout_marginTop="5dp" />
+                        android:textStyle="bold" />
                 </LinearLayout>
+
+
+
+
+                <View
+                    android:id="@+id/viewLine5"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#D6E6E5"
+                    android:layout_below="@+id/ibWeather"/>
+
+                <ImageButton
+                    android:id="@+id/ibAirbnb"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:src="@drawable/hotel"
+                    android:background="#FAFAFA"
+                    android:layout_below="@+id/viewLine5"/>
+
+                <LinearLayout
+                    android:id="@+id/lyAirbnb"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/viewLine5"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_toRightOf="@+id/ibAirbnb"
+                    android:orientation="vertical">
+
+
+                    <TextView
+                        android:id="@+id/tvAirbnbTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:text="Airbnb"
+                        android:textColor="#1F2C33"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tvAirbnbDescription"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text="Book an Airbnb to feel at home"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
             </RelativeLayout>

@@ -16,10 +16,15 @@
 
 package com.testapp.travel.ui.places;
 
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -28,12 +33,15 @@ import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.testapp.travel.R;
 
+import java.util.List;
+
 public class PlaceViewHolder extends RecyclerView.ViewHolder {
 
     private final View mView;
     private ImageView mPlacePhoto;
     private TextView mPlaceName;
     private View paletteView;
+    private Button uberLogo;
 
     public PlaceViewHolder(View itemView) {
         super(itemView);
@@ -41,6 +49,9 @@ public class PlaceViewHolder extends RecyclerView.ViewHolder {
         mPlacePhoto = (ImageView) mView.findViewById(R.id.placePhoto);
         mPlaceName = (TextView) mView.findViewById(R.id.placeName);
         paletteView = mView.findViewById(R.id.vPalette);
+        uberLogo = (Button) mView.findViewById(R.id.uberLogo);
+
+
     }
 
     public void setPhoto(String url, final String uid) {
@@ -57,9 +68,9 @@ public class PlaceViewHolder extends RecyclerView.ViewHolder {
                         Palette.Swatch vibrant = palette.getVibrantSwatch();
                         if (vibrant != null) {
                             // Set the background color of a layout based on the vibrant color
-                          //  paletteView.setBackgroundColor(vibrant.getRgb());
-                         //   // Update the title TextView with the proper text color
-                           // mPlaceName.setTextColor(vibrant.getTitleTextColor());
+                            //  paletteView.setBackgroundColor(vibrant.getRgb());
+                            //   // Update the title TextView with the proper text color
+                            // mPlaceName.setTextColor(vibrant.getTitleTextColor());
                         }
                         mPlacePhoto.setImageBitmap(bitmap);
                     }
@@ -80,4 +91,33 @@ public class PlaceViewHolder extends RecyclerView.ViewHolder {
             }
         });
     }
+
+    public void setUber(Double latitude, Double longitude, final String uid) {
+
+        uberLogo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+
+                    String uri = "uber://?action=setPickup&client_id=vsjy8iaHiUBOieVKh7k66yiKGWTaGwA3&pickup=my_location" +
+                            "&dropoff[latitude]=" + latitude + "&dropoff[longitude]=" + longitude;
+                    Intent intent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse(uri));
+
+                    itemView.getContext().startActivity(intent);
+
+
+                } catch (Exception e){
+                    try {
+                        itemView.getContext().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.ubercab")));
+                    } catch (android.content.ActivityNotFoundException anfe) {
+                        itemView.getContext().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://play.google.com/store/apps/details?id=com.ubercab")));
+                    }
+
+                }
+
+
+            }
+        });
+    }
+
 }

@@ -4,6 +4,7 @@ package com.testapp.travel.ui.trips;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.support.customtabs.CustomTabsIntent;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -30,11 +31,21 @@ import org.json.JSONObject;
 import org.parceler.Parcels;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class DisplayWeatherActivity extends AppCompatActivity {
 
     // REMOVE!!
     private final String DarkSkyAPIKey = "9aa1d999aa51aa7851111119a32ecd62";
+
+    // Finals
+    private final double ColdWeatherThresh = 50.0;
+    private final double WarmWeatherThresh = 70.0;
+    private final double RainThresh = 0.35;
 
     // UI
     private TextView tvCityName;
@@ -60,15 +71,30 @@ public class DisplayWeatherActivity extends AppCompatActivity {
     private int numOfDays;
     private double tripLowTemp;
     private double tripHighTemp;
+    private ArrayList<String> weather;
+    private ArrayList<ArrayList<Double>> temps;
+    private ArrayList<Integer> dayType;
+    private ArrayList<Integer> precipitation;
+    private int coldDays;
+    private int moderateDays;
+    private int warmDays;
     private boolean rain;
-    private String weather[];
-    private int temps[][];
-    private String tempJSON;
+    private boolean snow;
+    private boolean otherPrecip;
+    private boolean precipData;
+    private String descriptioStr;
+
+    // API
+    OkHttpClient client = new OkHttpClient();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_weather);
+
+        // Allow network on main thread
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
 
         // UI
         tvCityName = (TextView) findViewById(R.id.tvCityName);
@@ -81,6 +107,19 @@ public class DisplayWeatherActivity extends AppCompatActivity {
         tvPackingDescription = (TextView) findViewById(R.id.tvPackingDescription);
         btnMoreInfo = (Button) findViewById(R.id.btnMoreInfo);
 
+        // Initializing other global variables
+        weather = new ArrayList<String>();
+        temps = new ArrayList<ArrayList<Double>>();
+        dayType = new ArrayList<Integer>();     // MAP: 0 = cold, 1 = moderate, 2 = warm
+        precipitation = new ArrayList<Integer>();     // MAP: 0 = none, 1 = rain, 2 = snow, 3 = other
+        coldDays = 0;
+        moderateDays = 0;
+        warmDays = 0;
+        rain = false;
+        snow = false;
+        otherPrecip = false;
+        precipData = false;
+
         trip = new Trip();
         trip = (Trip) Parcels.unwrap(getIntent()
                 .getParcelableExtra("Trip"));
@@ -91,18 +130,23 @@ public class DisplayWeatherActivity extends AppCompatActivity {
         destinationStr = trip.getSearchDestination().getName();
         latitudeStr = trip.getSearchDestination().getLatitude();
         longitudeStr = trip.getSearchDestination().getLongitude();
-        //TODO:weather = new String[numOfDays];
-        //TODO:temps = new int[numOfDays][2];
 
         // Get information about the trip
         datesToUnixTimestamp();
         getNumDays();
+        getAllWeather();
+        getDayType();
+        descriptionGenerator();
 
         // Setting UI elements
         tvCityName.setText(destinationStr);
         tvTripDays.setText("Your trip is " + Integer.toString(numOfDays) + " days");
-        //tvHighTemp.setText(Double.toString(round(tripHighTemp, 2)));
-        //tvLowTemp.setText(Double.toString(round(tripLowTemp, 2)));
+        tvHighTemp.setText(Double.toString(round(tripHighTemp, 1)) + "\u00b0 F");
+        tvLowTemp.setText(Double.toString(round(tripLowTemp, 1)) + "\u00b0 F");
+        tvColdDays.setText("x" + Integer.toString(coldDays));
+        tvModerateDays.setText("x" + Integer.toString(moderateDays));
+        tvWarmDays.setText("x" + Integer.toString(warmDays));
+        tvPackingDescription.setText(descriptioStr);
 
         // More information button
         btnMoreInfo.setOnClickListener(new View.OnClickListener() {
@@ -120,6 +164,78 @@ public class DisplayWeatherActivity extends AppCompatActivity {
         });
     }
 
+    private void descriptionGenerator() {
+        String outputString = "You should pack for ";
+        outputString = outputString + Integer.toString(warmDays) + " warm days, ";
+        outputString = outputString + Integer.toString(moderateDays) + " moderate days, ";
+        if (precipData) {
+            outputString = outputString + Integer.toString(coldDays) + " cold days, ";
+            outputString = outputString + "and it looks like ";
+            if (!otherPrecip) {
+                if (rain && snow) {
+                    outputString = outputString + "it's going to rain and snow";
+                } else if (rain) {
+                    outputString = outputString + "it's going to rain";
+                } else if (snow) {
+                    outputString = outputString + "it's going to snow";
+                } else outputString = outputString + "it's not going to precipitate";
+            } else {
+                outputString = outputString + "it's going to precipitate";
+            }
+        } else {
+            outputString = outputString + "and " + Integer.toString(coldDays) + " cold days, ";
+        }
+        descriptioStr = outputString;
+    }
+
+    private void getDayType() {
+        for (int i = 0; i < numOfDays; i++) {
+            Double avgDayTemp = (temps.get(i).get(0) + temps.get(i).get(1)) / 2;
+            if (avgDayTemp < ColdWeatherThresh) {
+                dayType.add(0);
+                coldDays++;
+            }
+            else if (avgDayTemp < WarmWeatherThresh) {
+                dayType.add(1);
+                moderateDays++;
+            }
+            else {
+                dayType.add(2);
+                warmDays++;
+            }
+        }
+    }
+
+    private void getAllWeather() {
+        for (int i = 0; i < numOfDays; i++) {
+            String url = "https://api.darksky.net/forecast/" + DarkSkyAPIKey + "/" + Double.toString(round(latitudeStr, 4)) + "," + Double.toString(round(longitudeStr, 4)) + "," + String.valueOf(beginDateUnix + (i * 86400) + "?exclude=currently,minutely,hourly,alerts,flags");
+            try {
+                int num = numOfDays;
+                weather.add(getOneWeather(url));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        parseJSONString();
+    }
+
+    /*
+     * Gets the weather for one day of the trip
+     */
+    String getOneWeather(String url) throws IOException {
+        Request request = new Request.Builder()
+                .url(url)
+                .build();
+
+        try  {
+            Response response = client.newCall(request).execute();
+            return response.body().string();
+        } catch (IOException e) {
+            e.printStackTrace();
+            Toast.makeText(getBaseContext(), "Error getting weather information", Toast.LENGTH_SHORT).show();
+        }
+        return null;
+    }
 
     /*
      * parseJSONString()
@@ -129,19 +245,38 @@ public class DisplayWeatherActivity extends AppCompatActivity {
      */
     private void parseJSONString() {
         for (int i = 0; i < numOfDays; i++) {
-            String temp = weather[i].split("\"apparentTemperatureLow\": ")[1];
-            temp = temp.split(",")[0];
-            temps[i][0] = Integer.parseInt((weather[i].split("\"apparentTemperatureLow\": "))[1].split(",")[0]);
-            temps[i][1] = Integer.parseInt((weather[i].split("\"apparentTemperatureHigh\": "))[1].split(",")[0]);
-            if (i == 0) {
-                tripLowTemp = temps[i][0];
-                tripHighTemp = temps[i][1];
-            } else {
-                if (temps[i][0] < tripLowTemp) {
-                    tripLowTemp = temps[i][0];
+            Double tempLow = Double.parseDouble((weather.get(i).split("\"apparentTemperatureLow\":"))[1].split(",")[0]);
+            Double tempHigh = Double.parseDouble((weather.get(i).split("\"apparentTemperatureLow\":"))[1].split(",")[0]);
+            if (weather.get(i).contains("\"precipProbability\":") && weather.get(i).contains("\"precipType\":")) {
+                precipData = true;
+                if ((Double.parseDouble(weather.get(i).split("\"precipProbability\":")[1].split(",")[0])) > RainThresh) {
+                    if (weather.get(i).split("\"precipType\":")[1].split(",")[0].toLowerCase().contains("rain")) {
+                        precipitation.add(1);
+                        rain = true;
+                    } else if (weather.get(i).split("\"precipType\":")[1].split(",")[0].toLowerCase().contains("snow")) {
+                        precipitation.add(2);
+                        snow = true;
+                    } else {
+                        precipitation.add(2);
+                        otherPrecip = true;
+                    }
+                } else {
+                    precipitation.add(0);
                 }
-                if (temps[i][1] > tripHighTemp) {
-                    tripHighTemp = temps[i][1];
+            }
+            ArrayList<Double> tempAL = new ArrayList<Double>();
+            tempAL.add(tempLow);
+            tempAL.add(tempHigh);
+            temps.add(tempAL);
+            if (i == 0) {
+                tripLowTemp = temps.get(i).get(0);
+                tripHighTemp = temps.get(i).get(1);
+            } else {
+                if (temps.get(i).get(0) < tripLowTemp) {
+                    tripLowTemp = temps.get(i).get(0);
+                }
+                if (temps.get(i).get(1) > tripHighTemp) {
+                    tripHighTemp = temps.get(i).get(1);
                 }
             }
         }
@@ -166,15 +301,15 @@ public class DisplayWeatherActivity extends AppCompatActivity {
         String splitEndDate[] = dateSplitter(endDateStr);
 
         // Converting beginDateStr to beginDateUinx
-        int newStartMonth = Integer.parseInt(splitStartDate[0]) - 1970;
+        int newStartMonth = Integer.parseInt(splitStartDate[0]) - 1;
         int newStartDay = Integer.parseInt(splitStartDate[1]) - 1;
-        int newStartYear = Integer.parseInt(splitStartDate[2]) - 1;
+        int newStartYear = Integer.parseInt(splitStartDate[2]) - 1970;
         beginDateUnix = (newStartYear * 31556926) + (newStartMonth * 2629743) + (newStartDay * 86400);
 
         // Converting endDateStr to endDateUnix
-        int newEndMonth = Integer.parseInt(splitEndDate[0]) - 1970;
+        int newEndMonth = Integer.parseInt(splitEndDate[0]) - 1;
         int newEndDay = Integer.parseInt(splitEndDate[1]) - 1;
-        int newEndYear = Integer.parseInt(splitEndDate[2]) - 1;
+        int newEndYear = Integer.parseInt(splitEndDate[2]) - 1970;
         endDateUnix = (newEndYear * 31556926) + (newEndMonth * 2629743) + (newEndDay * 86400);
     }
     /*

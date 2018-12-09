@@ -109,6 +109,10 @@ dependencies {
     compile('jameson.io.library:library:0.0.1') {
         exclude group: "com.android.support", module: "support-v4"
     }
+
+    // Weather
+    compile 'com.squareup.okhttp3:okhttp:3.12.0'
+
     //Displaying Gif
     compile 'pl.droidsonroids.gif:android-gif-drawable:1.2.3'
     compile 'com.android.support:customtabs:25.0.0'

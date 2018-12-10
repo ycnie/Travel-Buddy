@@ -205,7 +205,7 @@ public class DisplayWeatherActivity extends AppCompatActivity {
 
     private void getAllWeather() {
         for (int i = 0; i < numOfDays; i++) {
-            String url = "https://api.darksky.net/forecast/" + R.string.darksky_spi_key + "/" + Double.toString(round(latitudeStr, 4)) + "," + Double.toString(round(longitudeStr, 4)) + "," + String.valueOf(beginDateUnix + (i * 86400) + "?exclude=currently,minutely,hourly,alerts,flags");
+            String url = "https://api.darksky.net/forecast/" + getString(R.string.darksky_spi_key) + "/" + Double.toString(round(latitudeStr, 4)) + "," + Double.toString(round(longitudeStr, 4)) + "," + String.valueOf(beginDateUnix + (i * 86400) + "?exclude=currently,minutely,hourly,alerts,flags");
             try {
                 int num = numOfDays;
                 weather.add(getOneWeather(url));

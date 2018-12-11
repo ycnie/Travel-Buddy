@@ -72,7 +72,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:text="female"
+                    android:text="@string/Gender"
                     android:textStyle="bold"
                     android:layout_weight="1"/>
 
@@ -105,7 +105,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:text="English"
+                    android:text="Language"
                     android:textStyle="bold"
                     android:layout_weight="1"/>
 

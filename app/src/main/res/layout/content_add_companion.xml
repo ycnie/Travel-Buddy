@@ -5,6 +5,7 @@
     android:id="@+id/content_add_companion"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:visibility="visible"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.testapp.travel.ui.trips.AddCompanionActivity"
     tools:showIn="@layout/activity_add_companion">
@@ -17,7 +18,8 @@
         android:layout_alignParentTop="true"
         android:layout_marginTop="0dp"
         android:background="@color/colorPrimary"
-        android:drawSelectorOnTop="false" />
+        android:drawSelectorOnTop="false"
+        android:visibility="visible" />
 
     <ListView
         android:id="@+id/lvCompanionList"
@@ -26,6 +28,83 @@
         android:layout_marginTop="80dp"
         android:background="@color/color_white"
         android:divider="#D6E6E5"
-        android:dividerHeight="1dp"/>
+        android:dividerHeight="1dp"
+        android:visibility="visible">
+
+    </ListView>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/filter_button_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom|end"
+        android:layout_marginEnd="27dp"
+        android:layout_marginRight="27dp"
+        android:layout_marginBottom="21dp"
+        android:visibility="visible"
+        app:srcCompat="@drawable/ic_filter_list_black_24dp" />
+
+    <LinearLayout
+        android:id="@+id/filterLL"
+        android:layout_width="238dp"
+        android:layout_height="359dp"
+        android:layout_alignParentEnd="false"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="120dp"
+        android:layout_marginEnd="76dp"
+        android:layout_marginRight="76dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:background="@color/primary_light"
+        android:visibility="invisible"
+        android:weightSum="7">
+
+        <RadioGroup
+            android:id="@+id/filterRadioGroup"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:padding="5dp">
+
+            <RadioButton
+                android:id="@+id/male"
+                android:layout_width="58dp"
+                android:layout_height="wrap_content"
+                android:text="M" />
+
+            <RadioButton
+                android:id="@+id/female"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="F" />
+
+            <RadioButton
+                android:id="@+id/radioButton2"
+                android:layout_width="127dp"
+                android:layout_height="wrap_content"
+                android:text="Other" />
+        </RadioGroup>
+
+        <Spinner
+            android:id="@+id/filterLanguageSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:entries="F"
+            android:visibility="visible" />
+
+        <Button
+            android:id="@+id/filterButton"
+            style="@style/HockeyApp.ButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:text="Filter" />
+
+    </LinearLayout>
 
 </RelativeLayout>

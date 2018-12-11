@@ -17,8 +17,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Filter;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RadioGroup;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.testapp.travel.R;
 import com.testapp.travel.data.model.Place;
@@ -50,14 +55,16 @@ public class AddCompanionActivity extends AppCompatActivity implements userProfi
     private SearchView searchView;
     CompanionListAdapter companionAdapter;
     private ListView lvCompanionList;
-    ArrayList<User>companionList;
+    ArrayList<User> companionList;
     private TwoWayView lvAddedCompanions;
     AddedCompanionImageAdapter addedCompanionImageAdapter;
     ArrayList<User> addedCompanionList;
     Set<String> addedUserIds;
     Set<String> userIds;
     User selectedFromList;
-
+    private FloatingActionButton filter_button_fab;
+    private LinearLayout filterLL;
+    private Button filterButton;
 
     private String TAG = "TAG";
 
@@ -69,23 +76,52 @@ public class AddCompanionActivity extends AppCompatActivity implements userProfi
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Add Companion");
-        trip=new Trip();
-        trip=(Trip) Parcels.unwrap(getIntent()
+        trip = new Trip();
+        trip = (Trip) Parcels.unwrap(getIntent()
                 .getParcelableExtra("Trip"));
 
-        lvCompanionList=(ListView)findViewById(R.id.lvCompanionList);
-        lvAddedCompanions=(TwoWayView)findViewById(R.id.lvAddedCompanions);
+        lvCompanionList = (ListView) findViewById(R.id.lvCompanionList);
+        lvAddedCompanions = (TwoWayView) findViewById(R.id.lvAddedCompanions);
 
-        companionList=new ArrayList<User>();
-        addedCompanionList=new ArrayList<User>();
+        companionList = new ArrayList<User>();
+        addedCompanionList = new ArrayList<User>();
 
         addedUserIds = new HashSet<>();
         userIds = new HashSet<>();
+        filter_button_fab = (FloatingActionButton) findViewById(R.id.filter_button_fab);
+        filter_button_fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                filterLL = (LinearLayout) findViewById(R.id.filterLL);
+                filterLL.setVisibility(View.VISIBLE);
+                filterButton = (Button) findViewById(R.id.filterButton);
+                filterButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        filterLL.setVisibility(View.INVISIBLE);
+                        RadioGroup rg= (RadioGroup) findViewById(R.id.filterRadioGroup);
+                        String gender="F";
+
+                        int gender_int=rg.getCheckedRadioButtonId();
+                        if (gender_int==R.id.male){
+                            gender="M";
+                        }
+                        else if (gender_int==R.id.other){
+                            gender="O";
+                        }
+                        Spinner spinner= (Spinner) findViewById(R.id.filterLanguageSpinner);
+
+                        filterCompanions("F", "ENGLISH");
+                    }
+                });
+
+            }
+        });
 
         //Add current user  first
 
         // Make sure all added companions show up in the added list on the top of screen
-        DatabaseReference mAddedCompanionRef= FirebaseUtil.getTripsRef().child(trip.getTripId()).child("companion");
+        DatabaseReference mAddedCompanionRef = FirebaseUtil.getTripsRef().child(trip.getTripId()).child("companion");
         mAddedCompanionRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
@@ -94,21 +130,24 @@ public class AddCompanionActivity extends AppCompatActivity implements userProfi
                     FirebaseUtil.getUsersRef().child(value).addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot snapshot) {
-                            User user=snapshot.getValue(User.class);
-                            boolean added=false;
-                            for(User currentUser:addedCompanionList){
-                                if(currentUser.userId.equals(user.userId)){
-                                    added=true;
+                            User user = snapshot.getValue(User.class);
+                            boolean added = false;
+                            for (User currentUser : addedCompanionList) {
+                                if (currentUser.userId.equals(user.userId)) {
+                                    added = true;
                                 }
                             }
-                            if(added==false && !FirebaseUtil.getCurrentUserId().equals(user.userId)) {
+                            if (added == false && !FirebaseUtil.getCurrentUserId().equals(user.userId)) {
                                 addedCompanionList.add(user);
                                 addedUserIds.add(user.userId);
                                 Log.i(TAG, "add user now...and addedUserIds size is :" + addedUserIds.size());
                                 addedCompanionImageAdapter.notifyDataSetChanged();
                             }
                         }
-                        @Override public void onCancelled(DatabaseError databaseError) { }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                        }
                     });
                 }
             }
@@ -120,10 +159,10 @@ public class AddCompanionActivity extends AppCompatActivity implements userProfi
 
         });
 
-        addedCompanionImageAdapter=new AddedCompanionImageAdapter(this,addedCompanionList);
+        addedCompanionImageAdapter = new AddedCompanionImageAdapter(this, addedCompanionList);
         lvAddedCompanions.setAdapter(addedCompanionImageAdapter);
 
-        companionAdapter=new CompanionListAdapter(this,companionList);
+        companionAdapter = new CompanionListAdapter(this, companionList);
         lvCompanionList.setAdapter(companionAdapter);
 
         Log.i(TAG, "the size of companionAdapter: " + companionAdapter.getCount());
@@ -160,6 +199,7 @@ public class AddCompanionActivity extends AppCompatActivity implements userProfi
                                             companionAdapter.notifyDataSetChanged();
                                         }
                                     }
+
                                     @Override
                                     public void onCancelled(DatabaseError databaseError) {
 
@@ -179,18 +219,17 @@ public class AddCompanionActivity extends AppCompatActivity implements userProfi
         });
 
         lvCompanionList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View view,int position, long id)
-            {
-                selectedFromList =(User)lvCompanionList.getItemAtPosition(position);
-                boolean added=false;
-                for(User user:addedCompanionList){
-                    if(user.displayName.equals(selectedFromList.displayName)){
-                        added=true;
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                selectedFromList = (User) lvCompanionList.getItemAtPosition(position);
+                boolean added = false;
+                for (User user : addedCompanionList) {
+                    if (user.displayName.equals(selectedFromList.displayName)) {
+                        added = true;
                     }
                 }
-                if(added==false) {
+                if (added == false) {
                     //TODO:Add trip to collaborator's list
-                   // FirebaseUtil.getUsersRef().child(selectedFromList.userId).child("trips").child(trip.getTripId()).setValue(true);
+                    // FirebaseUtil.getUsersRef().child(selectedFromList.userId).child("trips").child(trip.getTripId()).setValue(true);
 //                    DatabaseReference mUserRef = FirebaseUtil.getCurrentUserRef();
 //                    FirebaseUtil.getTripsRef().child(trip.getTripId()).child("companion").child(selectedFromList.userId).setValue(true);
 //                    FirebaseUtil.getCompanionsRef().child(selectedFromList.userId).child(mUserRef.getKey()).setValue(true);
@@ -198,7 +237,7 @@ public class AddCompanionActivity extends AppCompatActivity implements userProfi
 
 //                    FirebaseUtil.getCompanionsRef().child(selectedFromList.userId).push().setValue(mUserRef.getKey());
 //                    FirebaseUtil.getCompanionsRef().child(mUserRef.getKey()).push().setValue(selectedFromList.userId);
-                    showUserProfile(selectedFromList.userId,trip.getTripId());
+                    showUserProfile(selectedFromList.userId, trip.getTripId());
 //                    addedCompanionList.add(selectedFromList);
 //                    addedUserIds.add(selectedFromList.userId);
 //                    companionList.remove(selectedFromList);
@@ -206,7 +245,8 @@ public class AddCompanionActivity extends AppCompatActivity implements userProfi
 //                    companionAdapter.notifyDataSetChanged();
                 }
 
-            }});
+            }
+        });
 
 //        companionAdapter=new CompanionListAdapter(this,companionList);
 //        lvCompanionList.setAdapter(companionAdapter);
@@ -240,8 +280,6 @@ public class AddCompanionActivity extends AppCompatActivity implements userProfi
     }
 
 
-
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
@@ -265,6 +303,7 @@ public class AddCompanionActivity extends AppCompatActivity implements userProfi
                 // perform query here
                 return false;
             }
+
             @Override
             public boolean onQueryTextChange(String query) {
                 companionAdapter.getFilter().filter(query);
@@ -298,4 +337,35 @@ public class AddCompanionActivity extends AppCompatActivity implements userProfi
         }
     }
 
+    public void filterCompanions(String gender, String Language) {
+        int size = 0;
+
+        if (Language == "English") {
+            size = companionList.size() / 2;
+        } else if (Language == "Spanish") {
+
+            size = (int) Math.floor(companionList.size() / 3);
+
+        }
+        else if (Language.length()>0){
+            size=companionList.size();
+        }
+        else{
+            size=0;
+        }
+
+
+        if (gender.equals("F")) {
+            for (int i = 0; i < size; i++) {
+                companionList.remove(companionList.size() - 1);
+            }
+
+        } else if (gender.equals("M")) {
+            for (int i = 0; i < size; i++) {
+                companionList.remove(0);
+            }
+        }
+
+        companionAdapter.notifyDataSetChanged();
+    }
 }

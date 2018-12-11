@@ -83,17 +83,17 @@ public class DrawerItemSelectedListener implements
            //     fragmentClass = VisitedFragment.class;
                 break;
 
-            case R.id.nav_timeline:
-                intent = TimelineActivity.newIntent(mContext);
-                mContext.startActivity(intent);
-            //    fragmentClass = TimelineFragment.class;
-                break;
+//            case R.id.nav_timeline:
+//                intent = TimelineActivity.newIntent(mContext);
+//                mContext.startActivity(intent);
+//            //    fragmentClass = TimelineFragment.class;
+//                break;
 
-            case R.id.nav_storage:
-                intent = FilesActivity.newIntent(mContext);
-                mContext.startActivity(intent);
-              //  fragmentClass = FilesFragment.class;
-                break;
+//            case R.id.nav_storage:
+//                intent = FilesActivity.newIntent(mContext);
+//                mContext.startActivity(intent);
+//              //  fragmentClass = FilesFragment.class;
+//                break;
 
             case R.id.nav_companions:
                 intent = CompanionsActivity.newIntent(mContext);

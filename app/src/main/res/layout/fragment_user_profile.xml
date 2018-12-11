@@ -275,6 +275,16 @@
                 android:layout_height="wrap_content"
                 android:visibility="gone"
                 android:text="@string/addFriendToTrip" />
+            <Button
+                android:id="@+id/check_map"
+                android:textColor="#fff"
+                android:background="@drawable/btnstyle"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Visited Places" />
+
 
         </LinearLayout>
 

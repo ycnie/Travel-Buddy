@@ -152,7 +152,6 @@ public class MapsPlacesVisited extends FragmentActivity implements OnMapReadyCal
         @Override
         public void onMapReady(GoogleMap googleMap) {
             mMap = googleMap;
-            mMap.setMyLocationEnabled(false);
             mMap.getUiSettings().setMyLocationButtonEnabled(false);
             mMap.getUiSettings().setZoomGesturesEnabled(true);
             mMap.getUiSettings().setMapToolbarEnabled(false);

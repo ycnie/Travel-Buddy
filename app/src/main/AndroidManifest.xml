@@ -214,6 +214,10 @@
             android:name=".ui.places.MapsPlacesVisited"
             android:label="@string/title_activity_maps_places_visited"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".ui.userProfile.MapFragment"
+            android:label="UserMapProfile">
+        </activity>
     </application>
 
 </manifest>

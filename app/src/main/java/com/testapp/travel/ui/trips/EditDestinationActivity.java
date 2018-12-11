@@ -14,6 +14,11 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.testapp.travel.BuildConfig;
 import com.testapp.travel.R;
 import com.testapp.travel.data.model.Place;
@@ -49,7 +54,6 @@ import cz.msebera.android.httpclient.Header;
 public class EditDestinationActivity extends AppCompatActivity
         implements OnMapReadyCallback,
         GoogleMap.OnMarkerClickListener,
-        GoogleMap.OnMapLongClickListener,
         View.OnClickListener{
 
     int PLACE_PICKER_REQUEST = 1;
@@ -61,8 +65,8 @@ public class EditDestinationActivity extends AppCompatActivity
     Button btnBucketList;
     /*@BindView(R.id.btnLikedList)
     Button btnLikedList;*/
-    @BindView(R.id.btnVisitedList)
-    Button btnVisitedList;
+    //@BindView(R.id.btnVisitedList)
+    //Button btnVisitedList;
   /*  @BindView(R.id.btnRecommendedList)
     Button btnRecommendedList;*/
     @BindView(R.id.tvDone)
@@ -96,7 +100,7 @@ public class EditDestinationActivity extends AppCompatActivity
         btnBucketList.setOnClickListener(this);
      //   btnRecommendedList.setOnClickListener(this);
        // btnLikedList.setOnClickListener(this);
-        btnVisitedList.setOnClickListener(this);
+       // btnVisitedList.setOnClickListener(this);
         tvDone.setOnClickListener(this);
     }
 
@@ -126,7 +130,7 @@ public class EditDestinationActivity extends AppCompatActivity
     public void onMapReady(GoogleMap googleMap) {
         Toast.makeText(this,"Map is ready",Toast.LENGTH_SHORT).show();
         mMap = googleMap;
-        mMap.setOnMapLongClickListener(this);
+        //mMap.setOnMapLongClickListener(this);
         mMap.setOnMarkerClickListener(this);
 
         LatLng destination = new LatLng(trip.getSearchDestination().getLatitude(), trip.getSearchDestination().getLongitude());
@@ -209,22 +213,22 @@ public class EditDestinationActivity extends AppCompatActivity
     }
 
 
-    @Override
-    public void onMapLongClick(LatLng latLng) {
-        try {
-            PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
-            LatLng latLng2=new LatLng((latLng.latitude+0.05),latLng.longitude+0.05);
-            LatLngBounds bounds = new LatLngBounds(latLng,latLng);
-            builder.setLatLngBounds(bounds);
-            startActivityForResult(builder.build(this), PLACE_PICKER_REQUEST);
-
-        } catch (GooglePlayServicesRepairableException e) {
-            e.printStackTrace();
-        } catch (GooglePlayServicesNotAvailableException e) {
-            e.printStackTrace();
-        }
-
-    }
+//    @Override
+//    public void onMapLongClick(LatLng latLng) {
+//        try {
+//            PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
+//            LatLng latLng2=new LatLng((latLng.latitude+0.05),latLng.longitude+0.05);
+//            LatLngBounds bounds = new LatLngBounds(latLng,latLng);
+//            builder.setLatLngBounds(bounds);
+//            startActivityForResult(builder.build(this), PLACE_PICKER_REQUEST);
+//
+//        } catch (GooglePlayServicesRepairableException e) {
+//            e.printStackTrace();
+//        } catch (GooglePlayServicesNotAvailableException e) {
+//            e.printStackTrace();
+//        }
+//
+//    }
 
     @Override
     public void onClick(View view) {
@@ -232,11 +236,30 @@ public class EditDestinationActivity extends AppCompatActivity
         Intent intent;
         switch (id){
             case R.id.btnBucketList:
+                DatabaseReference mVisitedRef = FirebaseDatabase.getInstance().getReference("places/");
+                mVisitedRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                            String locationName = ds.child("name").getValue(String.class);
+                            Double longitude = ds.child("longitude").getValue(Double.class);
+                            Double latitude = ds.child("latitude").getValue(Double.class);
+                            LatLng position = new LatLng(latitude, longitude);
+                            mMap.addMarker(new MarkerOptions().position(position).title(locationName).icon(BitmapDescriptorFactory.fromResource(R.drawable.marker)));
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
                 break;
             /*case R.id.btnLikedList:
                 break;*/
-            case R.id.btnVisitedList:
-                break;
+            //case R.id.btnVisitedList:
+            //    break;
            /* case btnRecommendedList:
                 break;*/
             case R.id.tvDone:

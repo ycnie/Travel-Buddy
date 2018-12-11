@@ -4,6 +4,7 @@ package com.testapp.travel.ui.userProfile;
 import android.app.Activity;
 import android.app.DialogFragment;
 import android.app.FragmentManager;
+import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
 
@@ -63,6 +64,7 @@ public class userProfileFragment extends DialogFragment implements View.OnClickL
     private ImageView ic_work;
     private Float sumOfRating = 5f;
     private Long numOfPeople = 1L;
+    private Button fmap;
 
 
 
@@ -98,6 +100,8 @@ public class userProfileFragment extends DialogFragment implements View.OnClickL
         ic_language = (ImageView) rootView.findViewById(R.id.ic_language);
         ic_location = (ImageView) rootView.findViewById(R.id.ic_location);
         ic_work = (ImageView) rootView.findViewById(R.id.ic_work);
+        fmap = (Button) rootView.findViewById(R.id.check_map);
+        fmap.setOnClickListener(this);
 
 
         return rootView;
@@ -216,7 +220,9 @@ public class userProfileFragment extends DialogFragment implements View.OnClickL
                 if(dataSnapshot.hasChildren()) {
                     sumOfRating = Float.parseFloat((String)dataSnapshot.child("sumRating").getValue());
                     numOfPeople = (Long)dataSnapshot.child("numOfPeople").getValue();
-                    ratingTxt.setText(String.valueOf(sumOfRating / numOfPeople));
+                    Float finalrating = (sumOfRating / numOfPeople );
+                    String frating = String.format("%.2g%n",finalrating);
+                    ratingTxt.setText(frating);
 
                     Log.i("Rating", String.valueOf(dataSnapshot.child("sumRating").getValue()));
                     Log.i("Rating", String.valueOf(dataSnapshot.child("numOfPeople").getValue()));
@@ -293,6 +299,9 @@ public class userProfileFragment extends DialogFragment implements View.OnClickL
             case R.id.add_friend_to_trip_button:
                 addFriendToTrip();
                 break;
+            case R.id.check_map:
+                showMap();
+                break;
         }
     }
 
@@ -353,6 +362,12 @@ public class userProfileFragment extends DialogFragment implements View.OnClickL
         AddFriendListener ac = (AddFriendListener)getActivity();
         ac.onAddedFriend();
         dismiss();
+    }
+
+    public void showMap() {
+        Intent intent = new Intent(getActivity(), MapFragment.class);
+        intent.putExtra("friendId",String.valueOf(friendId));
+        getActivity().startActivity(intent);
     }
 
     public interface AddFriendListener {

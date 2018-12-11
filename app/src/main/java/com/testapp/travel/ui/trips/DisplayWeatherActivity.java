@@ -156,6 +156,7 @@ public class DisplayWeatherActivity extends AppCompatActivity {
                 CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
                 builder.setToolbarColor(ContextCompat.getColor(getBaseContext(), R.color.colorPrimary));
                 CustomTabsIntent customTabsIntent = builder.build();
+                customTabsIntent.intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 customTabsIntent.launchUrl(getBaseContext(), Uri.parse(url));
             }
         });

@@ -97,7 +97,7 @@ public class UpcomingFragment extends Fragment {
                     else {*/
                         String key = this.getRef(position).getKey();
                         Timber.d("position %d key %s", position, key);
-                        viewHolder.setName(model.getTripName(), key);
+                        viewHolder.setName(model.getSearchDestination().getName(), key);
                         viewHolder.setDate(model.getBeginDate(),key);
                         viewHolder.setImage(model,key,getContext());
                   /*  }

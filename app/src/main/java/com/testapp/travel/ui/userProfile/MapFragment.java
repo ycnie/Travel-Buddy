@@ -67,7 +67,7 @@ public class MapFragment extends FragmentActivity implements OnMapReadyCallback 
                     Double longitude = ds.child("position").child("longitude").getValue(Double.class);
                     Double latitude = ds.child("position").child("latitude").getValue(Double.class);
                     LatLng position = new LatLng(latitude, longitude);
-                    mMap.addMarker(new MarkerOptions().position(position).title(locationName).icon(BitmapDescriptorFactory.fromResource(R.drawable.mapmarker)));
+                    mMap.addMarker(new MarkerOptions().position(position).title(locationName).icon(BitmapDescriptorFactory.fromResource(R.drawable.latestmarker)));
                 }
             }
 

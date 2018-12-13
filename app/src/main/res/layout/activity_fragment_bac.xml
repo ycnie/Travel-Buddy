@@ -49,19 +49,20 @@
                 app:layout_collapseMode="pin"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
                 app:layout_scrollFlags="scroll|enterAlways">
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/toolbarText"
-                android:background="@color/color_white"
-                android:outlineProvider="bounds"
-                android:hint="Where'd you like to go?"
-                android:textSize="12sp"
-                android:padding="10dp"
-                android:textColorHint="#a7a7af"
-                android:clickable="true"
 
-                />
+                <EditText
+                    android:id="@+id/toolbarText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/color_white"
+                    android:clickable="true"
+                    android:hint="Where'd you like to go?"
+                    android:outlineProvider="bounds"
+                    android:padding="10dp"
+                    android:textColorHint="#a7a7af"
+                    android:textSize="12sp"
+
+                    android:visibility="invisible" />
             </android.support.v7.widget.Toolbar>
 
         </android.support.design.widget.CollapsingToolbarLayout>

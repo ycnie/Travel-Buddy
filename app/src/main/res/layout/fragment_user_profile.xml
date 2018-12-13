@@ -40,7 +40,6 @@
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@id/rating_star"
                 android:layout_marginTop="12dp"
-                android:layout_below="@+id/userBucketListText"
                 android:layout_toRightOf="@id/rating_star"
                 android:text="@string/rating_star"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
